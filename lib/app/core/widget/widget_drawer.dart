@@ -1,7 +1,5 @@
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 class WidgetDrawer extends StatefulWidget {
   final String? userName;

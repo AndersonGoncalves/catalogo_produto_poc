@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
-import 'package:catalogo_produto_poc/app/core/widget/adaptative_floating_action_button.dart';
-import 'package:catalogo_produto_poc/app/core/widget/loading_page.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/produto_list.dart';
 
 class ProdutoListPage extends StatefulWidget {
@@ -81,18 +80,20 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
       body: SafeArea(
         child:
             _isLoading
-                ? LoadingPage(
+                ? WidgetLoadingPage(
                   label: 'Carregando...',
                   labelColor: Theme.of(context).colorScheme.primary,
                   backgroundColor: Theme.of(context).canvasColor,
                 )
                 : Stack(children: [ProdutoList(produtos: _produtos())]),
       ),
-      floatingActionButton: AdaptativeFloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(Rotas.produtoForm);
-        },
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        foregroundColor: Theme.of(context).textTheme.labelLarge!.color,
+        onPressed: () => Navigator.of(context).pushNamed(Rotas.produtoForm),
+        child: Icon(Icons.add),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

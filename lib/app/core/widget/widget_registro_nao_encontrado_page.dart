@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RegistroNaoEncontradoPage extends StatelessWidget {
-  const RegistroNaoEncontradoPage({super.key});
+class WidgetRegistroNaoEncontradoPage extends StatelessWidget {
+  const WidgetRegistroNaoEncontradoPage({super.key});
 
   @override
   Widget build(BuildContext context) {

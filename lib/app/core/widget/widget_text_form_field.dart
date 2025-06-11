@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AdaptativeTextFormField extends StatelessWidget {
+class WidgetTextFormField extends StatelessWidget {
   final String labelText;
   final TextAlign textAlign;
   final TextInputType keyboardType;
@@ -29,7 +29,7 @@ class AdaptativeTextFormField extends StatelessWidget {
   final void Function(String)? onFieldSubmitted;
   final void Function(String)? onChanged;
 
-  const AdaptativeTextFormField({
+  const WidgetTextFormField({
     required this.labelText,
     required this.keyboardType,
     required this.textInputAction,
@@ -65,65 +65,73 @@ class AdaptativeTextFormField extends StatelessWidget {
     return Theme.of(context).platform == TargetPlatform.iOS
         ? const SizedBox() //todo
         : Padding(
-            padding: EdgeInsets.symmetric(vertical: border == true ? 10 : 0),
-            child: TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              textCapitalization: textCapitalization,
-              enabled: enabled,
-              style: Theme.of(context).textTheme.titleMedium,
-              textAlign: textAlign,
-              decoration: InputDecoration(
-                fillColor: fillColor ?? Colors.white,
-                filled: border == true,
-                isDense: isDense,
-                hintText: hintText,
-                hintStyle: const TextStyle(fontStyle: FontStyle.italic),
-                labelText: labelText == '' ? null : labelText,
-                prefixIcon: prefixIcon == null
-                    ? null
-                    : IconButton(
+          padding: EdgeInsets.symmetric(vertical: border == true ? 10 : 0),
+          child: TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            textCapitalization: textCapitalization,
+            enabled: enabled,
+            style: Theme.of(context).textTheme.titleMedium,
+            textAlign: textAlign,
+            decoration: InputDecoration(
+              fillColor: fillColor ?? Colors.white,
+              filled: border == true,
+              isDense: isDense,
+              hintText: hintText,
+              hintStyle: const TextStyle(fontStyle: FontStyle.italic),
+              labelText: labelText == '' ? null : labelText,
+              prefixIcon:
+                  prefixIcon == null
+                      ? null
+                      : IconButton(
                         icon: prefixIcon!,
                         onPressed: prefixIconOnPressed,
                       ),
-                suffixIcon: suffixIcon == null
-                    ? null
-                    : IconButton(
+              suffixIcon:
+                  suffixIcon == null
+                      ? null
+                      : IconButton(
                         icon: suffixIcon!,
                         onPressed: suffixIconOnPressed,
                       ),
-                border: border == true
-                    ? OutlineInputBorder(
+              border:
+                  border == true
+                      ? OutlineInputBorder(
                         borderSide: const BorderSide(
                           color: Color(0xFF000000),
                           width: 1.0,
                           style: BorderStyle.solid,
                           strokeAlign: BorderSide.strokeAlignInside,
                         ),
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(borderRadius!)),
-                        gapPadding: 4.0)
-                    : removerLinha == true
-                        ? InputBorder.none
-                        : null,
-              ),
-              keyboardType: keyboardType == TextInputType.number //'.' no iPhone
-                  ? const TextInputType.numberWithOptions(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(borderRadius!),
+                        ),
+                        gapPadding: 4.0,
+                      )
+                      : removerLinha == true
+                      ? InputBorder.none
+                      : null,
+            ),
+            keyboardType:
+                keyboardType ==
+                        TextInputType
+                            .number //'.' no iPhone
+                    ? const TextInputType.numberWithOptions(
                       decimal: true,
                       signed: true,
                     )
-                  : keyboardType,
-              textInputAction: textInputAction,
-              focusNode: focusNode,
-              maxLines: maxLines,
-              initialValue: initialValue,
-              controller: controller,
-              obscureText: obscureText ?? false,
-              inputFormatters: inputFormatters,
-              validator: validator,
-              onSaved: onSaved,
-              onFieldSubmitted: onFieldSubmitted,
-              onChanged: onChanged,
-            ),
-          );
+                    : keyboardType,
+            textInputAction: textInputAction,
+            focusNode: focusNode,
+            maxLines: maxLines,
+            initialValue: initialValue,
+            controller: controller,
+            obscureText: obscureText ?? false,
+            inputFormatters: inputFormatters,
+            validator: validator,
+            onSaved: onSaved,
+            onFieldSubmitted: onFieldSubmitted,
+            onChanged: onChanged,
+          ),
+        );
   }
 }

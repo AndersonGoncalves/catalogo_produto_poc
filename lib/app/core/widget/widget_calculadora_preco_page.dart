@@ -2,16 +2,15 @@
 // import '/components/adaptatives/adaptative_button.dart';
 // import '/components/adaptatives/adaptative_text_form_field.dart';
 // import 'package:intl/intl.dart';
-import 'package:catalogo_produto_poc/app/core/widget/adaptative_button.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
-class CalculadoraPrecoPage extends StatefulWidget {
+class WidgetCalculadoraPrecoPage extends StatefulWidget {
   final double precoCusto;
   final double precoVenda;
   final Function(String, String) atualizar;
 
-  const CalculadoraPrecoPage({
+  const WidgetCalculadoraPrecoPage({
     required this.precoCusto,
     required this.precoVenda,
     required this.atualizar,
@@ -19,10 +18,12 @@ class CalculadoraPrecoPage extends StatefulWidget {
   });
 
   @override
-  State<CalculadoraPrecoPage> createState() => _CalculadoraPrecoPageState();
+  State<WidgetCalculadoraPrecoPage> createState() =>
+      _WidgetCalculadoraPrecoPageState();
 }
 
-class _CalculadoraPrecoPageState extends State<CalculadoraPrecoPage> {
+class _WidgetCalculadoraPrecoPageState
+    extends State<WidgetCalculadoraPrecoPage> {
   // var _precoCustoController = MoneyMaskedTextController();
   // var _markupController = MoneyMaskedTextController();
 
@@ -339,13 +340,19 @@ class _CalculadoraPrecoPageState extends State<CalculadoraPrecoPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-                child: AdaptativeButton(
-                  'Confirmar',
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Colors.white,
+                child: ElevatedButton(
                   onPressed: _submit,
-                  height: 45,
-                  borderRadius: 5,
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    minimumSize: Size(double.infinity, 45),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroundColor: Colors.white,
+                    elevation: 0,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  child: Text('Confirmar'),
                 ),
               ),
             ],

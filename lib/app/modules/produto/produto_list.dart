@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_pesquisa.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/produto_item.dart';
-import 'package:catalogo_produto_poc/app/core/widget/registro_nao_encontrado_page.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_registro_nao_encontrado_page.dart';
 
 class ProdutoList extends StatefulWidget {
   final List<Produto> produtos;
@@ -80,7 +80,7 @@ class _ProdutoListState extends State<ProdutoList> {
                                   )
                                   : SizedBox(),
                               produtos.isEmpty
-                                  ? const RegistroNaoEncontradoPage()
+                                  ? const WidgetRegistroNaoEncontradoPage()
                                   : ProdutoItem(
                                     produto: produtos[index],
                                     key: GlobalObjectKey(produtos[index]),

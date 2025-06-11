@@ -1,9 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
-import 'package:catalogo_produto_poc/app/core/widget/adaptative_button.dart';
-import 'package:catalogo_produto_poc/app/core/widget/adaptative_text_form_field.dart';
-import 'package:catalogo_produto_poc/app/core/widget/loading_page.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 
 class ProdutoFormPage extends StatefulWidget {
@@ -92,7 +91,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
     return Scaffold(
       body:
           _isLoading
-              ? LoadingPage(
+              ? WidgetLoadingPage(
                 label: 'Salvando...',
                 labelColor: Theme.of(context).colorScheme.primary,
                 backgroundColor: Colors.white,
@@ -144,7 +143,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                   ),
                                   child: Column(
                                     children: <Widget>[
-                                      AdaptativeTextFormField(
+                                      WidgetTextFormField(
                                         labelText: 'Nome',
                                         keyboardType: TextInputType.text,
                                         textInputAction: TextInputAction.next,
@@ -176,7 +175,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                           children: <Widget>[
                                             Expanded(
                                               child: SizedBox(
-                                                child: AdaptativeTextFormField(
+                                                child: WidgetTextFormField(
                                                   labelText: 'Preço de Custo',
                                                   keyboardType:
                                                       TextInputType.number,
@@ -213,7 +212,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                             const SizedBox(width: 10),
                                             Expanded(
                                               child: SizedBox(
-                                                child: AdaptativeTextFormField(
+                                                child: WidgetTextFormField(
                                                   labelText: 'Preço de Venda',
                                                   keyboardType:
                                                       TextInputType.number,
@@ -266,7 +265,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                   ),
                                   child: Column(
                                     children: <Widget>[
-                                      AdaptativeTextFormField(
+                                      WidgetTextFormField(
                                         labelText: 'Marca',
                                         keyboardType: TextInputType.text,
                                         textInputAction: TextInputAction.next,
@@ -287,7 +286,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                           bottom: 15,
                                           top: 10,
                                         ),
-                                        child: AdaptativeTextFormField(
+                                        child: WidgetTextFormField(
                                           labelText: 'Descrição',
                                           keyboardType: TextInputType.multiline,
                                           textInputAction:
@@ -322,14 +321,20 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                           right: 15,
                           bottom: 10,
                         ),
-                        child: AdaptativeButton(
-                          'Salvar',
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          foregroundColor: Colors.white,
+                        child: ElevatedButton(
                           onPressed: _submitForm,
-                          height: 45,
-                          borderRadius: 5,
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            minimumSize: Size(double.infinity, 45),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                            foregroundColor: Colors.white,
+                            elevation: 0,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          child: Text('Salvar'),
                         ),
                       ),
                     ],

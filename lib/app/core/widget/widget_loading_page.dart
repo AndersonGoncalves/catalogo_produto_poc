@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class LoadingPage extends StatelessWidget {
+class WidgetLoadingPage extends StatelessWidget {
   final String label;
   final Color? backgroundColor;
   final Color? labelColor;
-  const LoadingPage({
+  const WidgetLoadingPage({
     required this.label,
     this.backgroundColor,
     this.labelColor,
