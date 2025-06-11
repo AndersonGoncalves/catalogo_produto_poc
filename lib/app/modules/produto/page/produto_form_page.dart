@@ -1,9 +1,11 @@
+import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:provider/provider.dart';
 
 class ProdutoFormPage extends StatefulWidget {
   const ProdutoFormPage({super.key});
@@ -45,13 +47,38 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
 
   void _setValoresInicial() {}
 
-  Future<void> _submitForm() async {}
+  Future<void> _submitForm() async {
+    final formValid = _formKey.currentState?.validate() ?? false;
+    if (formValid) {
+      // context.read<ProdutoController>().save(_formData);
+      await Provider.of<ProdutoController>(
+        context,
+        listen: false,
+      ).save(_formData);
+    }
+  }
 
   @override
   void initState() {
     super.initState();
 
-    _fotoList.clear();
+    // _fotoList.clear();
+
+    // context.read<ProdutoController>().addListener(() {
+    // final controller = context.read<ProdutoController>();
+    // final controller = Provider.of<ProdutoController>(context, listen: false);
+
+    // var sucess = controller.sucess;
+    // var error = controller.error;
+    // if (sucess) {
+    //   Navigator.of(context).pop();
+    // } else if (error != null && error.isNotEmpty) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(content: Text(error), backgroundColor: Colors.red),
+    //   );
+    // }
+    //   Navigator.of(context).pop();
+    // });
   }
 
   @override

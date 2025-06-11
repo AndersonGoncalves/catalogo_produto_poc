@@ -6,4 +6,8 @@ class ProdutoController extends ChangeNotifier {
 
   ProdutoController({required ProdutoService produtoService})
     : _produtoService = produtoService;
+
+  Future<void> save(Map<String, dynamic> map) async {
+    await _produtoService.save(map);
+  }
 }
