@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
-import 'package:catalogo_produto_poc/app/modules/produto/produto_list.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/page/produto_list.dart';
 
 class ProdutoListPage extends StatefulWidget {
   const ProdutoListPage({super.key});

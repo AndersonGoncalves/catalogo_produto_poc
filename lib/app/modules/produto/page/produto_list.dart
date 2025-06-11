@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_pesquisa.dart';
-import 'package:catalogo_produto_poc/app/modules/produto/produto_item.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/page/produto_item.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_registro_nao_encontrado_page.dart';
 
 class ProdutoList extends StatefulWidget {

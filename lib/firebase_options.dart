@@ -83,5 +83,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'catalogo-produto-cdbaf.firebasestorage.app',
     measurementId: 'G-W4000VWG8Y',
   );
-
 }
