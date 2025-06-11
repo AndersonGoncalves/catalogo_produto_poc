@@ -1,4 +1,6 @@
+import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/modules/home/home_page.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/produto_module.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatefulWidget {
@@ -11,6 +13,11 @@ class AppWidget extends StatefulWidget {
 class _AppWidgetState extends State<AppWidget> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Catálogo de Produtos', home: HomePage());
+    return MaterialApp(
+      title: 'Catálogo de Produtos',
+      initialRoute: Rotas.home,
+      routes: {...ProdutoModule().routers},
+      home: HomePage(),
+    );
   }
 }
