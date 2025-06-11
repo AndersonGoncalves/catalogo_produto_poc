@@ -46,7 +46,7 @@ class Produto with ChangeNotifier {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'dataCadastro': dataCadastro.millisecondsSinceEpoch,
+      'dataCadastro': dataCadastro.toIso8601String,
       'nome': nome,
       'descricao': descricao,
       'marca': marca,
@@ -59,7 +59,7 @@ class Produto with ChangeNotifier {
   factory Produto.fromMap(Map<String, dynamic> map) {
     return Produto(
       id: map['id'] ?? '',
-      dataCadastro: DateTime.fromMillisecondsSinceEpoch(map['dataCadastro']),
+      dataCadastro: DateTime.tryParse(map['dataCadastro'].toString())!,
       nome: map['nome'] ?? '',
       descricao: map['descricao'] ?? '',
       marca: map['marca'] ?? '',

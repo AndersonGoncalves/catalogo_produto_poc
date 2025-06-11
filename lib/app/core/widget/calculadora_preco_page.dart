@@ -1,0 +1,357 @@
+// import '/utils/functions.dart';
+// import '/components/adaptatives/adaptative_button.dart';
+// import '/components/adaptatives/adaptative_text_form_field.dart';
+// import 'package:intl/intl.dart';
+import 'package:catalogo_produto_poc/app/core/widget/adaptative_button.dart';
+import 'package:flutter/material.dart';
+// import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+
+class CalculadoraPrecoPage extends StatefulWidget {
+  final double precoCusto;
+  final double precoVenda;
+  final Function(String, String) atualizar;
+
+  const CalculadoraPrecoPage({
+    required this.precoCusto,
+    required this.precoVenda,
+    required this.atualizar,
+    super.key,
+  });
+
+  @override
+  State<CalculadoraPrecoPage> createState() => _CalculadoraPrecoPageState();
+}
+
+class _CalculadoraPrecoPageState extends State<CalculadoraPrecoPage> {
+  // var _precoCustoController = MoneyMaskedTextController();
+  // var _markupController = MoneyMaskedTextController();
+
+  // double precoVendaTemp = 0;
+  // var _precoCustoText = '';
+  // var _markupText = '';
+
+  // void _changePrecoCusto() {
+  //   setState(() {
+  //     _precoCustoText =
+  //         (double.tryParse(onlyNumber(_precoCustoController.text))! / 100)
+  //             .toStringAsFixed(2);
+  //   });
+  //   precoVendaTemp = precoVenda(
+  //     double.tryParse(_precoCustoText)!,
+  //     double.tryParse(_markupText)!,
+  //   );
+  // }
+
+  // void _changeMarkup() {
+  //   setState(() {
+  //     _markupText = (double.tryParse(onlyNumber(_markupController.text))! / 100)
+  //         .toStringAsFixed(2);
+  //   });
+  //   precoVendaTemp = precoVenda(
+  //     double.tryParse(_precoCustoText)!,
+  //     double.tryParse(_markupText)!,
+  //   );
+  // }
+
+  void _submit() {
+    // widget.atualizar(
+    //   _precoCustoText,
+    //   precoVenda(
+    //     double.tryParse(_precoCustoText)!,
+    //     double.tryParse(_markupText)!,
+    //   ).toStringAsFixed(2),
+    // );
+    Navigator.of(context).pop();
+  }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+
+  //   _precoCustoController = MoneyMaskedTextController(
+  //     decimalSeparator: ',',
+  //     thousandSeparator: '.',
+  //     leftSymbol: 'R\$ ',
+  //   );
+
+  //   _markupController = MoneyMaskedTextController(
+  //     decimalSeparator: ',',
+  //     thousandSeparator: '.',
+  //     rightSymbol: ' %',
+  //   );
+
+  //   _precoCustoController.text = widget.precoCusto.toStringAsFixed(2);
+  //   _markupController.text = percentualMarkup(
+  //     widget.precoCusto,
+  //     widget.precoVenda,
+  //   ).toStringAsFixed(2);
+
+  //   _precoCustoController.addListener(_changePrecoCusto);
+  //   _markupController.addListener(_changeMarkup);
+
+  //   _precoCustoText =
+  //       (double.tryParse(onlyNumber(_precoCustoController.text))! / 100)
+  //           .toStringAsFixed(2);
+  //   _markupText = (double.tryParse(onlyNumber(_markupController.text))! / 100)
+  //       .toStringAsFixed(2);
+
+  //   precoVendaTemp = precoVenda(
+  //     double.tryParse(_precoCustoText)!,
+  //     double.tryParse(_markupText)!,
+  //   );
+
+  //   if ((widget.precoCusto == 0) && (widget.precoVenda > 0)) {
+  //     _precoCustoController.text = widget.precoVenda.toStringAsFixed(2);
+  //     _precoCustoText = widget.precoVenda.toStringAsFixed(2);
+  //   }
+
+  //   if ((widget.precoVenda == 0) && (widget.precoCusto > 0)) {
+  //     _markupController.text = widget.precoVenda.toStringAsFixed(2);
+  //     _markupText = widget.precoVenda.toStringAsFixed(2);
+  //   }
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    // final formatCurrency = NumberFormat.currency(
+    //   locale: 'pt_BR',
+    //   symbol: 'R\$',
+    //   decimalDigits: 2,
+    // );
+    // final formatPercentual = NumberFormat.currency(locale: 'pt_BR', symbol: '');
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        centerTitle: false,
+        elevation: 0,
+        toolbarHeight: 56,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: Navigator.of(context).pop,
+          icon: const Icon(Icons.close, size: 20),
+        ),
+        title: const Padding(
+          padding: EdgeInsets.only(bottom: 2),
+          child: Text(
+            'Calculadora de preço',
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 21,
+                      right: 21,
+                      top: 20,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Expanded(
+                                child: SizedBox(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      // Expanded(
+                                      //   child: SizedBox(
+                                      //     child: AdaptativeTextFormField(
+                                      //       labelText: 'Custo',
+                                      //       border: true,
+                                      //       textAlign: TextAlign.center,
+                                      //       keyboardType: TextInputType.number,
+                                      //       textInputAction:
+                                      //           TextInputAction.next,
+                                      //       controller: _precoCustoController,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      const SizedBox(width: 10),
+                                      // Expanded(
+                                      //   child: SizedBox(
+                                      //     child: AdaptativeTextFormField(
+                                      //       labelText: 'Markup',
+                                      //       border: true,
+                                      //       textAlign: TextAlign.center,
+                                      //       keyboardType: TextInputType.number,
+                                      //       textInputAction:
+                                      //           TextInputAction.done,
+                                      //       controller: _markupController,
+                                      //       onFieldSubmitted: (_) => _submit(),
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 110,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+
+                            color: Color.fromRGBO(248, 248, 248, 1),
+                          ),
+
+                          margin: const EdgeInsets.only(top: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 3),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      const FittedBox(
+                                        child: Text(
+                                          'Lucro',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black38,
+                                          ),
+                                        ),
+                                      ),
+                                      // FittedBox(
+                                      //   child: Text(
+                                      //     formatCurrency.format(
+                                      //       lucro(
+                                      //         double.tryParse(_precoCustoText)!,
+                                      //         precoVendaTemp,
+                                      //       ),
+                                      //     ),
+                                      //     textAlign: TextAlign.center,
+                                      //     style: const TextStyle(
+                                      //       color: Colors.black,
+                                      //       fontWeight: FontWeight.bold,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 5,
+                                  ),
+                                  child: SizedBox(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        const FittedBox(
+                                          child: Text(
+                                            'Venda',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        // FittedBox(
+                                        //   child: Text(
+                                        //     ' ${formatCurrency.format(precoVenda(double.tryParse(_precoCustoText)!, double.tryParse(_markupText)!))}'
+                                        //         .trim(),
+                                        //     textAlign: TextAlign.center,
+                                        //     style: const TextStyle(
+                                        //       fontSize: 22,
+                                        //       color: Colors.black,
+                                        //       fontWeight: FontWeight.bold,
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  margin: const EdgeInsets.only(right: 3),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      const FittedBox(
+                                        child: Text(
+                                          'Margem',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.black38,
+                                          ),
+                                        ),
+                                      ),
+                                      // FittedBox(
+                                      //   child: Text(
+                                      //     ' ${formatPercentual.format(percentualLucroMarkup(double.tryParse(_precoCustoText)!, precoVendaTemp))} %',
+                                      //     textAlign: TextAlign.center,
+                                      //     style: const TextStyle(
+                                      //       color: Colors.black,
+                                      //       fontWeight: FontWeight.bold,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                child: AdaptativeButton(
+                  'Confirmar',
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Colors.white,
+                  onPressed: _submit,
+                  height: 45,
+                  borderRadius: 5,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
