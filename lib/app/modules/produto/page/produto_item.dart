@@ -58,7 +58,7 @@ class _ProdutoItemState extends State<ProdutoItem> {
             style: Theme.of(context).textTheme.bodyLarge,
           ),
 
-          subtitle: Text(widget.produto.descricao),
+          subtitle: Text(widget.produto.descricao!),
 
           trailing: Text(
             formatCurrency.format(widget.produto.precoDeVenda),

@@ -1,4 +1,4 @@
-import 'package:catalogo_produto_poc/app/core/widget/adaptative_text_button.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/firebase_auth_service.dart';
@@ -374,14 +374,13 @@ class _AuthFormPageState extends State<AuthFormPage>
                                             ),
                                           widget.usuarioAnonimo
                                               ? const SizedBox()
-                                              : AdaptativeTextButton(
+                                              : WidgetTextButton(
                                                 _isLogin
                                                     ? 'Deseja registrar'
                                                     : 'já Possue Conta',
                                                 onPressed: _switchAuthMode,
                                               ),
-
-                                          AdaptativeTextButton(
+                                          WidgetTextButton(
                                             'naoQueroMeCadastrar',
                                             foregroundColor: Colors.red,
                                             onPressed: _loginAnonimo,

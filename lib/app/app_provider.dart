@@ -1,3 +1,7 @@
+import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
+import 'package:catalogo_produto_poc/app/repositories/produto_repository.dart';
+import 'package:catalogo_produto_poc/app/services/produto_service.dart';
+import 'package:catalogo_produto_poc/app/services/produto_service_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +19,7 @@ class AppProvider extends StatelessWidget {
         Provider<FirebaseAuthService>(
           create: (_) => FirebaseAuthService(FirebaseAuth.instance),
         ),
+
         ChangeNotifierProxyProvider<FirebaseAuthService, ProdutoRepositoryImpl>(
           create: (_) => ProdutoRepositoryImpl(),
           update: (ctx, auth, produtoRepository) {
@@ -25,6 +30,20 @@ class AppProvider extends StatelessWidget {
               produtoRepository?.produtos ?? [],
             );
           },
+        ),
+
+        Provider<ProdutoService>(
+          create:
+              (context) => ProdutoServiceImpl(
+                produtoRepository: context.read<ProdutoRepositoryImpl>(),
+              ),
+        ),
+
+        ChangeNotifierProvider<ProdutoController>(
+          create:
+              (context) => ProdutoController(
+                produtoService: context.read<ProdutoService>(),
+              ),
         ),
       ],
       child: const AppWidget(),

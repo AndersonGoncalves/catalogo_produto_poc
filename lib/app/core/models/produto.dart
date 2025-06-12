@@ -54,7 +54,6 @@ class Produto with ChangeNotifier {
       'precoDeCusto': precoDeCusto,
       'precoDeVenda': precoDeVenda,
       'fotos': fotos,
-      // 'selecionado': selecionado,
     };
   }
 
@@ -135,11 +134,6 @@ class Produto with ChangeNotifier {
 
   factory Produto.fromJson(String source) =>
       Produto.fromMap(json.decode(source), true);
-
-  // @override
-  // String toString() {
-  //   return 'Produto(id: $id, dataCadastro: $dataCadastro, codigoBarras: $codigoBarras, codigoExterno: $codigoExterno, nome: $nome, referencia: $referencia, descricao: $descricao, marca: $marca, categoria: $categoria, ncm: $ncm, quantidadeEmEstoque: $quantidadeEmEstoque, localNoDeposito: $localNoDeposito, precoDeCusto: $precoDeCusto, precoDeVenda: $precoDeVenda, unidadeMedida: $unidadeMedida, fotos: $fotos, selecionado: $selecionado)';
-  // }
 
   @override
   bool operator ==(Object other) {

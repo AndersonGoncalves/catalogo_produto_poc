@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_pesquisa.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_item.dart';
+import 'package:catalogo_produto_poc/app/repositories/produto_repository_impl.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_registro_nao_encontrado_page.dart';
 
 class ProdutoList extends StatefulWidget {
@@ -17,7 +19,8 @@ class _ProdutoListState extends State<ProdutoList> {
   List<Produto> produtos = [];
 
   Future<void> _refresh(BuildContext context) {
-    return Future.value(); // TODO: Recarregar a lista vindo do controller => Provider.of<ProdutoProvider>(context, listen: false).load();
+    // TODO: Recarregar a lista vindo do controller =>
+    return Provider.of<ProdutoRepositoryImpl>(context, listen: false).load();
   }
 
   @override
