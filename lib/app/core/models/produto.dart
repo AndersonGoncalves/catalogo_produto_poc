@@ -5,28 +5,29 @@ class Produto with ChangeNotifier {
   final String id;
   final DateTime dataCadastro;
   final String nome;
-  final String descricao;
-  final String marca;
+  final String? descricao;
+  final String? marca;
   final double precoDeCusto;
   final double precoDeVenda;
   final List<String>? fotos;
+
   Produto({
     required this.id,
     required this.dataCadastro,
     required this.nome,
-    required this.descricao,
-    required this.marca,
-    required this.precoDeCusto,
-    required this.precoDeVenda,
-    this.fotos,
+    this.descricao,
+    this.marca,
+    this.precoDeCusto = 0.00,
+    this.precoDeVenda = 0.00,
+    this.fotos = const [],
   });
 
   Produto copyWith({
     String? id,
     DateTime? dataCadastro,
     String? nome,
-    String? descricao,
-    String? marca,
+    ValueGetter<String?>? descricao,
+    ValueGetter<String?>? marca,
     double? precoDeCusto,
     double? precoDeVenda,
     ValueGetter<List<String>?>? fotos,
@@ -35,8 +36,8 @@ class Produto with ChangeNotifier {
       id: id ?? this.id,
       dataCadastro: dataCadastro ?? this.dataCadastro,
       nome: nome ?? this.nome,
-      descricao: descricao ?? this.descricao,
-      marca: marca ?? this.marca,
+      descricao: descricao != null ? descricao() : this.descricao,
+      marca: marca != null ? marca() : this.marca,
       precoDeCusto: precoDeCusto ?? this.precoDeCusto,
       precoDeVenda: precoDeVenda ?? this.precoDeVenda,
       fotos: fotos != null ? fotos() : this.fotos,
@@ -46,38 +47,99 @@ class Produto with ChangeNotifier {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'dataCadastro': dataCadastro.toIso8601String,
+      'dataCadastro': dataCadastro.toIso8601String(),
       'nome': nome,
       'descricao': descricao,
       'marca': marca,
       'precoDeCusto': precoDeCusto,
       'precoDeVenda': precoDeVenda,
       'fotos': fotos,
+      // 'selecionado': selecionado,
     };
   }
 
-  factory Produto.fromMap(Map<String, dynamic> map) {
+  factory Produto.fromMap(Map<String, dynamic> map, bool load) {
     return Produto(
-      id: map['id'] ?? '',
-      dataCadastro: DateTime.tryParse(map['dataCadastro'].toString())!,
-      nome: map['nome'] ?? '',
-      descricao: map['descricao'] ?? '',
-      marca: map['marca'] ?? '',
-      precoDeCusto: map['precoDeCusto']?.toDouble() ?? 0.0,
-      precoDeVenda: map['precoDeVenda']?.toDouble() ?? 0.0,
-      fotos: List<String>.from(map['fotos']),
+      id: map['id'] as String,
+      dataCadastro:
+          map['id'] == ''
+              ? DateTime.now()
+              : DateTime.tryParse(map['dataCadastro'].toString())!,
+      nome: map['nome'].toString(),
+      descricao: map['descricao']?.toString(),
+      precoDeVenda:
+          load
+              ? map['precoDeVenda']?.toDouble() ?? 0.0
+              : double.tryParse(
+                    map['precoDeVenda']
+                        .replaceAll(RegExp(r'[^0-9]'), '')
+                        .toString(),
+                  )! /
+                  100,
+
+      precoDeCusto:
+          load
+              ? map['precoDeCusto']?.toDouble() ?? 0.0
+              : double.tryParse(
+                    map['precoDeCusto']
+                        .replaceAll(RegExp(r'[^0-9]'), '')
+                        .toString(),
+                  )! /
+                  100,
+      // fotos: map['fotos'] != null
+      //     ? load
+      //         ? (map['fotos'] as List<dynamic>).map((item) {
+      //             return item['url'].toString();
+      //           }).toList()
+      //         : (map['fotos'] as List<String>).map((item) {
+      //             return item.toString();
+      //           }).toList()
+      //     : null,
+      // variacoes: map['variacoes'] != null
+      //     ? load
+      //         ? (map['variacoes'] as List<dynamic>).map((item) {
+      //             return VariacaoDeProduto(
+      //                 id: item['id'].toString(),
+      //                 idProduto: map['id'],
+      //                 nome: item['nome'].toString(),
+      //                 nomeCompleto:
+      //                     '${map['nome'].toString()} - ${item['nome'].toString()}',
+      //                 codigoBarras: item['codigoBarras'].toString(),
+      //                 estoqueAutomatico:
+      //                     item['estoqueAutomatico'].toString() == '1'
+      //                         ? true
+      //                         : false,
+      //                 quantidadeEmEstoque: double.tryParse(
+      //                     item['quantidadeEmEstoque'].toString())!,
+      //                 estoqueMinimo:
+      //                     double.tryParse(item['estoqueMinimo'].toString())!);
+      //           }).toList()
+      //         : (map['variacoes'] as List<VariacaoDeProduto>).map((item) {
+      //             return VariacaoDeProduto(
+      //                 id: item.id,
+      //                 idProduto: map['id'],
+      //                 nome: item.nome,
+      //                 nomeCompleto: '${map['nome'].toString()} - ${item.nome}',
+      //                 codigoBarras: item.codigoBarras,
+      //                 estoqueAutomatico: item.estoqueAutomatico,
+      //                 quantidadeEmEstoque:
+      //                     double.tryParse(item.quantidadeEmEstoque.toString())!,
+      //                 estoqueMinimo:
+      //                     double.tryParse(item.estoqueMinimo.toString())!);
+      //           }).toList()
+      //     : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory Produto.fromJson(String source) =>
-      Produto.fromMap(json.decode(source));
+      Produto.fromMap(json.decode(source), true);
 
-  @override
-  String toString() {
-    return 'Produto(id: $id, dataCadastro: $dataCadastro, nome: $nome, descricao: $descricao, marca: $marca, precoDeCusto: $precoDeCusto, precoDeVenda: $precoDeVenda, fotos: $fotos)';
-  }
+  // @override
+  // String toString() {
+  //   return 'Produto(id: $id, dataCadastro: $dataCadastro, codigoBarras: $codigoBarras, codigoExterno: $codigoExterno, nome: $nome, referencia: $referencia, descricao: $descricao, marca: $marca, categoria: $categoria, ncm: $ncm, quantidadeEmEstoque: $quantidadeEmEstoque, localNoDeposito: $localNoDeposito, precoDeCusto: $precoDeCusto, precoDeVenda: $precoDeVenda, unidadeMedida: $unidadeMedida, fotos: $fotos, selecionado: $selecionado)';
+  // }
 
   @override
   bool operator ==(Object other) {

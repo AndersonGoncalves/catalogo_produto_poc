@@ -21,7 +21,7 @@ class ProdutoRepositoryImpl extends ProdutoRepository {
     Map<String, dynamic> data = jsonDecode(response.body);
     data.forEach((modelId, modelData) {
       modelData['id'] = modelId;
-      _produtos.add(Produto.fromMap(modelData));
+      _produtos.add(Produto.fromMap(modelData, true));
     });
     notifyListeners();
   }
@@ -76,7 +76,7 @@ class ProdutoRepositoryImpl extends ProdutoRepository {
 
   @override
   Future<void> save(Map<String, dynamic> map) {
-    final model = Produto.fromMap(map);
+    final model = Produto.fromMap(map, false);
     if (model.id == '') {
       return add(model);
     } else {

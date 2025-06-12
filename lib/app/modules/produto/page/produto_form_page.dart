@@ -1,4 +1,5 @@
 import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
+import 'package:catalogo_produto_poc/app/repositories/produto_repository_impl.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
@@ -47,14 +48,46 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
 
   void _setValoresInicial() {}
 
+  // Future<void> _submitForm() async {
+  //   final formValid = _formKey.currentState?.validate() ?? false;
+  //   if (formValid) {
+  //     // context.read<ProdutoController>().save(_formData);
+  //     await Provider.of<ProdutoController>(
+  //       context,
+  //       listen: false,
+  //     ).save(_formData);
+  //   }
+  // }
+
   Future<void> _submitForm() async {
-    final formValid = _formKey.currentState?.validate() ?? false;
-    if (formValid) {
-      // context.read<ProdutoController>().save(_formData);
-      await Provider.of<ProdutoController>(
+    if (_formData.isEmpty) {
+      _formData['id'] = '';
+    }
+    // _formData['fotos'] = fotoList.toList();
+
+    final isValid = _formKey.currentState?.validate() ?? false;
+    if (!isValid) {
+      return;
+    }
+    _formKey.currentState?.save();
+    setState(() => _isLoading = true);
+
+    try {
+      await Provider.of<ProdutoRepositoryImpl>(
         context,
         listen: false,
-      ).save(_formData);
+      ).save(_formData).then((_) => Navigator.of(context).pop());
+    } catch (error) {
+      // await AdaptativeDialog(
+      //   context,
+      //   'Não',
+      //   'Sim',
+      // ).ok(
+      //   titulo: 'Atenção',
+      //   frase: 'Ocorreu um erro ao salvar o produto',
+      // );
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 

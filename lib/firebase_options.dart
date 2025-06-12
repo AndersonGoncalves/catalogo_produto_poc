@@ -70,6 +70,7 @@ class DefaultFirebaseOptions {
     projectId: 'catalogo-produto-cdbaf',
     databaseURL: 'https://catalogo-produto-cdbaf-default-rtdb.firebaseio.com',
     storageBucket: 'catalogo-produto-cdbaf.firebasestorage.app',
+    iosClientId: '603531068009-68jrsg7sjra5p3brtrg50srl8br7vkt3.apps.googleusercontent.com',
     iosBundleId: 'br.com.andersongoncalvesflorencio.catalogoProdutoPoc',
   );
 
@@ -83,4 +84,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'catalogo-produto-cdbaf.firebasestorage.app',
     measurementId: 'G-W4000VWG8Y',
   );
+
 }

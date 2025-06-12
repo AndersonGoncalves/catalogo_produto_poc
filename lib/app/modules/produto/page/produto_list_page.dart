@@ -1,8 +1,10 @@
+import 'package:catalogo_produto_poc/app/repositories/produto_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_list.dart';
+import 'package:provider/provider.dart';
 
 class ProdutoListPage extends StatefulWidget {
   const ProdutoListPage({super.key});
@@ -17,28 +19,23 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
 
   List<Produto> _produtos() {
     // TODO: Recarregar a lista vindo do controller
-    // List<Produto> produtos = Provider.of<ProdutoProvider>(
-    //   context,
-    //   listen: listen,
-    // ).produtos;
-    // produtos.sort((a, b) {
-    //   return a.nome.toUpperCase().compareTo(b.nome.toUpperCase());
-    // });
-    // return produtos;
-    return [];
+    List<Produto> produtos =
+        Provider.of<ProdutoRepositoryImpl>(context, listen: false).produtos;
+    produtos.sort((a, b) {
+      return a.nome.toUpperCase().compareTo(b.nome.toUpperCase());
+    });
+    return produtos;
   }
 
   @override
   void initState() {
     super.initState();
-    // Provider.of<ProdutoProvider>(
-    //   context,
-    //   listen: false,
-    // ).load().then((_) {
-    //   setState(() {
-    //     _isLoading = false;
-    //   });
-    // });
+    // TODO: Recarregar a lista vindo do controller
+    Provider.of<ProdutoRepositoryImpl>(context, listen: false).load().then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   @override
