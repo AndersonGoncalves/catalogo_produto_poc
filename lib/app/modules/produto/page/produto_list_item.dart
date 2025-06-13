@@ -1,25 +1,26 @@
-import 'package:catalogo_produto_poc/app/core/widget/widget_dialog.dart';
-import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_dialog.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 
-class ProdutoItem extends StatefulWidget {
-  final Produto produto;
-  final ProdutoController controller;
+class ProdutoListItem extends StatefulWidget {
+  final Produto _produto;
+  final ProdutoController _controller;
 
-  const ProdutoItem({
+  const ProdutoListItem({
     super.key,
-    required this.produto,
-    required this.controller,
-  });
+    required Produto produto,
+    required ProdutoController controller,
+  }) : _produto = produto,
+       _controller = controller;
 
   @override
-  State<ProdutoItem> createState() => _ProdutoItemState();
+  State<ProdutoListItem> createState() => _ProdutoListItemState();
 }
 
-class _ProdutoItemState extends State<ProdutoItem> {
+class _ProdutoListItemState extends State<ProdutoListItem> {
   @override
   Widget build(BuildContext context) {
     final formatCurrency = NumberFormat.currency(
@@ -29,7 +30,7 @@ class _ProdutoItemState extends State<ProdutoItem> {
     );
 
     return Dismissible(
-      key: Key(widget.produto.id),
+      key: Key(widget._produto.id),
       direction: DismissDirection.endToStart,
       background: Container(
         color: Theme.of(context).colorScheme.error,
@@ -43,7 +44,7 @@ class _ProdutoItemState extends State<ProdutoItem> {
           titulo: 'Atenção',
           pergunta: 'Deseja excluir o produto?',
           onConfirm: () async {
-            return await widget.controller.remove(widget.produto);
+            return await widget._controller.remove(widget._produto);
           },
         );
         return confirmed ?? false;
@@ -58,7 +59,7 @@ class _ProdutoItemState extends State<ProdutoItem> {
           onTap: () {
             Navigator.of(
               context,
-            ).pushNamed(Rotas.produtoForm, arguments: widget.produto);
+            ).pushNamed(Rotas.produtoForm, arguments: widget._produto);
           },
 
           leading: const Padding(
@@ -71,14 +72,14 @@ class _ProdutoItemState extends State<ProdutoItem> {
           ),
 
           title: Text(
-            widget.produto.nome,
+            widget._produto.nome,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
 
-          subtitle: Text(widget.produto.descricao!),
+          subtitle: Text(widget._produto.descricao!),
 
           trailing: Text(
-            formatCurrency.format(widget.produto.precoDeVenda),
+            formatCurrency.format(widget._produto.precoDeVenda),
             style: const TextStyle(
               fontSize: 14,
               color: Colors.black54,

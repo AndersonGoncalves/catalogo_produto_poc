@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_pesquisa.dart';
-import 'package:catalogo_produto_poc/app/modules/produto/page/produto_item.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/page/produto_list_item.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_registro_nao_encontrado_page.dart';
 
 class ProdutoList extends StatefulWidget {
-  final List<Produto> produtos;
-  final ProdutoController controller;
+  final List<Produto> _produtos;
+  final ProdutoController _controller;
 
   const ProdutoList({
     super.key,
-    required this.produtos,
-    required this.controller,
-  });
+    required List<Produto> produtos,
+    required ProdutoController controller,
+  }) : _produtos = produtos,
+       _controller = controller;
 
   @override
   State<ProdutoList> createState() => _ProdutoListState();
@@ -23,28 +24,28 @@ class _ProdutoListState extends State<ProdutoList> {
   List<Produto> produtos = [];
 
   Future<void> _refresh(BuildContext context) {
-    return widget.controller.load();
+    return widget._controller.load();
   }
 
   @override
   void initState() {
-    produtos = widget.produtos;
+    produtos = widget._produtos;
     super.initState();
   }
 
   @override
   void didUpdateWidget(ProdutoList oldWidget) {
     super.didUpdateWidget(oldWidget);
-    produtos = widget.produtos;
+    produtos = widget._produtos;
   }
 
   void onChanged(String value) {
     List<Produto> list = [];
     if (value.isEmpty) {
-      list = widget.produtos;
+      list = widget._produtos;
     } else {
       list =
-          widget.produtos
+          widget._produtos
               .where(
                 (element) =>
                     (element.nome.toLowerCase().contains(value.toLowerCase())),
@@ -64,7 +65,7 @@ class _ProdutoListState extends State<ProdutoList> {
         children: <Widget>[
           Expanded(
             child:
-                widget.produtos.isNotEmpty
+                widget._produtos.isNotEmpty
                     ? ListView.builder(
                       itemCount: produtos.isEmpty ? 1 : produtos.length,
                       itemBuilder:
@@ -87,10 +88,10 @@ class _ProdutoListState extends State<ProdutoList> {
                                   : SizedBox(),
                               produtos.isEmpty
                                   ? const WidgetRegistroNaoEncontradoPage()
-                                  : ProdutoItem(
+                                  : ProdutoListItem(
                                     key: GlobalObjectKey(produtos[index]),
                                     produto: produtos[index],
-                                    controller: widget.controller,
+                                    controller: widget._controller,
                                   ),
                             ],
                           ),

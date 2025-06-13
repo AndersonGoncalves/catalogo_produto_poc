@@ -66,6 +66,7 @@ class Produto with ChangeNotifier {
               : DateTime.tryParse(map['dataCadastro'].toString())!,
       nome: map['nome'].toString(),
       descricao: map['descricao']?.toString(),
+      marca: map['marca']?.toString(),
       precoDeVenda:
           load
               ? map['precoDeVenda']?.toDouble() ?? 0.0
@@ -92,39 +93,6 @@ class Produto with ChangeNotifier {
       //           }).toList()
       //         : (map['fotos'] as List<String>).map((item) {
       //             return item.toString();
-      //           }).toList()
-      //     : null,
-      // variacoes: map['variacoes'] != null
-      //     ? load
-      //         ? (map['variacoes'] as List<dynamic>).map((item) {
-      //             return VariacaoDeProduto(
-      //                 id: item['id'].toString(),
-      //                 idProduto: map['id'],
-      //                 nome: item['nome'].toString(),
-      //                 nomeCompleto:
-      //                     '${map['nome'].toString()} - ${item['nome'].toString()}',
-      //                 codigoBarras: item['codigoBarras'].toString(),
-      //                 estoqueAutomatico:
-      //                     item['estoqueAutomatico'].toString() == '1'
-      //                         ? true
-      //                         : false,
-      //                 quantidadeEmEstoque: double.tryParse(
-      //                     item['quantidadeEmEstoque'].toString())!,
-      //                 estoqueMinimo:
-      //                     double.tryParse(item['estoqueMinimo'].toString())!);
-      //           }).toList()
-      //         : (map['variacoes'] as List<VariacaoDeProduto>).map((item) {
-      //             return VariacaoDeProduto(
-      //                 id: item.id,
-      //                 idProduto: map['id'],
-      //                 nome: item.nome,
-      //                 nomeCompleto: '${map['nome'].toString()} - ${item.nome}',
-      //                 codigoBarras: item.codigoBarras,
-      //                 estoqueAutomatico: item.estoqueAutomatico,
-      //                 quantidadeEmEstoque:
-      //                     double.tryParse(item.quantidadeEmEstoque.toString())!,
-      //                 estoqueMinimo:
-      //                     double.tryParse(item.estoqueMinimo.toString())!);
       //           }).toList()
       //     : null,
     );
