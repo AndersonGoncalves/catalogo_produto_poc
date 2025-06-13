@@ -7,9 +7,10 @@ import 'package:catalogo_produto_poc/app/repositories/produto_repository.dart';
 class ProdutoRepositoryImpl extends ProdutoRepository {
   String token;
   final List<Produto> _produtos;
-  List<Produto> get produtos => [..._produtos];
-
   ProdutoRepositoryImpl([this.token = '', this._produtos = const []]);
+
+  @override
+  List<Produto> get produtos => [..._produtos];
 
   @override
   Future<void> load() async {

@@ -1,12 +1,11 @@
-import 'package:catalogo_produto_poc/app/repositories/produto_repository_impl.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
-import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 
 class ProdutoFormPage extends StatefulWidget {
   const ProdutoFormPage({super.key});
@@ -27,8 +26,8 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
   final _marcaFocus = FocusNode();
   final _descricaoFocus = FocusNode();
 
-  var _precoCustoController = TextEditingController();
-  var _precoVendaController = TextEditingController();
+  final _precoCustoController = TextEditingController();
+  final _precoVendaController = TextEditingController();
 
   NumberFormat formatCurrency(BuildContext context) {
     return NumberFormat.currency(locale: 'pt_BR', symbol: '');
@@ -46,7 +45,14 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
     );
   }
 
-  void _setValoresInicial() {}
+  void _setValoresInicial() {
+    _formData['id'] = '';
+    _formData['nome'] = '';
+    _formData['precoDeVenda'] = 0.0;
+    _formData['precoDeCusto'] = 0.0;
+    _formData['marca'] = '';
+    _formData['descricao'] = '';
+  }
 
   Future<void> _save() async {
     final formValid = _formKey.currentState?.validate() ?? false;
@@ -62,13 +68,12 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
 
     context.read<ProdutoController>().addListener(() {
       final controller = context.read<ProdutoController>();
-      var sucess = controller.sucess;
       var error = controller.error;
+      var sucess = controller.sucess;
       setState(() => _isLoading = controller.isLoading);
       if (sucess) {
         Navigator.of(context).pop();
       } else if (error != null && error.isNotEmpty) {
-        //mounted, para evitar o erro: Looking up a deactivated widget's ancestor is unsafe.
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(error), backgroundColor: Colors.red),
@@ -81,11 +86,10 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     if (_formData.isEmpty) {
       final arg = ModalRoute.of(context)?.settings.arguments;
-      bool visualizarDados = (arg != null);
-      if (visualizarDados) {
+      bool visualizandoDados = (arg != null);
+      if (visualizandoDados) {
         final produto = arg as Produto;
         _formData = produto.toMap();
         _precoVendaController.text = _formData['precoDeVenda'].toStringAsFixed(
@@ -103,11 +107,11 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
   @override
   void dispose() {
     super.dispose();
+    _fotoList.clear();
     _nomeFocus.dispose();
     _descricaoFocus.dispose();
     _precoVendaFocus.dispose();
     _precoCustoFocus.dispose();
-    _fotoList.clear();
     context.read<ProdutoController>().removeListener(() {});
   }
 
@@ -281,7 +285,6 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                     ],
                                   ),
                                 ),
-
                                 Padding(
                                   padding: const EdgeInsets.only(
                                     left: 20,
@@ -338,7 +341,6 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                           ],
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.only(
                           left: 15,

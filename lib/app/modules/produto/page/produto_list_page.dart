@@ -4,7 +4,7 @@ import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_list.dart';
-import 'package:catalogo_produto_poc/app/repositories/produto_repository_impl.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 
 class ProdutoListPage extends StatefulWidget {
   const ProdutoListPage({super.key});
@@ -15,12 +15,10 @@ class ProdutoListPage extends StatefulWidget {
 
 class _ProdutoListPageState extends State<ProdutoListPage> {
   bool _isLoading = true;
-  List<Produto> list = [];
+  late ProdutoController controller;
 
   List<Produto> _produtos() {
-    // TODO: Recarregar a lista vindo do controller
-    List<Produto> produtos =
-        Provider.of<ProdutoRepositoryImpl>(context, listen: false).produtos;
+    List<Produto> produtos = context.read<ProdutoController>().produtos;
     produtos.sort((a, b) {
       return a.nome.toUpperCase().compareTo(b.nome.toUpperCase());
     });
@@ -30,18 +28,29 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
   @override
   void initState() {
     super.initState();
-    // TODO: Recarregar a lista vindo do controller
-    Provider.of<ProdutoRepositoryImpl>(context, listen: false).load().then((_) {
-      setState(() {
-        _isLoading = false;
-      });
+    controller = context.read<ProdutoController>();
+    controller.load();
+    context.read<ProdutoController>().addListener(() {
+      setState(() => _isLoading = controller.isLoading);
+
+      var error = controller.error;
+      var sucess = controller.sucess;
+      if (!sucess) {
+        if (error != null && error.isNotEmpty) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(error), backgroundColor: Colors.red),
+            );
+          }
+        }
+      }
     });
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    list = _produtos();
+  void dispose() {
+    super.dispose();
+    context.read<ProdutoController>().removeListener(() {});
   }
 
   @override
@@ -52,7 +61,6 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         surfaceTintColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Colors.white,
-
         elevation: 0,
         toolbarHeight: 56,
         automaticallyImplyLeading: false,
@@ -73,7 +81,6 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
           ),
         ],
       ),
-
       body: SafeArea(
         child:
             _isLoading
@@ -82,7 +89,11 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
                   labelColor: Theme.of(context).colorScheme.primary,
                   backgroundColor: Theme.of(context).canvasColor,
                 )
-                : Stack(children: [ProdutoList(produtos: _produtos())]),
+                : Stack(
+                  children: [
+                    ProdutoList(produtos: _produtos(), controller: controller),
+                  ],
+                ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -90,7 +101,6 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
         onPressed: () => Navigator.of(context).pushNamed(Rotas.produtoForm),
         child: Icon(Icons.add),
       ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

@@ -9,6 +9,9 @@ class ProdutoServiceImpl implements ProdutoService {
     : _produtoRepository = produtoRepository;
 
   @override
+  List<Produto> get produtos => _produtoRepository.produtos;
+
+  @override
   Future<void> load() => _produtoRepository.load();
 
   @override

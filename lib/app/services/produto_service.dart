@@ -1,6 +1,7 @@
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 
 abstract class ProdutoService {
+  List<Produto> get produtos;
   Future<void> load();
   Future<void> add(Produto model);
   Future<void> update(Produto model);

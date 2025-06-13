@@ -1,3 +1,5 @@
+import 'package:catalogo_produto_poc/app/core/widget/widget_dialog.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
@@ -5,8 +7,13 @@ import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 
 class ProdutoItem extends StatefulWidget {
   final Produto produto;
+  final ProdutoController controller;
 
-  const ProdutoItem({required this.produto, super.key});
+  const ProdutoItem({
+    super.key,
+    required this.produto,
+    required this.controller,
+  });
 
   @override
   State<ProdutoItem> createState() => _ProdutoItemState();
@@ -31,6 +38,16 @@ class _ProdutoItemState extends State<ProdutoItem> {
         margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 0),
         child: const Icon(Icons.delete, color: Colors.white, size: 30),
       ),
+      confirmDismiss: (_) async {
+        bool? confirmed = await WidgetDialog(context, 'Não', 'Sim').confirm(
+          titulo: 'Atenção',
+          pergunta: 'Deseja excluir o produto?',
+          onConfirm: () async {
+            return await widget.controller.remove(widget.produto);
+          },
+        );
+        return confirmed ?? false;
+      },
       child: Card(
         color: Theme.of(context).canvasColor,
         elevation: 0,

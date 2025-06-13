@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_pesquisa.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_item.dart';
-import 'package:catalogo_produto_poc/app/repositories/produto_repository_impl.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_registro_nao_encontrado_page.dart';
 
 class ProdutoList extends StatefulWidget {
   final List<Produto> produtos;
+  final ProdutoController controller;
 
-  const ProdutoList({super.key, required this.produtos});
+  const ProdutoList({
+    super.key,
+    required this.produtos,
+    required this.controller,
+  });
 
   @override
   State<ProdutoList> createState() => _ProdutoListState();
@@ -19,8 +23,7 @@ class _ProdutoListState extends State<ProdutoList> {
   List<Produto> produtos = [];
 
   Future<void> _refresh(BuildContext context) {
-    // TODO: Recarregar a lista vindo do controller =>
-    return Provider.of<ProdutoRepositoryImpl>(context, listen: false).load();
+    return widget.controller.load();
   }
 
   @override
@@ -85,8 +88,9 @@ class _ProdutoListState extends State<ProdutoList> {
                               produtos.isEmpty
                                   ? const WidgetRegistroNaoEncontradoPage()
                                   : ProdutoItem(
-                                    produto: produtos[index],
                                     key: GlobalObjectKey(produtos[index]),
+                                    produto: produtos[index],
+                                    controller: widget.controller,
                                   ),
                             ],
                           ),

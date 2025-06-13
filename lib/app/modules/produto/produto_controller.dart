@@ -1,3 +1,4 @@
+import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/services/produto_service.dart';
 
@@ -11,11 +12,20 @@ class ProdutoController extends ChangeNotifier {
   ProdutoController({required ProdutoService produtoService})
     : _produtoService = produtoService;
 
-  Future<void> save(Map<String, dynamic> map) async {
-    if (map.isEmpty) {
-      map['id'] = '';
-    }
+  List<Produto> get produtos => _produtoService.produtos;
 
+  Future<void> load() async {
+    isLoading = true;
+    notifyListeners();
+    try {
+      return await _produtoService.load();
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> save(Map<String, dynamic> map) async {
     error = null;
     sucess = false;
     isLoading = true;
@@ -25,7 +35,23 @@ class ProdutoController extends ChangeNotifier {
       await _produtoService.save(map);
       sucess = true;
     } on Exception catch (e) {
-      error = 'Erro ao cadastrar produto';
+      error = 'Erro ao cadastrar produto: ${e.toString()}';
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> remove(Produto produto) async {
+    error = null;
+    sucess = false;
+    isLoading = true;
+    notifyListeners();
+    try {
+      await _produtoService.remove(produto);
+      sucess = true;
+    } on Exception catch (e) {
+      error = 'Erro ao remover produto: ${e.toString()}';
     } finally {
       isLoading = false;
       notifyListeners();
