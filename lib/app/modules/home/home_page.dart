@@ -1,5 +1,7 @@
-import 'package:catalogo_produto_poc/app/core/widget/widget_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_drawer.dart';
+import 'package:catalogo_produto_poc/app/services/auth/auth_firebase_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,9 +16,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Home Page')),
       drawer: WidgetDrawer(
-        userName: 'Anderson',
-        //context.read<FirebaseAuthService>().user.displayName.toString(),
-        userEmail: '', // context.read<FirebaseAuthService>().user.email ?? '',
+        userName: context
+            .read<AuthFirebaseService>()
+            .user
+            .displayName
+            .toString(),
+        userEmail: context.read<AuthFirebaseService>().user.email ?? '',
       ),
       body: Container(),
     );

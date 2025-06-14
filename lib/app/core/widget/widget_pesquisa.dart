@@ -1,5 +1,5 @@
-import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
 
 class WidgetPesquisa extends StatefulWidget {
   final String? hintText;
@@ -43,10 +43,9 @@ class _WidgetPesquisaState extends State<WidgetPesquisa> {
             Padding(
               padding: EdgeInsets.only(
                 left: 40,
-                top:
-                    Theme.of(context).platform == TargetPlatform.windows
-                        ? 8
-                        : 4,
+                top: Theme.of(context).platform == TargetPlatform.windows
+                    ? 8
+                    : 4,
               ),
               child: WidgetTextFormField(
                 labelText: '',

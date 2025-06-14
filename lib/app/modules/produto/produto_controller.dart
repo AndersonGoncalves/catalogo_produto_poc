@@ -1,6 +1,6 @@
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:flutter/material.dart';
-import 'package:catalogo_produto_poc/app/services/produto_service.dart';
+import 'package:catalogo_produto_poc/app/services/produto/produto_service.dart';
 
 class ProdutoController extends ChangeNotifier {
   final ProdutoService _produtoService;

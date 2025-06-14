@@ -1,6 +1,6 @@
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
-import 'package:catalogo_produto_poc/app/services/produto_service.dart';
-import 'package:catalogo_produto_poc/app/repositories/produto_repository.dart';
+import 'package:catalogo_produto_poc/app/services/produto/produto_service.dart';
+import 'package:catalogo_produto_poc/app/repositories/produto/produto_repository.dart';
 
 class ProdutoServiceImpl implements ProdutoService {
   final ProdutoRepository _produtoRepository;

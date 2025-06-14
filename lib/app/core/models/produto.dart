@@ -60,41 +60,37 @@ class Produto with ChangeNotifier {
   factory Produto.fromMap(Map<String, dynamic> map, bool load) {
     return Produto(
       id: map['id'] as String,
-      dataCadastro:
-          map['id'] == ''
-              ? DateTime.now()
-              : DateTime.tryParse(map['dataCadastro'].toString())!,
+      dataCadastro: map['id'] == ''
+          ? DateTime.now()
+          : DateTime.tryParse(map['dataCadastro'].toString())!,
       nome: map['nome'].toString(),
       descricao: map['descricao']?.toString(),
       marca: map['marca']?.toString(),
-      precoDeVenda:
-          load
-              ? map['precoDeVenda']?.toDouble() ?? 0.0
-              : double.tryParse(
-                    map['precoDeVenda']
-                        .replaceAll(RegExp(r'[^0-9]'), '')
-                        .toString(),
-                  )! /
-                  100,
-
-      precoDeCusto:
-          load
-              ? map['precoDeCusto']?.toDouble() ?? 0.0
-              : double.tryParse(
-                    map['precoDeCusto']
-                        .replaceAll(RegExp(r'[^0-9]'), '')
-                        .toString(),
-                  )! /
-                  100,
-      // fotos: map['fotos'] != null
-      //     ? load
-      //         ? (map['fotos'] as List<dynamic>).map((item) {
-      //             return item['url'].toString();
-      //           }).toList()
-      //         : (map['fotos'] as List<String>).map((item) {
-      //             return item.toString();
-      //           }).toList()
-      //     : null,
+      precoDeVenda: load
+          ? map['precoDeVenda']?.toDouble() ?? 0.0
+          : double.tryParse(
+                  map['precoDeVenda']
+                      .replaceAll(RegExp(r'[^0-9]'), '')
+                      .toString(),
+                )! /
+                100,
+      precoDeCusto: load
+          ? map['precoDeCusto']?.toDouble() ?? 0.0
+          : double.tryParse(
+                  map['precoDeCusto']
+                      .replaceAll(RegExp(r'[^0-9]'), '')
+                      .toString(),
+                )! /
+                100,
+      fotos: map['fotos'] != null
+          ? load
+                ? (map['fotos'] as List<dynamic>).map((item) {
+                    return item['url'].toString();
+                  }).toList()
+                : (map['fotos'] as List<String>).map((item) {
+                    return item.toString();
+                  }).toList()
+          : null,
     );
   }
 

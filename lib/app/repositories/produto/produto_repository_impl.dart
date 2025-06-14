@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:catalogo_produto_poc/app/core/constants/url.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
-import 'package:catalogo_produto_poc/app/repositories/produto_repository.dart';
+import 'package:catalogo_produto_poc/app/repositories/produto/produto_repository.dart';
 
 class ProdutoRepositoryImpl extends ProdutoRepository {
   String token;

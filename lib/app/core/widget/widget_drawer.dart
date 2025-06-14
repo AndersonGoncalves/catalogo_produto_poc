@@ -1,5 +1,10 @@
-import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
+import 'package:catalogo_produto_poc/app/services/auth/auth_firebase_service.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_dialog.dart';
+import 'package:catalogo_produto_poc/app/modules/auth/auth_form_page.dart';
 
 class WidgetDrawer extends StatefulWidget {
   final String? userName;
@@ -37,11 +42,10 @@ class _WidgetDrawerState extends State<WidgetDrawer> {
   }
 
   Future<void> _sair(BuildContext context) async {
-    return Future.value();
-    // context.read<FirebaseAuthService>().signOut(context).then((value) {
-    //   if (!context.mounted) return;
-    //   Navigator.of(context).pushReplacementNamed(Rotas.authOrHome);
-    // });
+    context.read<AuthFirebaseService>().signOut(context).then((value) {
+      if (!context.mounted) return;
+      Navigator.of(context).pushReplacementNamed(Rotas.home);
+    });
   }
 
   @override
@@ -64,73 +68,49 @@ class _WidgetDrawerState extends State<WidgetDrawer> {
               style: const TextStyle(color: Colors.white),
             ),
           ),
-
           _createItem(Icons.house_outlined, 'Home', () {
             Navigator.of(context).pop();
             Navigator.of(context).pushReplacementNamed(Rotas.home);
           }),
           const Divider(),
-
           _createItem(Icons.local_offer_outlined, 'Produtos', () {
             Navigator.of(context).popAndPushNamed(Rotas.produtoList);
           }),
-
           const Divider(),
           _createItem(Icons.account_circle_outlined, 'Perfil', () {
-            // if (context.read<FirebaseAuthService>().user.isAnonymous) {
-            //   Navigator.of(context).pop();
-            //   Navigator.of(context).push(
-            //     CupertinoPageRoute(
-            //       maintainState: true,
-            //       fullscreenDialog: false,
-            //       allowSnapshotting: true,
-            //       builder: (_) {
-            //         return const AuthFormPage(usuarioAnonimo: true);
-            //       },
-            //     ),
-            //   );
-            // } else {
-            //   Navigator.of(context).popAndPushNamed(Rotas.perfil);
-            // }
+            if (context.read<AuthFirebaseService>().user.isAnonymous) {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(
+                CupertinoPageRoute(
+                  maintainState: true,
+                  fullscreenDialog: false,
+                  allowSnapshotting: true,
+                  builder: (_) {
+                    return const AuthFormPage(usuarioAnonimo: true);
+                  },
+                ),
+              );
+            } else {
+              Navigator.of(context).popAndPushNamed(Rotas.perfil);
+            }
           }),
           _createItem(Icons.error_outline_outlined, 'Sobre', () {
-            // Navigator.of(context).popAndPushNamed(Rotas.about);
+            Navigator.of(context).popAndPushNamed(Rotas.about);
           }),
-          // _createItem(
-          //   Icons.privacy_tip_outlined,
-          //   'Política de Privacidade',
-          //   () {
-          //     Navigator.of(context).pop();
-          //     UrlLauncher.openUrl(Url.politicaPrivacidade);
-          //   },
-          // ),
-          // _createItem(
-          //   Icons.star,
-          //   'Avalie nosso App',
-          //   () {
-          //     Navigator.of(context).pop();
-          //     UrlLauncher.openUrl(Url.myApp);
-          //   },
-          // ),
           const Divider(),
           _createItem(Icons.exit_to_app_outlined, 'Sair', () {
-            // if (context.read<FirebaseAuthService>().user.isAnonymous) {
-            //   //Navigator.of(context).pop(); //Não funcionou
-            //   AdaptativeDialog(
-            //     context,
-            //     'Não',
-            //     'Sim',
-            //   ).confirm(
-            //     titulo: 'Atenção',
-            //     pergunta:
-            //         'Deseja sair da Aplicaçao? Irá perder todos os seus dados.',
-            //     onConfirm: () {
-            //       _sair(context);
-            //     },
-            //   );
-            // } else {
-            //   _sair(context);
-            // }
+            if (context.read<AuthFirebaseService>().user.isAnonymous) {
+              WidgetDialog(context, 'Não', 'Sim').confirm(
+                titulo: 'Atenção',
+                pergunta:
+                    'Deseja sair da Aplicaçao? Irá perder todos os seus dados.',
+                onConfirm: () {
+                  _sair(context);
+                },
+              );
+            } else {
+              _sair(context);
+            }
           }),
           const SizedBox(height: 10),
         ],

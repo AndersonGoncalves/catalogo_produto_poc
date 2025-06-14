@@ -1,3 +1,4 @@
+import 'package:catalogo_produto_poc/app/core/ui/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
@@ -38,9 +39,7 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
       if (!sucess) {
         if (error != null && error.isNotEmpty) {
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(error), backgroundColor: Colors.red),
-            );
+            showSnackBar(context, error, Colors.red);
           }
         }
       }
@@ -82,18 +81,17 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
         ],
       ),
       body: SafeArea(
-        child:
-            _isLoading
-                ? WidgetLoadingPage(
-                  label: 'Carregando...',
-                  labelColor: Theme.of(context).colorScheme.primary,
-                  backgroundColor: Theme.of(context).canvasColor,
-                )
-                : Stack(
-                  children: [
-                    ProdutoList(produtos: _produtos(), controller: controller),
-                  ],
-                ),
+        child: _isLoading
+            ? WidgetLoadingPage(
+                label: 'Carregando...',
+                labelColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(context).canvasColor,
+              )
+            : Stack(
+                children: [
+                  ProdutoList(produtos: _produtos(), controller: controller),
+                ],
+              ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.secondary,
