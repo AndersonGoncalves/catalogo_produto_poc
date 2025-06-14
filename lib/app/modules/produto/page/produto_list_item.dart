@@ -61,7 +61,6 @@ class _ProdutoListItemState extends State<ProdutoListItem> {
               context,
             ).pushNamed(Rotas.produtoForm, arguments: widget._produto);
           },
-
           leading: const Padding(
             padding: EdgeInsets.only(left: 8, top: 7, right: 8),
             child: Icon(
@@ -70,14 +69,11 @@ class _ProdutoListItemState extends State<ProdutoListItem> {
               size: 24,
             ),
           ),
-
           title: Text(
             widget._produto.nome,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-
           subtitle: Text(widget._produto.descricao!),
-
           trailing: Text(
             formatCurrency.format(widget._produto.precoDeVenda),
             style: const TextStyle(

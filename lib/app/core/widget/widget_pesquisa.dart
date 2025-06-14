@@ -6,7 +6,7 @@ class WidgetPesquisa extends StatefulWidget {
   final Color? fillColor;
   final double? radius;
   final Icon? suffixIcon;
-  final void Function(String)? onChanged;
+  final void Function(String)? onSearch;
   final Function()? suffixIconOnPressed;
 
   const WidgetPesquisa({
@@ -14,7 +14,7 @@ class WidgetPesquisa extends StatefulWidget {
     this.fillColor,
     this.radius = 20,
     this.suffixIcon,
-    this.onChanged,
+    this.onSearch,
     this.suffixIconOnPressed,
     super.key,
   });
@@ -57,7 +57,7 @@ class _WidgetPesquisaState extends State<WidgetPesquisa> {
                 removerLinha: true,
                 isDense: true,
                 fillColor: widget.fillColor ?? Colors.white,
-                onChanged: widget.onChanged,
+                onChanged: widget.onSearch,
                 suffixIcon: widget.suffixIcon,
                 suffixIconOnPressed: widget.suffixIconOnPressed,
               ),

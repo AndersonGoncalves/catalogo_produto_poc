@@ -39,7 +39,7 @@ class _ProdutoListState extends State<ProdutoList> {
     produtos = widget._produtos;
   }
 
-  void onChanged(String value) {
+  void onSearch(String value) {
     List<Produto> list = [];
     if (value.isEmpty) {
       list = widget._produtos;
@@ -81,11 +81,11 @@ class _ProdutoListState extends State<ProdutoList> {
                                       padding: const EdgeInsets.all(10),
                                       child: WidgetPesquisa(
                                         fillColor: Colors.white,
-                                        onChanged: (value) => onChanged(value),
+                                        onSearch: (value) => onSearch(value),
                                       ),
                                     ),
                                   )
-                                  : SizedBox(),
+                                  : SizedBox.shrink(),
                               produtos.isEmpty
                                   ? const WidgetRegistroNaoEncontradoPage()
                                   : ProdutoListItem(
@@ -96,7 +96,7 @@ class _ProdutoListState extends State<ProdutoList> {
                             ],
                           ),
                     )
-                    : const SizedBox(),
+                    : const SizedBox.shrink(),
           ),
         ],
       ),
