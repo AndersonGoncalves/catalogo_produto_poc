@@ -337,10 +337,6 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           minimumSize: Size(double.infinity, 45),
-                          backgroundColor: Theme.of(
-                            context,
-                          ).colorScheme.primary,
-                          foregroundColor: Colors.white,
                           elevation: 0,
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),

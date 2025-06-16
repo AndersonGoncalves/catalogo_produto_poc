@@ -318,10 +318,6 @@ class _AuthFormPageState extends State<AuthFormPage>
                                                 double.infinity,
                                                 48,
                                               ),
-                                              backgroundColor: Theme.of(
-                                                context,
-                                              ).colorScheme.primary,
-                                              foregroundColor: Colors.white,
                                               elevation: 0,
                                               tapTargetSize:
                                                   MaterialTapTargetSize

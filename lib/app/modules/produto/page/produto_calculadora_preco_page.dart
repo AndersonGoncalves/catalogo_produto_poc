@@ -5,12 +5,12 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
-class WidgetCalculadoraPrecoPage extends StatefulWidget {
+class ProdutoCalculadoraPrecoPage extends StatefulWidget {
   final double precoCusto;
   final double precoVenda;
   final Function(String, String) atualizar;
 
-  const WidgetCalculadoraPrecoPage({
+  const ProdutoCalculadoraPrecoPage({
     required this.precoCusto,
     required this.precoVenda,
     required this.atualizar,
@@ -18,12 +18,12 @@ class WidgetCalculadoraPrecoPage extends StatefulWidget {
   });
 
   @override
-  State<WidgetCalculadoraPrecoPage> createState() =>
-      _WidgetCalculadoraPrecoPageState();
+  State<ProdutoCalculadoraPrecoPage> createState() =>
+      ProdutotCalculadoraPrecoPageState();
 }
 
-class _WidgetCalculadoraPrecoPageState
-    extends State<WidgetCalculadoraPrecoPage> {
+class ProdutotCalculadoraPrecoPageState
+    extends State<ProdutoCalculadoraPrecoPage> {
   // var _precoCustoController = MoneyMaskedTextController();
   // var _markupController = MoneyMaskedTextController();
 
@@ -347,8 +347,6 @@ class _WidgetCalculadoraPrecoPageState
                       borderRadius: BorderRadius.circular(5),
                     ),
                     minimumSize: Size(double.infinity, 45),
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Colors.white,
                     elevation: 0,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),

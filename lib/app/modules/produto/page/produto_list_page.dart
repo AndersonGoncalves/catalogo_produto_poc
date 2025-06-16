@@ -1,6 +1,6 @@
-import 'package:catalogo_produto_poc/app/core/ui/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:catalogo_produto_poc/app/core/ui/functions.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
@@ -94,8 +94,6 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
               ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        foregroundColor: Theme.of(context).textTheme.labelLarge!.color,
         onPressed: () => Navigator.of(context).pushNamed(Rotas.produtoForm),
         child: Icon(Icons.add),
       ),

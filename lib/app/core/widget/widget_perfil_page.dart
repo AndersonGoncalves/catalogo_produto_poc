@@ -109,10 +109,6 @@ class _WidgetPerfilPageState extends State<WidgetPerfilPage> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   minimumSize: Size(double.infinity, 48),
-                                  backgroundColor: Theme.of(
-                                    context,
-                                  ).colorScheme.primary,
-                                  foregroundColor: Colors.white,
                                   elevation: 0,
                                   tapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
