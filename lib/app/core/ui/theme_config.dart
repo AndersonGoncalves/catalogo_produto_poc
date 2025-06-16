@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ThemeConfig {
   static const Color _canvasColor = Color.fromRGBO(240, 240, 240, 1);
-  static const Color _primaryColor = Color.fromRGBO(138, 5, 190, 1);
-  static const Color _secundaryColor = Color.fromRGBO(83, 0, 130, 1);
+  static const Color _primaryColor = Color.fromRGBO(6, 24, 48, 1);
+  static const Color _secundaryColor = Color.fromRGBO(218, 80, 162, 1);
 
   static final ThemeData _tema = ThemeData();
 
@@ -12,6 +12,7 @@ class ThemeConfig {
 
   static ThemeData get theme => ThemeData(
     canvasColor: _canvasColor,
+    scaffoldBackgroundColor: _canvasColor,
 
     textTheme: GoogleFonts.mandaliTextTheme(),
 

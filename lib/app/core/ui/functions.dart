@@ -25,6 +25,10 @@ double percentualLucroMarkup(double custo, double precoVenda) {
   }
 }
 
+double lucro(double custo, double precoVenda) {
+  return precoVenda - custo;
+}
+
 String getData(BuildContext context, DateTime data) {
   final DateTime now = DateTime(
     DateTime.now().year,

@@ -53,7 +53,9 @@ class Produto with ChangeNotifier {
       'marca': marca,
       'precoDeCusto': precoDeCusto,
       'precoDeVenda': precoDeVenda,
-      'fotos': fotos,
+      'fotos': fotos != null
+          ? fotos!.map((item) => {'url': item}).toList()
+          : '',
     };
   }
 

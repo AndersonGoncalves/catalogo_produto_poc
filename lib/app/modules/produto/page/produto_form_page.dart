@@ -1,12 +1,14 @@
-import 'package:catalogo_produto_poc/app/core/ui/functions.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:catalogo_produto_poc/app/core/ui/functions.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/page/produto_foto_grid.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/page/produto_calculadora_preco_page.dart';
 
 class ProdutoFormPage extends StatefulWidget {
   const ProdutoFormPage({super.key});
@@ -18,7 +20,7 @@ class ProdutoFormPage extends StatefulWidget {
 class _ProdutoFormPageState extends State<ProdutoFormPage> {
   bool _isLoading = false;
   Map<String, dynamic> _formData = <String, dynamic>{};
-  List<String> _fotoList = [];
+  final List<String> _fotoList = [];
   final _formKey = GlobalKey<FormState>();
 
   final _nomeFocus = FocusNode();
@@ -53,9 +55,45 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
     _formData['precoDeCusto'] = 0.0;
     _formData['marca'] = '';
     _formData['descricao'] = '';
+    _formData['fotos'] = [];
+  }
+
+  void _calcularPrecoVenda() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      //fullscreenDialog: true,
+      builder: (_) {
+        return ProdutoCalculadoraPrecoPage(
+          precoCusto:
+              (double.tryParse(onlyNumber(_precoCustoController.text))! / 100),
+          precoVenda:
+              double.tryParse(onlyNumber(_precoVendaController.text))! / 100,
+          atualizar: (custo, venda) {
+            setState(() {
+              _precoCustoController.text = custo;
+              _precoVendaController.text = venda;
+            });
+          },
+        );
+      },
+    );
+  }
+
+  void _carregarFotoList(Produto produto) {
+    _fotoList.clear();
+    if (produto.fotos != null) {
+      for (var i = 0; i < produto.fotos!.length; i++) {
+        if (produto.fotos![i] != '') {
+          _fotoList.add(produto.fotos![i]);
+        }
+      }
+    }
   }
 
   Future<void> _save() async {
+    _formData['fotos'] = _fotoList.toList();
     final formValid = _formKey.currentState?.validate() ?? false;
     if (formValid) {
       _formKey.currentState?.save();
@@ -66,6 +104,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
   @override
   void initState() {
     super.initState();
+    _fotoList.clear();
 
     context.read<ProdutoController>().addListener(() {
       final controller = context.read<ProdutoController>();
@@ -91,6 +130,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
       if (visualizandoDados) {
         final produto = arg as Produto;
         _formData = produto.toMap();
+        _carregarFotoList(produto);
         _precoVendaController.text = _formData['precoDeVenda'].toStringAsFixed(
           2,
         );
@@ -241,7 +281,8 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                                 suffixIcon: const Icon(
                                                   Icons.calculate_outlined,
                                                 ),
-
+                                                suffixIconOnPressed:
+                                                    _calcularPrecoVenda,
                                                 focusNode: _precoVendaFocus,
                                                 inputFormatters: [
                                                   currencyTextInputFormatter(
@@ -319,6 +360,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                   ],
                                 ),
                               ),
+                              ProdutoFotoGrid(fotoList: _fotoList),
                             ]),
                           ),
                         ],

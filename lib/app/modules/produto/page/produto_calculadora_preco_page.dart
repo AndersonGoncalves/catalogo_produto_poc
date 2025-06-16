@@ -1,9 +1,7 @@
-// import '/utils/functions.dart';
-// import '/components/adaptatives/adaptative_button.dart';
-// import '/components/adaptatives/adaptative_text_form_field.dart';
-// import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:catalogo_produto_poc/app/core/ui/functions.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
 
 class ProdutoCalculadoraPrecoPage extends StatefulWidget {
   final double precoCusto;
@@ -24,102 +22,102 @@ class ProdutoCalculadoraPrecoPage extends StatefulWidget {
 
 class ProdutotCalculadoraPrecoPageState
     extends State<ProdutoCalculadoraPrecoPage> {
-  // var _precoCustoController = MoneyMaskedTextController();
-  // var _markupController = MoneyMaskedTextController();
+  var _precoCustoController = TextEditingController();
+  var _markupController = TextEditingController();
 
-  // double precoVendaTemp = 0;
-  // var _precoCustoText = '';
-  // var _markupText = '';
+  double precoVendaTemp = 0;
+  var _precoCustoText = '';
+  var _markupText = '';
 
-  // void _changePrecoCusto() {
-  //   setState(() {
-  //     _precoCustoText =
-  //         (double.tryParse(onlyNumber(_precoCustoController.text))! / 100)
-  //             .toStringAsFixed(2);
-  //   });
-  //   precoVendaTemp = precoVenda(
-  //     double.tryParse(_precoCustoText)!,
-  //     double.tryParse(_markupText)!,
-  //   );
-  // }
+  void _changePrecoCusto() {
+    setState(() {
+      _precoCustoText =
+          (double.tryParse(onlyNumber(_precoCustoController.text))! / 100)
+              .toStringAsFixed(2);
+    });
+    precoVendaTemp = precoVenda(
+      double.tryParse(_precoCustoText)!,
+      double.tryParse(_markupText)!,
+    );
+  }
 
-  // void _changeMarkup() {
-  //   setState(() {
-  //     _markupText = (double.tryParse(onlyNumber(_markupController.text))! / 100)
-  //         .toStringAsFixed(2);
-  //   });
-  //   precoVendaTemp = precoVenda(
-  //     double.tryParse(_precoCustoText)!,
-  //     double.tryParse(_markupText)!,
-  //   );
-  // }
+  void _changeMarkup() {
+    setState(() {
+      _markupText = (double.tryParse(onlyNumber(_markupController.text))! / 100)
+          .toStringAsFixed(2);
+    });
+    precoVendaTemp = precoVenda(
+      double.tryParse(_precoCustoText)!,
+      double.tryParse(_markupText)!,
+    );
+  }
 
   void _submit() {
-    // widget.atualizar(
-    //   _precoCustoText,
-    //   precoVenda(
-    //     double.tryParse(_precoCustoText)!,
-    //     double.tryParse(_markupText)!,
-    //   ).toStringAsFixed(2),
-    // );
+    widget.atualizar(
+      _precoCustoText,
+      precoVenda(
+        double.tryParse(_precoCustoText)!,
+        double.tryParse(_markupText)!,
+      ).toStringAsFixed(2),
+    );
     Navigator.of(context).pop();
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
+  @override
+  void initState() {
+    super.initState();
 
-  //   _precoCustoController = MoneyMaskedTextController(
-  //     decimalSeparator: ',',
-  //     thousandSeparator: '.',
-  //     leftSymbol: 'R\$ ',
-  //   );
+    // _precoCustoController = TextEditingController(
+    //   decimalSeparator: ',',
+    //   thousandSeparator: '.',
+    //   leftSymbol: 'R\$ ',
+    // );
 
-  //   _markupController = MoneyMaskedTextController(
-  //     decimalSeparator: ',',
-  //     thousandSeparator: '.',
-  //     rightSymbol: ' %',
-  //   );
+    // _markupController = TextEditingController(
+    //   decimalSeparator: ',',
+    //   thousandSeparator: '.',
+    //   rightSymbol: ' %',
+    // );
 
-  //   _precoCustoController.text = widget.precoCusto.toStringAsFixed(2);
-  //   _markupController.text = percentualMarkup(
-  //     widget.precoCusto,
-  //     widget.precoVenda,
-  //   ).toStringAsFixed(2);
+    _precoCustoController.text = widget.precoCusto.toStringAsFixed(2);
+    _markupController.text = percentualMarkup(
+      widget.precoCusto,
+      widget.precoVenda,
+    ).toStringAsFixed(2);
 
-  //   _precoCustoController.addListener(_changePrecoCusto);
-  //   _markupController.addListener(_changeMarkup);
+    _precoCustoController.addListener(_changePrecoCusto);
+    _markupController.addListener(_changeMarkup);
 
-  //   _precoCustoText =
-  //       (double.tryParse(onlyNumber(_precoCustoController.text))! / 100)
-  //           .toStringAsFixed(2);
-  //   _markupText = (double.tryParse(onlyNumber(_markupController.text))! / 100)
-  //       .toStringAsFixed(2);
+    _precoCustoText =
+        (double.tryParse(onlyNumber(_precoCustoController.text))! / 100)
+            .toStringAsFixed(2);
+    _markupText = (double.tryParse(onlyNumber(_markupController.text))! / 100)
+        .toStringAsFixed(2);
 
-  //   precoVendaTemp = precoVenda(
-  //     double.tryParse(_precoCustoText)!,
-  //     double.tryParse(_markupText)!,
-  //   );
+    precoVendaTemp = precoVenda(
+      double.tryParse(_precoCustoText)!,
+      double.tryParse(_markupText)!,
+    );
 
-  //   if ((widget.precoCusto == 0) && (widget.precoVenda > 0)) {
-  //     _precoCustoController.text = widget.precoVenda.toStringAsFixed(2);
-  //     _precoCustoText = widget.precoVenda.toStringAsFixed(2);
-  //   }
+    if ((widget.precoCusto == 0) && (widget.precoVenda > 0)) {
+      _precoCustoController.text = widget.precoVenda.toStringAsFixed(2);
+      _precoCustoText = widget.precoVenda.toStringAsFixed(2);
+    }
 
-  //   if ((widget.precoVenda == 0) && (widget.precoCusto > 0)) {
-  //     _markupController.text = widget.precoVenda.toStringAsFixed(2);
-  //     _markupText = widget.precoVenda.toStringAsFixed(2);
-  //   }
-  // }
+    if ((widget.precoVenda == 0) && (widget.precoCusto > 0)) {
+      _markupController.text = widget.precoVenda.toStringAsFixed(2);
+      _markupText = widget.precoVenda.toStringAsFixed(2);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final formatCurrency = NumberFormat.currency(
-    //   locale: 'pt_BR',
-    //   symbol: 'R\$',
-    //   decimalDigits: 2,
-    // );
-    // final formatPercentual = NumberFormat.currency(locale: 'pt_BR', symbol: '');
+    final formatCurrency = NumberFormat.currency(
+      locale: 'pt_BR',
+      symbol: 'R\$',
+      decimalDigits: 2,
+    );
+    final formatPercentual = NumberFormat.currency(locale: 'pt_BR', symbol: '');
 
     return Scaffold(
       appBar: AppBar(
@@ -173,34 +171,34 @@ class ProdutotCalculadoraPrecoPageState
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      // Expanded(
-                                      //   child: SizedBox(
-                                      //     child: AdaptativeTextFormField(
-                                      //       labelText: 'Custo',
-                                      //       border: true,
-                                      //       textAlign: TextAlign.center,
-                                      //       keyboardType: TextInputType.number,
-                                      //       textInputAction:
-                                      //           TextInputAction.next,
-                                      //       controller: _precoCustoController,
-                                      //     ),
-                                      //   ),
-                                      // ),
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: WidgetTextFormField(
+                                            labelText: 'Custo',
+                                            border: true,
+                                            textAlign: TextAlign.center,
+                                            keyboardType: TextInputType.number,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            controller: _precoCustoController,
+                                          ),
+                                        ),
+                                      ),
                                       const SizedBox(width: 10),
-                                      // Expanded(
-                                      //   child: SizedBox(
-                                      //     child: AdaptativeTextFormField(
-                                      //       labelText: 'Markup',
-                                      //       border: true,
-                                      //       textAlign: TextAlign.center,
-                                      //       keyboardType: TextInputType.number,
-                                      //       textInputAction:
-                                      //           TextInputAction.done,
-                                      //       controller: _markupController,
-                                      //       onFieldSubmitted: (_) => _submit(),
-                                      //     ),
-                                      //   ),
-                                      // ),
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: WidgetTextFormField(
+                                            labelText: 'Markup',
+                                            border: true,
+                                            textAlign: TextAlign.center,
+                                            keyboardType: TextInputType.number,
+                                            textInputAction:
+                                                TextInputAction.done,
+                                            controller: _markupController,
+                                            onFieldSubmitted: (_) => _submit(),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -240,21 +238,21 @@ class ProdutotCalculadoraPrecoPageState
                                           ),
                                         ),
                                       ),
-                                      // FittedBox(
-                                      //   child: Text(
-                                      //     formatCurrency.format(
-                                      //       lucro(
-                                      //         double.tryParse(_precoCustoText)!,
-                                      //         precoVendaTemp,
-                                      //       ),
-                                      //     ),
-                                      //     textAlign: TextAlign.center,
-                                      //     style: const TextStyle(
-                                      //       color: Colors.black,
-                                      //       fontWeight: FontWeight.bold,
-                                      //     ),
-                                      //   ),
-                                      // ),
+                                      FittedBox(
+                                        child: Text(
+                                          formatCurrency.format(
+                                            lucro(
+                                              double.tryParse(_precoCustoText)!,
+                                              precoVendaTemp,
+                                            ),
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -282,18 +280,18 @@ class ProdutotCalculadoraPrecoPageState
                                           ),
                                         ),
                                         const SizedBox(height: 5),
-                                        // FittedBox(
-                                        //   child: Text(
-                                        //     ' ${formatCurrency.format(precoVenda(double.tryParse(_precoCustoText)!, double.tryParse(_markupText)!))}'
-                                        //         .trim(),
-                                        //     textAlign: TextAlign.center,
-                                        //     style: const TextStyle(
-                                        //       fontSize: 22,
-                                        //       color: Colors.black,
-                                        //       fontWeight: FontWeight.bold,
-                                        //     ),
-                                        //   ),
-                                        // ),
+                                        FittedBox(
+                                          child: Text(
+                                            ' ${formatCurrency.format(precoVenda(double.tryParse(_precoCustoText)!, double.tryParse(_markupText)!))}'
+                                                .trim(),
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              fontSize: 22,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -316,16 +314,16 @@ class ProdutotCalculadoraPrecoPageState
                                           ),
                                         ),
                                       ),
-                                      // FittedBox(
-                                      //   child: Text(
-                                      //     ' ${formatPercentual.format(percentualLucroMarkup(double.tryParse(_precoCustoText)!, precoVendaTemp))} %',
-                                      //     textAlign: TextAlign.center,
-                                      //     style: const TextStyle(
-                                      //       color: Colors.black,
-                                      //       fontWeight: FontWeight.bold,
-                                      //     ),
-                                      //   ),
-                                      // ),
+                                      FittedBox(
+                                        child: Text(
+                                          ' ${formatPercentual.format(percentualLucroMarkup(double.tryParse(_precoCustoText)!, precoVendaTemp))} %',
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
