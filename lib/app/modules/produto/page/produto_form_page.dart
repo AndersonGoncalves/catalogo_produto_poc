@@ -104,7 +104,6 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
   @override
   void initState() {
     super.initState();
-    _fotoList.clear();
 
     context.read<ProdutoController>().addListener(() {
       final controller = context.read<ProdutoController>();
@@ -180,7 +179,9 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                             pinned: true,
                             expandedHeight: _fotoList.isEmpty ? 56 : 300,
                             flexibleSpace: FlexibleSpaceBar(
-                              title: Text('Produto'),
+                              title: _fotoList.isEmpty
+                                  ? Text('Produto')
+                                  : SizedBox.shrink(),
                               background: _fotoList.isEmpty
                                   ? const SizedBox()
                                   : Image.network(
