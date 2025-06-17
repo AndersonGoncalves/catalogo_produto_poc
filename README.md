@@ -11,6 +11,7 @@ Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É po
 - *Frontend:*  
   - [Flutter](https://flutter.dev/)  
   - [Dart](https://dart.dev/)
+  - [Provider](https://pub.dev/packages/provider)
 - *Backend:*  
   - [Rialtime Database](https://firebase.google.com/products/realtime-database) (armazenamento dos produtos)
   - [Firebase Authentication](https://firebase.google.com/products/auth) (autenticação anônima e por e-mail)  
@@ -36,10 +37,20 @@ Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É po
 ![drawer](https://github.com/user-attachments/assets/e95c5e26-82ea-4570-9f01-98898be6f226)
 ![produto_form_1](https://github.com/user-attachments/assets/76f56561-fbeb-4701-9b30-e792b1166270)
 ![produto_form_2](https://github.com/user-attachments/assets/d357d933-5e67-43e9-a65e-84d9f535939b)
+![produto_calculadora_preco](https://github.com/user-attachments/assets/e5cb8677-6edc-4e13-aab6-d97cab11db42)
 
 ## 📦 Estrutura do Projeto
 
 - lib/ — Código principal do Flutter
+- lib/app — Toda aplicação
+- lib/app/core — Contém definições e utilitários centrais do projeto, que podem ser usados em qualquer parte da aplicação.
+Exemplos: modelos de dados (models), constantes, ui, tema do app, etc.
+- lib/app/modules — Agrupa funcionalidades ou telas por domínio ou recurso.
+Cada módulo geralmente representa uma área da aplicação (produto e usuário).
+- lib/app/repositories — Responsáveis por abstrair o acesso a dados, seja de APIs, bancos de dados locais, arquivos, etc.
+O repositório implementa métodos para buscar, salvar, atualizar e remover dados, servindo de ponte entre a camada de dados e os services/controllers.
+- lib/app/services — Contém a lógica de negócio da aplicação.
+Os services usam os repositórios para acessar dados e implementam regras de negócio, validações, integrações externas, etc. Geralmente, os controllers ou providers acessam os services para manipular dados.
 - android/, ios/ — Códigos específicos para cada plataforma
 - assets/ — (opcional) Imagens e recursos estáticos
 - pubspec.yaml — Gerenciamento de dependências
