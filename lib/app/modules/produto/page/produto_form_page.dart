@@ -227,7 +227,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                           Expanded(
                                             child: SizedBox(
                                               child: WidgetTextFormField(
-                                                labelText: 'Preço de Custo',
+                                                labelText: 'Custo',
                                                 keyboardType:
                                                     TextInputType.number,
                                                 textInputAction:
@@ -263,7 +263,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                           Expanded(
                                             child: SizedBox(
                                               child: WidgetTextFormField(
-                                                labelText: 'Preço de Venda',
+                                                labelText: 'Venda',
                                                 keyboardType:
                                                     TextInputType.number,
                                                 textInputAction:
