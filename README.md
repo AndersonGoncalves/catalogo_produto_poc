@@ -32,7 +32,10 @@ Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É po
 - Integração em tempo real com Firebase.
 
 ## 🖼️ Exemplos de Tela
-
+![home_page](https://github.com/user-attachments/assets/0e7247a7-65e4-4a83-9de2-c0ec707cc637)
+![drawer](https://github.com/user-attachments/assets/e95c5e26-82ea-4570-9f01-98898be6f226)
+![produto_form_2](https://github.com/user-attachments/assets/d357d933-5e67-43e9-a65e-84d9f535939b)
+![produto_form_1](https://github.com/user-attachments/assets/76f56561-fbeb-4701-9b30-e792b1166270)
 
 > Adicione aqui imagens/capturas de tela do aplicativo.
 
