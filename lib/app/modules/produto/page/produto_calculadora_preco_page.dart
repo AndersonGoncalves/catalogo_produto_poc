@@ -22,8 +22,8 @@ class ProdutoCalculadoraPrecoPage extends StatefulWidget {
 
 class ProdutotCalculadoraPrecoPageState
     extends State<ProdutoCalculadoraPrecoPage> {
-  var _precoCustoController = TextEditingController();
-  var _markupController = TextEditingController();
+  final _precoCustoController = TextEditingController();
+  final _markupController = TextEditingController();
 
   double precoVendaTemp = 0;
   var _precoCustoText = '';
@@ -52,7 +52,7 @@ class ProdutotCalculadoraPrecoPageState
     );
   }
 
-  void _submit() {
+  void _confirm() {
     widget.atualizar(
       _precoCustoText,
       precoVenda(
@@ -66,18 +66,6 @@ class ProdutotCalculadoraPrecoPageState
   @override
   void initState() {
     super.initState();
-
-    // _precoCustoController = TextEditingController(
-    //   decimalSeparator: ',',
-    //   thousandSeparator: '.',
-    //   leftSymbol: 'R\$ ',
-    // );
-
-    // _markupController = TextEditingController(
-    //   decimalSeparator: ',',
-    //   thousandSeparator: '.',
-    //   rightSymbol: ' %',
-    // );
 
     _precoCustoController.text = widget.precoCusto.toStringAsFixed(2);
     _markupController.text = percentualMarkup(
@@ -195,7 +183,7 @@ class ProdutotCalculadoraPrecoPageState
                                             textInputAction:
                                                 TextInputAction.done,
                                             controller: _markupController,
-                                            onFieldSubmitted: (_) => _submit(),
+                                            onFieldSubmitted: (_) => _confirm(),
                                           ),
                                         ),
                                       ),
@@ -339,7 +327,7 @@ class ProdutotCalculadoraPrecoPageState
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
                 child: ElevatedButton(
-                  onPressed: _submit,
+                  onPressed: _confirm,
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),

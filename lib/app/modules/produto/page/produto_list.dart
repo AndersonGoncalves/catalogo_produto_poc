@@ -40,20 +40,19 @@ class _ProdutoListState extends State<ProdutoList> {
   }
 
   void onSearch(String value) {
-    List<Produto> list = [];
+    List<Produto> search = [];
     if (value.isEmpty) {
-      list = widget._produtos;
+      search = widget._produtos;
     } else {
-      list =
-          widget._produtos
-              .where(
-                (element) =>
-                    (element.nome.toLowerCase().contains(value.toLowerCase())),
-              )
-              .toList();
+      search = widget._produtos
+          .where(
+            (element) =>
+                (element.nome.toLowerCase().contains(value.toLowerCase())),
+          )
+          .toList();
     }
     setState(() {
-      produtos = list;
+      produtos = search;
     });
   }
 
@@ -64,39 +63,36 @@ class _ProdutoListState extends State<ProdutoList> {
       child: Column(
         children: <Widget>[
           Expanded(
-            child:
-                widget._produtos.isNotEmpty
-                    ? ListView.builder(
-                      itemCount: produtos.isEmpty ? 1 : produtos.length,
-                      itemBuilder:
-                          (ctx, index) => Column(
-                            children: <Widget>[
-                              index == 0
-                                  ? Container(
-                                    height: 65,
-                                    width: double.infinity,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: WidgetPesquisa(
-                                        fillColor: Colors.white,
-                                        onSearch: (value) => onSearch(value),
-                                      ),
-                                    ),
-                                  )
-                                  : SizedBox.shrink(),
-                              produtos.isEmpty
-                                  ? const WidgetRegistroNaoEncontradoPage()
-                                  : ProdutoListItem(
-                                    key: GlobalObjectKey(produtos[index]),
-                                    produto: produtos[index],
-                                    controller: widget._controller,
+            child: widget._produtos.isNotEmpty
+                ? ListView.builder(
+                    itemCount: produtos.isEmpty ? 1 : produtos.length,
+                    itemBuilder: (ctx, index) => Column(
+                      children: <Widget>[
+                        index == 0
+                            ? Container(
+                                height: 65,
+                                width: double.infinity,
+                                color: Theme.of(context).colorScheme.primary,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: WidgetPesquisa(
+                                    fillColor: Colors.white,
+                                    onSearch: (value) => onSearch(value),
                                   ),
-                            ],
-                          ),
-                    )
-                    : const SizedBox.shrink(),
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                        produtos.isEmpty
+                            ? const WidgetRegistroNaoEncontradoPage()
+                            : ProdutoListItem(
+                                key: GlobalObjectKey(produtos[index]),
+                                produto: produtos[index],
+                                controller: widget._controller,
+                              ),
+                      ],
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ),
         ],
       ),

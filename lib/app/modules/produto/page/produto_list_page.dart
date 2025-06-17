@@ -33,7 +33,6 @@ class _ProdutoListPageState extends State<ProdutoListPage> {
     controller.load();
     context.read<ProdutoController>().addListener(() {
       setState(() => _isLoading = controller.isLoading);
-
       var error = controller.error;
       var sucess = controller.sucess;
       if (!sucess) {

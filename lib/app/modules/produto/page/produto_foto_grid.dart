@@ -8,7 +8,7 @@ class ProdutoFotoGrid extends StatefulWidget {
 
   const ProdutoFotoGrid({
     this.label = 'Fotos',
-    this.quantidadeMaximaFotos = 5,
+    this.quantidadeMaximaFotos = 3,
     required this.fotoList,
     super.key,
   });
@@ -102,7 +102,7 @@ class _ProdutoFotoGridState extends State<ProdutoFotoGrid> {
                       Container(
                         height: tamanhoFoto(),
                         width: tamanhoFoto(),
-                        margin: const EdgeInsets.only(top: 10, left: 10),
+                        margin: const EdgeInsets.only(top: 10, left: 7),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),
                           border: Border.all(color: Colors.black12, width: 1),
@@ -124,7 +124,7 @@ class _ProdutoFotoGridState extends State<ProdutoFotoGrid> {
                   Container(
                     height: tamanhoFoto(),
                     width: tamanhoFoto(),
-                    margin: const EdgeInsets.only(top: 10, left: 10),
+                    margin: const EdgeInsets.only(top: 10, left: 7),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(7),
                       color: Colors.grey[100],
@@ -148,8 +148,6 @@ class _ProdutoFotoGridState extends State<ProdutoFotoGrid> {
         foto(0),
         if (widget.quantidadeMaximaFotos > 1) foto(1),
         if (widget.quantidadeMaximaFotos > 1) foto(2),
-        if (widget.quantidadeMaximaFotos > 1) foto(3),
-        if (widget.quantidadeMaximaFotos > 1) foto(4),
       ].toList();
     }
 

@@ -1,4 +1,3 @@
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/ui/functions.dart';
@@ -20,21 +19,15 @@ class ProdutoFormPage extends StatefulWidget {
 class _ProdutoFormPageState extends State<ProdutoFormPage> {
   bool _isLoading = false;
   Map<String, dynamic> _formData = <String, dynamic>{};
-  final List<String> _fotoList = [];
+  final List<String> _fotos = [];
   final _formKey = GlobalKey<FormState>();
-
   final _nomeFocus = FocusNode();
   final _precoVendaFocus = FocusNode();
   final _precoCustoFocus = FocusNode();
   final _marcaFocus = FocusNode();
   final _descricaoFocus = FocusNode();
-
   final _precoCustoController = TextEditingController();
   final _precoVendaController = TextEditingController();
-
-  NumberFormat formatCurrency(BuildContext context) {
-    return NumberFormat.currency(locale: 'pt_BR', symbol: '');
-  }
 
   CurrencyTextInputFormatter currencyTextInputFormatter(
     BuildContext context, {
@@ -81,19 +74,19 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
     );
   }
 
-  void _carregarFotoList(Produto produto) {
-    _fotoList.clear();
+  void _carregarFotos(Produto produto) {
+    _fotos.clear();
     if (produto.fotos != null) {
       for (var i = 0; i < produto.fotos!.length; i++) {
         if (produto.fotos![i] != '') {
-          _fotoList.add(produto.fotos![i]);
+          _fotos.add(produto.fotos![i]);
         }
       }
     }
   }
 
   Future<void> _save() async {
-    _formData['fotos'] = _fotoList.toList();
+    _formData['fotos'] = _fotos.toList();
     final formValid = _formKey.currentState?.validate() ?? false;
     if (formValid) {
       _formKey.currentState?.save();
@@ -123,13 +116,14 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+
     if (_formData.isEmpty) {
       final arg = ModalRoute.of(context)?.settings.arguments;
       bool visualizandoDados = (arg != null);
       if (visualizandoDados) {
         final produto = arg as Produto;
         _formData = produto.toMap();
-        _carregarFotoList(produto);
+        _carregarFotos(produto);
         _precoVendaController.text = _formData['precoDeVenda'].toStringAsFixed(
           2,
         );
@@ -145,7 +139,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
   @override
   void dispose() {
     super.dispose();
-    _fotoList.clear();
+    _fotos.clear();
     _nomeFocus.dispose();
     _descricaoFocus.dispose();
     _precoVendaFocus.dispose();
@@ -177,17 +171,12 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                             toolbarHeight: 56,
                             automaticallyImplyLeading: true,
                             pinned: true,
-                            expandedHeight: _fotoList.isEmpty ? 56 : 300,
+                            expandedHeight: _fotos.isEmpty ? 56 : 300,
                             flexibleSpace: FlexibleSpaceBar(
-                              title: _fotoList.isEmpty
-                                  ? Text('Produto')
-                                  : SizedBox.shrink(),
-                              background: _fotoList.isEmpty
+                              title: Text('Produto'),
+                              background: _fotos.isEmpty
                                   ? const SizedBox()
-                                  : Image.network(
-                                      _fotoList[0],
-                                      fit: BoxFit.cover,
-                                    ),
+                                  : Image.network(_fotos[0], fit: BoxFit.cover),
                             ),
                             backgroundColor: Colors.white,
                             surfaceTintColor: Colors.white,
@@ -361,7 +350,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                   ],
                                 ),
                               ),
-                              ProdutoFotoGrid(fotoList: _fotoList),
+                              ProdutoFotoGrid(fotoList: _fotos),
                             ]),
                           ),
                         ],

@@ -5,18 +5,22 @@ class WidgetRegistroNaoEncontradoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: 250, //MediaQuery.of(context).size.height - 350,
-        child: Center(
-          child: Text(
-            'Registro não encontrado',
-            style: TextStyle(
-              fontSize: 20,
-              color: Theme.of(context).colorScheme.secondary,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 32.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.search_off, color: Colors.grey, size: 32),
+          const SizedBox(width: 12),
+          Flexible(
+            child: Text(
+              'Registro não encontrado',
+              style: TextStyle(color: Colors.grey, fontSize: 16),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
             ),
           ),
-        ),
+        ],
       ),
     );
   }

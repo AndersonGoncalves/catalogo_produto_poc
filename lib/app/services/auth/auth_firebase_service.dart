@@ -11,7 +11,7 @@ class AuthFirebaseService {
 
   Stream<User?> get authState => FirebaseAuth.instance.authStateChanges();
 
-  Future<void> signUpWithEmail({
+  Future<void> registrarComEmail({
     String? name,
     String? photoURL,
     required String email,
@@ -40,7 +40,7 @@ class AuthFirebaseService {
     }
   }
 
-  Future<void> loginWithEmail({
+  Future<void> loginComEmail({
     required String email,
     required String password,
     required BuildContext context,
@@ -83,7 +83,7 @@ class AuthFirebaseService {
     }
   }
 
-  Future<void> signInAnonymously(BuildContext context) async {
+  Future<void> loginAnonimo(BuildContext context) async {
     try {
       await _auth.signInAnonymously();
     } on FirebaseAuthException catch (e) {
@@ -93,7 +93,7 @@ class AuthFirebaseService {
     }
   }
 
-  Future<void> signOut(BuildContext context) async {
+  Future<void> sair(BuildContext context) async {
     try {
       await _auth.signOut();
     } on FirebaseAuthException catch (e) {

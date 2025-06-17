@@ -142,7 +142,7 @@ class _ProdutoFotoPageState extends State<ProdutoFotoPage> {
         automaticallyImplyLeading: false,
         leading: IconButton(
           onPressed: Navigator.of(context).pop,
-          icon: const Icon(Icons.arrow_back_ios, size: 20),
+          icon: const Icon(Icons.close, size: 20),
         ),
         title: Padding(
           padding: const EdgeInsets.only(bottom: 2),
@@ -197,10 +197,6 @@ class _ProdutoFotoPageState extends State<ProdutoFotoPage> {
                                     fotoPequena(1),
                                     const SizedBox(width: 12),
                                     fotoPequena(2),
-                                    const SizedBox(width: 12),
-                                    fotoPequena(3),
-                                    const SizedBox(width: 12),
-                                    fotoPequena(4),
                                   ],
                                 ),
                               )

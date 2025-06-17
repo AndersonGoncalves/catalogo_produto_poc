@@ -42,7 +42,7 @@ class _WidgetDrawerState extends State<WidgetDrawer> {
   }
 
   Future<void> _sair(BuildContext context) async {
-    context.read<AuthFirebaseService>().signOut(context).then((value) {
+    context.read<AuthFirebaseService>().sair(context).then((value) {
       if (!context.mounted) return;
       Navigator.of(context).pushReplacementNamed(Rotas.home);
     });

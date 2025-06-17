@@ -19,11 +19,9 @@ class AuthFormPage extends StatefulWidget {
 class _AuthFormPageState extends State<AuthFormPage>
     with SingleTickerProviderStateMixin {
   bool _isLoading = false;
+  late AuthMode? _authMode;
   final _formKey = GlobalKey<FormState>();
-
   final _passwordController = TextEditingController();
-
-  AuthMode? _authMode;
   final Map<String, String> _formData = {'email': '', 'password': ''};
 
   AnimationController? _controller;
@@ -67,7 +65,7 @@ class _AuthFormPageState extends State<AuthFormPage>
       } else {
         AuthFirebaseService firebaseAuthService = context
             .read<AuthFirebaseService>();
-        await firebaseAuthService.signInAnonymously(context);
+        await firebaseAuthService.loginAnonimo(context);
       }
     } finally {
       setState(() => _isLoading = false);
@@ -89,7 +87,7 @@ class _AuthFormPageState extends State<AuthFormPage>
 
     try {
       if (_isLogin) {
-        await firebaseAuthService.loginWithEmail(
+        await firebaseAuthService.loginComEmail(
           email: _formData['email']!,
           password: _formData['password']!,
           context: context,
@@ -110,7 +108,7 @@ class _AuthFormPageState extends State<AuthFormPage>
                 }
               });
         } else {
-          await firebaseAuthService.signUpWithEmail(
+          await firebaseAuthService.registrarComEmail(
             name: _formData['name']!,
             email: _formData['email']!,
             password: _formData['password']!,

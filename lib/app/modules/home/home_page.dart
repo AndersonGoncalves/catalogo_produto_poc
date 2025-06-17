@@ -21,15 +21,24 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //Devido ser uma PoC, não foi criado nenhuma pagina, por isso está sendo passado o SizedBox() para todos
     final List<Map<String, Object>> pages = [
-      {'title': 'Page1', 'page': const SizedBox()},
-      {'title': 'Page2', 'page': const SizedBox()},
-      {'title': 'Page3', 'page': const SizedBox()},
-      {'title': 'Page4', 'page': const SizedBox()},
+      {'title': '', 'page': const SizedBox()},
+      {'title': '', 'page': const SizedBox()},
+      {'title': '', 'page': const SizedBox()},
+      {'title': '', 'page': const SizedBox()},
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('PoC')),
+      appBar: AppBar(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('PoC', style: TextStyle(fontSize: 12)),
+            const Text('Anderson Gonçalves', style: TextStyle(fontSize: 16)),
+          ],
+        ),
+      ),
       drawer: WidgetDrawer(
         userName: context
             .read<AuthFirebaseService>()
@@ -60,22 +69,22 @@ class _HomePageState extends State<HomePage> {
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   icon: const Icon(Icons.assessment_outlined),
-                  label: '',
+                  label: pages[0]['title'].toString(),
                 ),
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   icon: const Icon(Icons.supervisor_account_sharp),
-                  label: '',
+                  label: pages[1]['title'].toString(),
                 ),
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   icon: const Icon(Icons.account_balance_sharp),
-                  label: '',
+                  label: pages[2]['title'].toString(),
                 ),
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   icon: const Icon(Icons.credit_card),
-                  label: '',
+                  label: pages[3]['title'].toString(),
                 ),
               ],
             ),
