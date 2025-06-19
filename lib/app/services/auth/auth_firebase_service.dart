@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:catalogo_produto_poc/app/core/ui/functions.dart';
+import 'package:catalogo_produto_poc/app/core/ui/messages.dart';
 
 class AuthFirebaseService {
   final FirebaseAuth _auth;
@@ -31,11 +31,13 @@ class AuthFirebaseService {
       }
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
-        showSnackBar(context, e.message ?? 'Ocorreu um erro ao criar a conta.');
+        Messages.of(
+          context,
+        ).showError(e.message ?? 'Ocorreu um erro ao criar a conta.');
       }
     } catch (e) {
       if (context.mounted) {
-        showSnackBar(context, 'Ocorreu um erro inesperado.');
+        Messages.of(context).showError('Ocorreu um erro inesperado.');
       }
     }
   }
@@ -49,7 +51,7 @@ class AuthFirebaseService {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
-        showSnackBar(context, e.message!);
+        Messages.of(context).showError(e.message!);
       }
     }
   }
@@ -78,7 +80,7 @@ class AuthFirebaseService {
       await _auth.currentUser?.linkWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
-        showSnackBar(context, e.message!);
+        Messages.of(context).showError(e.message!);
       }
     }
   }
@@ -88,7 +90,7 @@ class AuthFirebaseService {
       await _auth.signInAnonymously();
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
-        showSnackBar(context, e.message!);
+        Messages.of(context).showError(e.message!);
       }
     }
   }
@@ -98,7 +100,7 @@ class AuthFirebaseService {
       await _auth.signOut();
     } on FirebaseAuthException catch (e) {
       if (context.mounted) {
-        showSnackBar(context, e.message!);
+        Messages.of(context).showError(e.message!);
       }
     }
   }

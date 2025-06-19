@@ -12,16 +12,19 @@ class ProdutoServiceImpl implements ProdutoService {
   List<Produto> get produtos => _produtoRepository.produtos;
 
   @override
-  Future<void> load() => _produtoRepository.load();
+  void add(Produto produto) => _produtoRepository.add(produto);
 
   @override
-  Future<void> add(Produto model) => _produtoRepository.add(model);
+  Future<void> get() => _produtoRepository.get();
 
   @override
-  Future<void> update(Produto model) => _produtoRepository.update(model);
+  Future<void> post(Produto model) => _produtoRepository.post(model);
 
   @override
-  Future<void> remove(Produto model) => _produtoRepository.remove(model);
+  Future<void> patch(Produto model) => _produtoRepository.patch(model);
+
+  @override
+  Future<void> delete(Produto model) => _produtoRepository.delete(model);
 
   @override
   Future<void> save(Map<String, dynamic> map) => _produtoRepository.save(map);

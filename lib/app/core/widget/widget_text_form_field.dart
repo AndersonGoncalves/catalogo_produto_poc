@@ -39,7 +39,7 @@ class WidgetTextFormField extends StatelessWidget {
     this.initialValue,
     this.controller,
     this.hintText,
-    this.border = true,
+    this.border = false,
     this.removerLinha = false,
     this.fillColor,
     this.borderRadius = 5.0,

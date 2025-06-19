@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:validatorless/validatorless.dart';
+import 'package:catalogo_produto_poc/app/core/ui/messages.dart';
 import 'package:catalogo_produto_poc/app/core/ui/functions.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
@@ -35,7 +37,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
   }) {
     return CurrencyTextInputFormatter.currency(
       locale: 'pt_BR',
-      symbol: '',
+      symbol: 'R\$',
       decimalDigits: decimalDigits,
       turnOffGrouping: true,
     );
@@ -107,7 +109,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
         Navigator.of(context).pop();
       } else if (error != null && error.isNotEmpty) {
         if (mounted) {
-          showSnackBar(context, error, Colors.red);
+          Messages.of(context).showError(error);
         }
       }
     });
@@ -203,13 +205,9 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                       focusNode: _nomeFocus,
                                       initialValue: _formData['nome']
                                           ?.toString(),
-                                      validator: (value) {
-                                        final nome = value ?? '';
-                                        if (nome.trim().isEmpty) {
-                                          return 'Nome é obrigatório';
-                                        }
-                                        return null;
-                                      },
+                                      validator: Validatorless.required(
+                                        'Nome é obrigatório',
+                                      ),
                                       onSaved: (value) =>
                                           _formData['nome'] = value ?? '',
                                       onFieldSubmitted: (_) => FocusScope.of(
@@ -240,13 +238,13 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                                 ],
                                                 controller:
                                                     _precoCustoController,
-                                                validator: (value) {
-                                                  final nome = value ?? '';
-                                                  if (nome.trim().isEmpty) {
-                                                    return 'Preço de custo é obrigatório';
-                                                  }
-                                                  return null;
-                                                },
+
+                                                validator:
+                                                    Validatorless.multiple([
+                                                      Validatorless.required(
+                                                        'Custo é obrigatório',
+                                                      ),
+                                                    ]),
                                                 onSaved: (value) =>
                                                     _formData['precoDeCusto'] =
                                                         value ?? 0.00,
@@ -281,13 +279,12 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                                 ],
                                                 controller:
                                                     _precoVendaController,
-                                                validator: (value) {
-                                                  final nome = value ?? '';
-                                                  if (nome.trim().isEmpty) {
-                                                    return 'Preço de venda é obrigatório';
-                                                  }
-                                                  return null;
-                                                },
+                                                validator:
+                                                    Validatorless.multiple([
+                                                      Validatorless.required(
+                                                        'Venda é obrigatório',
+                                                      ),
+                                                    ]),
                                                 onSaved: (value) =>
                                                     _formData['precoDeVenda'] =
                                                         value ?? 0.00,
@@ -338,9 +335,11 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                         focusNode: _descricaoFocus,
                                         initialValue: _formData['descricao']
                                             ?.toString(),
-                                        validator: (value) {
-                                          return null;
-                                        },
+                                        validator: Validatorless.multiple([
+                                          Validatorless.required(
+                                            'Descrição é obrigatório',
+                                          ),
+                                        ]),
                                         onSaved: (value) =>
                                             _formData['descricao'] =
                                                 value ?? '',

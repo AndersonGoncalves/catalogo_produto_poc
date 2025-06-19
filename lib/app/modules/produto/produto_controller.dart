@@ -18,7 +18,7 @@ class ProdutoController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      return await _produtoService.load();
+      return await _produtoService.get();
     } finally {
       isLoading = false;
       notifyListeners();
@@ -48,7 +48,7 @@ class ProdutoController extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      await _produtoService.remove(produto);
+      await _produtoService.delete(produto);
       sucess = true;
     } on Exception catch (e) {
       error = 'Erro ao remover produto: ${e.toString()}';

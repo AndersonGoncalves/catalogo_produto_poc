@@ -25,8 +25,8 @@ class AppProvider extends StatelessWidget {
             AuthFirebaseService firebaseSeFirebaseAuthService =
                 AuthFirebaseService(FirebaseAuth.instance);
             return ProdutoRepositoryImpl(
-              firebaseSeFirebaseAuthService.user.refreshToken.toString(),
-              produtoRepository?.produtos ?? [],
+              token: firebaseSeFirebaseAuthService.user.refreshToken.toString(),
+              produtos: produtoRepository?.produtos ?? [],
             );
           },
         ),

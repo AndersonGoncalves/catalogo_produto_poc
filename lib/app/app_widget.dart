@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/ui/theme_config.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_error_page.dart';

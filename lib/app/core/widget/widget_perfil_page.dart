@@ -31,6 +31,11 @@ class _WidgetPerfilPageState extends State<WidgetPerfilPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      SizedBox(
+                        height: 150,
+                        width: 150,
+                        child: Image.asset('assets/icon/icon-adaptive.png'),
+                      ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 20),
                         padding: const EdgeInsets.symmetric(
@@ -51,6 +56,7 @@ class _WidgetPerfilPageState extends State<WidgetPerfilPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 30.0),
                         child: Card(
+                          color: Colors.white,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
