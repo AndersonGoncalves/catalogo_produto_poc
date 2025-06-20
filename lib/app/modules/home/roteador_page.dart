@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:catalogo_produto_poc/app/modules/home/home_page.dart';
-import 'package:catalogo_produto_poc/app/modules/auth/auth_form_page.dart';
+import 'package:catalogo_produto_poc/app/modules/usuario/page/auth_form_page.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
-import 'package:catalogo_produto_poc/app/services/auth/auth_firebase_service.dart';
+import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 
 class RoteadorPage extends StatelessWidget {
   const RoteadorPage({super.key});
@@ -12,7 +12,7 @@ class RoteadorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-      stream: context.read<AuthFirebaseService>().authState,
+      stream: context.read<UsuarioServiceImpl>().authState,
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return WidgetLoadingPage(

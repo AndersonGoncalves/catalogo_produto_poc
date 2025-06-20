@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:catalogo_produto_poc/app/services/auth/auth_firebase_service.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_text_button.dart';
+import 'package:catalogo_produto_poc/app/services/usuario/usuario_service.dart';
+import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 
 enum AuthMode { signup, login }
 
@@ -63,9 +65,8 @@ class _AuthFormPageState extends State<AuthFormPage>
       if (widget.usuarioAnonimo) {
         Navigator.of(context).pop();
       } else {
-        AuthFirebaseService firebaseAuthService = context
-            .read<AuthFirebaseService>();
-        await firebaseAuthService.loginAnonimo(context);
+        UsuarioService firebaseAuthService = context.read<UsuarioServiceImpl>();
+        await firebaseAuthService.loginAnonimo();
       }
     } finally {
       setState(() => _isLoading = false);
@@ -82,24 +83,20 @@ class _AuthFormPageState extends State<AuthFormPage>
     setState(() => _isLoading = true);
 
     _formKey.currentState?.save();
-    AuthFirebaseService firebaseAuthService = context
-        .read<AuthFirebaseService>();
+    UsuarioService firebaseAuthService = context.read<UsuarioServiceImpl>();
 
     try {
       if (_isLogin) {
-        await firebaseAuthService.loginComEmail(
-          email: _formData['email']!,
-          password: _formData['password']!,
-          context: context,
+        await firebaseAuthService.login(
+          _formData['email']!,
+          _formData['password']!,
         );
       } else {
         if (widget.usuarioAnonimo) {
           await firebaseAuthService
               .converterContaAnonimaEmPermanente(
-                name: _formData['name']!,
-                email: _formData['email']!,
-                password: _formData['password']!,
-                context: context,
+                _formData['email']!,
+                _formData['password']!,
               )
               .then((value) {
                 if (widget.usuarioAnonimo) {
@@ -108,11 +105,10 @@ class _AuthFormPageState extends State<AuthFormPage>
                 }
               });
         } else {
-          await firebaseAuthService.registrarComEmail(
-            name: _formData['name']!,
-            email: _formData['email']!,
-            password: _formData['password']!,
-            context: context,
+          await firebaseAuthService.register(
+            _formData['name']!,
+            _formData['email']!,
+            _formData['password']!,
           );
         }
       }
@@ -124,7 +120,6 @@ class _AuthFormPageState extends State<AuthFormPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: _isLoading
           ? WidgetLoadingPage(label: 'Carregando...', labelColor: Colors.white)
           : SafeArea(
@@ -138,32 +133,12 @@ class _AuthFormPageState extends State<AuthFormPage>
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 20),
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 10,
-                                horizontal: 70,
-                              ),
-
-                              child: FittedBox(
-                                child: Text(
-                                  'PoC',
-                                  style: TextStyle(
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.bold,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.primary,
-                                  ),
-                                ),
-                              ),
-                            ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 10,
                               ),
                               child: Card(
-                                color: Colors.white,
+                                color: Theme.of(context).canvasColor,
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
@@ -176,9 +151,28 @@ class _AuthFormPageState extends State<AuthFormPage>
                                     ),
                                     child: Column(
                                       children: <Widget>[
+                                        SizedBox(
+                                          height: 110,
+                                          width: 110,
+                                          child: Image.asset(
+                                            'assets/icon/icon-adaptive.png',
+                                          ),
+                                        ),
+                                        FittedBox(
+                                          child: Text(
+                                            'PoC',
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold,
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.primary,
+                                            ),
+                                          ),
+                                        ),
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                            top: 10,
+                                            top: 5,
                                             bottom: 5,
                                             left: 10,
                                             right: 10,
@@ -305,28 +299,63 @@ class _AuthFormPageState extends State<AuthFormPage>
                                         if (_isLoading)
                                           const CircularProgressIndicator()
                                         else
-                                          ElevatedButton(
-                                            onPressed: _save,
-                                            style: ElevatedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              minimumSize: Size(
-                                                double.infinity,
-                                                48,
-                                              ),
-                                              elevation: 0,
-                                              tapTargetSize:
-                                                  MaterialTapTargetSize
-                                                      .shrinkWrap,
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              bottom: 20,
                                             ),
-                                            child: Text(
-                                              _authMode == AuthMode.login
-                                                  ? 'ENTRAR'
-                                                  : 'REGISTRAR',
+                                            child: ElevatedButton(
+                                              onPressed: _save,
+                                              style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                minimumSize: Size(
+                                                  double.infinity,
+                                                  48,
+                                                ),
+                                                elevation: 0,
+                                                tapTargetSize:
+                                                    MaterialTapTargetSize
+                                                        .shrinkWrap,
+                                              ),
+                                              child: Text(
+                                                _authMode == AuthMode.login
+                                                    ? 'ENTRAR'
+                                                    : 'REGISTRAR',
+                                              ),
                                             ),
                                           ),
+
+                                        _authMode == AuthMode.login
+                                            ? Padding(
+                                                padding: const EdgeInsets.only(
+                                                  bottom: 15,
+                                                ),
+                                                child: SignInButton(
+                                                  Buttons.Google,
+                                                  text: 'Login com Google',
+                                                  elevation: 2,
+                                                  padding: const EdgeInsets.all(
+                                                    5,
+                                                  ),
+                                                  shape: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          5,
+                                                        ),
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  onPressed: () {
+                                                    context
+                                                        .read<
+                                                          UsuarioServiceImpl
+                                                        >()
+                                                        .googleLogin();
+                                                  },
+                                                ),
+                                              )
+                                            : SizedBox.shrink(),
                                         widget.usuarioAnonimo
                                             ? const SizedBox()
                                             : WidgetTextButton(

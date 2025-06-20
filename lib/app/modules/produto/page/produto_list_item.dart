@@ -61,19 +61,25 @@ class _ProdutoListItemState extends State<ProdutoListItem> {
               context,
             ).pushNamed(Rotas.produtoForm, arguments: widget._produto);
           },
-          leading: const Padding(
-            padding: EdgeInsets.only(left: 8, top: 7, right: 8),
-            child: Icon(
-              Icons.local_offer_outlined,
-              color: Colors.black45,
-              size: 24,
-            ),
-          ),
+          leading: widget._produto.fotos == null
+              ? CircleAvatar(
+                  radius: 24,
+                  backgroundColor: Colors.black12,
+                  child: Icon(
+                    Icons.local_offer_outlined,
+                    color: Colors.black45,
+                    size: 24,
+                  ),
+                )
+              : CircleAvatar(
+                  radius: 24,
+                  backgroundImage: NetworkImage(widget._produto.fotos![0]),
+                ),
           title: Text(
             widget._produto.nome,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-          subtitle: Text(widget._produto.descricao!),
+          subtitle: Text(widget._produto.descricao!, maxLines: 2),
           trailing: Text(
             formatCurrency.format(widget._produto.precoDeVenda),
             style: const TextStyle(

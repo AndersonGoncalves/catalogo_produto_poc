@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_drawer.dart';
-import 'package:catalogo_produto_poc/app/services/auth/auth_firebase_service.dart';
+import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -41,11 +41,11 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: WidgetDrawer(
         userName: context
-            .read<AuthFirebaseService>()
+            .read<UsuarioServiceImpl>()
             .user
             .displayName
             .toString(),
-        userEmail: context.read<AuthFirebaseService>().user.email ?? '',
+        userEmail: context.read<UsuarioServiceImpl>().user.email ?? '',
       ),
       body: SafeArea(
         child: Column(

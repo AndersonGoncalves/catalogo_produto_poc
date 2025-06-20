@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
-import 'package:catalogo_produto_poc/app/services/auth/auth_firebase_service.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_dialog.dart';
-import 'package:catalogo_produto_poc/app/modules/auth/auth_form_page.dart';
+import 'package:catalogo_produto_poc/app/modules/usuario/page/auth_form_page.dart';
+import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 
 class WidgetDrawer extends StatefulWidget {
   final String? userName;
@@ -42,7 +42,7 @@ class _WidgetDrawerState extends State<WidgetDrawer> {
   }
 
   Future<void> _sair(BuildContext context) async {
-    context.read<AuthFirebaseService>().sair(context).then((value) {
+    context.read<UsuarioServiceImpl>().logout().then((value) {
       if (!context.mounted) return;
       Navigator.of(context).pushReplacementNamed(Rotas.home);
     });
@@ -60,7 +60,7 @@ class _WidgetDrawerState extends State<WidgetDrawer> {
               child: widget.userImage,
             ),
             accountName: Text(
-              'Olá, ${widget.userName}',
+              'Olá, ${widget.userName == 'null' ? '' : widget.userName}',
               style: const TextStyle(color: Colors.white),
             ),
             accountEmail: Text(
@@ -78,7 +78,7 @@ class _WidgetDrawerState extends State<WidgetDrawer> {
           }),
           const Divider(),
           _createItem(Icons.account_circle_outlined, 'Perfil', () {
-            if (context.read<AuthFirebaseService>().user.isAnonymous) {
+            if (context.read<UsuarioServiceImpl>().user.isAnonymous) {
               Navigator.of(context).pop();
               Navigator.of(context).push(
                 CupertinoPageRoute(
@@ -99,7 +99,7 @@ class _WidgetDrawerState extends State<WidgetDrawer> {
           }),
           const Divider(),
           _createItem(Icons.exit_to_app_outlined, 'Sair', () {
-            if (context.read<AuthFirebaseService>().user.isAnonymous) {
+            if (context.read<UsuarioServiceImpl>().user.isAnonymous) {
               WidgetDialog(context, 'Não', 'Sim').confirm(
                 titulo: 'Atenção',
                 pergunta:
