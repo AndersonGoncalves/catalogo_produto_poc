@@ -61,7 +61,8 @@ class _ProdutoListItemState extends State<ProdutoListItem> {
               context,
             ).pushNamed(Rotas.produtoForm, arguments: widget._produto);
           },
-          leading: widget._produto.fotos == null
+          leading:
+              widget._produto.fotos == null || widget._produto.fotos!.isEmpty
               ? CircleAvatar(
                   radius: 24,
                   backgroundColor: Colors.black12,

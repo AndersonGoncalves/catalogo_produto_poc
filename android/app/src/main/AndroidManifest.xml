@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="catalogo_produto_poc"
+        android:label="Catálogo de Produtos"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
