@@ -108,9 +108,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
       if (sucess) {
         Navigator.of(context).pop();
       } else if (error != null && error.isNotEmpty) {
-        if (mounted) {
-          Messages.of(context).showError(error);
-        }
+        Messages.of(context).showError(error);
       }
     });
   }

@@ -29,6 +29,15 @@ class UsuarioServiceImpl implements UsuarioService {
   }
 
   @override
+  Future<User?> loginAnonimo() => _usuarioRepository.loginAnonimo();
+
+  @override
+  Future<User?> converterContaAnonimaEmPermanente(
+    String email,
+    String password,
+  ) => _usuarioRepository.converterContaAnonimaEmPermanente(email, password);
+
+  @override
   Future<void> logout() {
     return _usuarioRepository.logout();
   }
@@ -37,13 +46,4 @@ class UsuarioServiceImpl implements UsuarioService {
   Future<void> esqueceuSenha(String email) {
     return _usuarioRepository.esqueceuSenha(email);
   }
-
-  @override
-  Future<void> loginAnonimo() => _usuarioRepository.loginAnonimo();
-
-  @override
-  Future<void> converterContaAnonimaEmPermanente(
-    String email,
-    String password,
-  ) => _usuarioRepository.converterContaAnonimaEmPermanente(email, password);
 }

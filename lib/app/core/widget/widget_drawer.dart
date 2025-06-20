@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_dialog.dart';
-import 'package:catalogo_produto_poc/app/modules/usuario/page/auth_form_page.dart';
+import 'package:catalogo_produto_poc/app/modules/usuario/page/usuario_form_page.dart';
 import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 
 class WidgetDrawer extends StatefulWidget {
@@ -86,7 +86,7 @@ class _WidgetDrawerState extends State<WidgetDrawer> {
                   fullscreenDialog: false,
                   allowSnapshotting: true,
                   builder: (_) {
-                    return const AuthFormPage(usuarioAnonimo: true);
+                    return const UsuarioFormPage(usuarioAnonimo: true);
                   },
                 ),
               );

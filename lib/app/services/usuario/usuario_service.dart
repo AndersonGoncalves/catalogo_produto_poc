@@ -6,8 +6,11 @@ abstract class UsuarioService {
   Future<User?> register(String name, String email, String password);
   Future<User?> login(String email, String password);
   Future<User?> googleLogin();
+  Future<User?> loginAnonimo();
+  Future<User?> converterContaAnonimaEmPermanente(
+    String email,
+    String password,
+  );
   Future<void> logout();
   Future<void> esqueceuSenha(String email);
-  Future<void> loginAnonimo();
-  Future<void> converterContaAnonimaEmPermanente(String email, String password);
 }

@@ -67,27 +67,6 @@ class UsuarioRepositoryImpl implements UsuarioRepository {
   }
 
   @override
-  Future<void> esqueceuSenha(String email) async {
-    try {
-      final loginMethods = await _firebaseAuth.fetchSignInMethodsForEmail(
-        email,
-      );
-      if (loginMethods.contains('password')) {
-        await _firebaseAuth.sendPasswordResetEmail(email: email);
-      } else if (loginMethods.contains('google')) {
-        throw AuthException(
-          message:
-              'Cadastro realizado com o google não pode ser resetado a senha',
-        );
-      } else {
-        throw AuthException(message: 'Email não cadastrado');
-      }
-    } on PlatformException catch (e) {
-      throw AuthException(message: 'erro ao resetar senha: $e');
-    }
-  }
-
-  @override
   Future<User?> googleLogin() async {
     List<String>? loginMethods;
     try {
@@ -133,22 +112,17 @@ class UsuarioRepositoryImpl implements UsuarioRepository {
   }
 
   @override
-  Future<void> logout() async {
-    await GoogleSignIn().signOut();
-    _firebaseAuth.signOut();
-  }
-
-  @override
-  Future<void> loginAnonimo() async {
+  Future<User?> loginAnonimo() async {
     try {
-      await _firebaseAuth.signInAnonymously();
+      var userCredential = await _firebaseAuth.signInAnonymously();
+      return userCredential.user;
     } on FirebaseAuthException catch (e) {
       throw AuthException(message: 'Erro ao realizar login: $e');
     }
   }
 
   @override
-  Future<void> converterContaAnonimaEmPermanente(
+  Future<User?> converterContaAnonimaEmPermanente(
     String email,
     String password,
   ) async {
@@ -158,9 +132,39 @@ class UsuarioRepositoryImpl implements UsuarioRepository {
     );
 
     try {
-      await _firebaseAuth.currentUser?.linkWithCredential(credential);
+      var userCredential = await _firebaseAuth.currentUser?.linkWithCredential(
+        credential,
+      );
+      return userCredential!.user;
     } on FirebaseAuthException catch (e) {
       throw AuthException(message: 'Erro ao realizar login: $e');
+    }
+  }
+
+  @override
+  Future<void> logout() async {
+    await GoogleSignIn().signOut();
+    _firebaseAuth.signOut();
+  }
+
+  @override
+  Future<void> esqueceuSenha(String email) async {
+    try {
+      final loginMethods = await _firebaseAuth.fetchSignInMethodsForEmail(
+        email,
+      );
+      if (loginMethods.contains('password')) {
+        await _firebaseAuth.sendPasswordResetEmail(email: email);
+      } else if (loginMethods.contains('google')) {
+        throw AuthException(
+          message:
+              'Cadastro realizado com o google não pode ser resetado a senha',
+        );
+      } else {
+        throw AuthException(message: 'Email não cadastrado');
+      }
+    } on PlatformException catch (e) {
+      throw AuthException(message: 'erro ao resetar senha: $e');
     }
   }
 }

@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:catalogo_produto_poc/app/core/ui/messages.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_text_button.dart';
-import 'package:catalogo_produto_poc/app/services/usuario/usuario_service.dart';
+import 'package:catalogo_produto_poc/app/modules/usuario/usuario_controller.dart';
 import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 
 enum AuthMode { signup, login }
 
-class AuthFormPage extends StatefulWidget {
+class UsuarioFormPage extends StatefulWidget {
   final bool usuarioAnonimo;
 
-  const AuthFormPage({this.usuarioAnonimo = false, super.key});
+  const UsuarioFormPage({this.usuarioAnonimo = false, super.key});
 
   @override
-  State<AuthFormPage> createState() => _AuthFormPageState();
+  State<UsuarioFormPage> createState() => UsuariohFormPageState();
 }
 
-class _AuthFormPageState extends State<AuthFormPage>
+class UsuariohFormPageState extends State<UsuarioFormPage>
     with SingleTickerProviderStateMixin {
   bool _isLoading = false;
   late AuthMode? _authMode;
@@ -27,8 +28,57 @@ class _AuthFormPageState extends State<AuthFormPage>
   final Map<String, String> _formData = {'email': '', 'password': ''};
 
   AnimationController? _controller;
-
   bool get _isLogin => _authMode == AuthMode.login;
+
+  void _switchAuthMode() {
+    setState(() {
+      if (_isLogin) {
+        _authMode = AuthMode.signup;
+        _controller?.forward();
+      } else {
+        _authMode = AuthMode.login;
+        _controller?.reverse();
+      }
+    });
+  }
+
+  Future<void> _submit() async {
+    final formValid = _formKey.currentState?.validate() ?? false;
+
+    if (formValid) {
+      _formKey.currentState?.save();
+      UsuarioController usuarioController = context.read<UsuarioController>();
+
+      if (_isLogin) {
+        await usuarioController.login(
+          _formData['email']!,
+          _formData['password']!,
+        );
+      } else {
+        if (widget.usuarioAnonimo) {
+          await usuarioController.converterContaAnonimaEmPermanente(
+            _formData['email']!,
+            _formData['password']!,
+          );
+        } else {
+          await usuarioController.register(
+            _formData['name']!,
+            _formData['email']!,
+            _formData['password']!,
+          );
+        }
+      }
+    }
+  }
+
+  Future<void> _loginAnonimo() async {
+    if (widget.usuarioAnonimo) {
+      Navigator.of(context).pop();
+    } else {
+      UsuarioController usuarioController = context.read<UsuarioController>();
+      await usuarioController.loginAnonimo();
+    }
+  }
 
   @override
   void initState() {
@@ -44,77 +94,24 @@ class _AuthFormPageState extends State<AuthFormPage>
       vsync: this,
       duration: const Duration(milliseconds: 700),
     );
-  }
 
-  void _switchAuthMode() {
-    setState(() {
-      if (_isLogin) {
-        _authMode = AuthMode.signup;
-        _controller?.forward();
-      } else {
-        _authMode = AuthMode.login;
-        _controller?.reverse();
+    context.read<UsuarioController>().addListener(() {
+      final controller = context.read<UsuarioController>();
+      var error = controller.error;
+      var sucess = controller.sucess;
+      setState(() => _isLoading = controller.isLoading);
+      if (sucess) {
+        Navigator.of(context).pop();
+      } else if (error != null && error.isNotEmpty) {
+        Messages.of(context).showError(error);
       }
     });
   }
 
-  Future<void> _loginAnonimo() async {
-    setState(() => _isLoading = true);
-
-    try {
-      if (widget.usuarioAnonimo) {
-        Navigator.of(context).pop();
-      } else {
-        UsuarioService firebaseAuthService = context.read<UsuarioServiceImpl>();
-        await firebaseAuthService.loginAnonimo();
-      }
-    } finally {
-      setState(() => _isLoading = false);
-    }
-  }
-
-  Future<void> _save() async {
-    final isValid = _formKey.currentState?.validate() ?? false;
-
-    if (!isValid) {
-      return;
-    }
-
-    setState(() => _isLoading = true);
-
-    _formKey.currentState?.save();
-    UsuarioService firebaseAuthService = context.read<UsuarioServiceImpl>();
-
-    try {
-      if (_isLogin) {
-        await firebaseAuthService.login(
-          _formData['email']!,
-          _formData['password']!,
-        );
-      } else {
-        if (widget.usuarioAnonimo) {
-          await firebaseAuthService
-              .converterContaAnonimaEmPermanente(
-                _formData['email']!,
-                _formData['password']!,
-              )
-              .then((value) {
-                if (widget.usuarioAnonimo) {
-                  if (!mounted) return;
-                  Navigator.of(context).pop();
-                }
-              });
-        } else {
-          await firebaseAuthService.register(
-            _formData['name']!,
-            _formData['email']!,
-            _formData['password']!,
-          );
-        }
-      }
-    } finally {
-      setState(() => _isLoading = false);
-    }
+  @override
+  void dispose() {
+    super.dispose();
+    context.read<UsuarioController>().removeListener(() {});
   }
 
   @override
@@ -304,7 +301,7 @@ class _AuthFormPageState extends State<AuthFormPage>
                                               bottom: 20,
                                             ),
                                             child: ElevatedButton(
-                                              onPressed: _save,
+                                              onPressed: _submit,
                                               style: ElevatedButton.styleFrom(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:

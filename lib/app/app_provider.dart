@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:catalogo_produto_poc/app/app_widget.dart';
+import 'package:catalogo_produto_poc/app/modules/usuario/usuario_controller.dart';
 import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 import 'package:catalogo_produto_poc/app/services/produto/produto_service_impl.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
@@ -22,6 +23,11 @@ class AppProvider extends StatelessWidget {
         Provider<UsuarioServiceImpl>(
           create: (context) => UsuarioServiceImpl(
             usuarioRepository: context.read<UsuarioRepositoryImpl>(),
+          ),
+        ),
+        ChangeNotifierProvider<UsuarioController>(
+          create: (context) => UsuarioController(
+            usuarioService: context.read<UsuarioServiceImpl>(),
           ),
         ),
 
