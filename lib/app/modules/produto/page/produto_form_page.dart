@@ -54,7 +54,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
     _formData['precoDeCusto'] = 0.0;
     _formData['marca'] = '';
     _formData['descricao'] = '';
-    _formData['quantidadeEmEstoque'] = 0.0;
+    _formData['quantidadeEmEstoque'] = 0;
     _formData['codigoBarras'] = '';
     _formData['fotos'] = [];
   }
@@ -157,7 +157,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
         );
         _codeBarController.text = _formData['codigoBarras'].toString();
         _quantidadeEmEstoqueController.text = _formData['quantidadeEmEstoque']
-            .toStringAsFixed(2);
+            .toString();
       } else {
         _setValoresInicial();
       }

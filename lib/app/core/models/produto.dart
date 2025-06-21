@@ -10,7 +10,7 @@ class Produto with ChangeNotifier {
   final double precoDeCusto;
   final double precoDeVenda;
   final String? codigoBarras;
-  final double quantidadeEmEstoque;
+  final int? quantidadeEmEstoque;
   final List<String>? fotos;
 
   Produto({
@@ -35,7 +35,7 @@ class Produto with ChangeNotifier {
     double? precoDeCusto,
     double? precoDeVenda,
     ValueGetter<String?>? codigoBarras,
-    double? quantidadeEmEstoque,
+    int? quantidadeEmEstoque,
     ValueGetter<List<String>?>? fotos,
   }) {
     return Produto(
@@ -95,14 +95,17 @@ class Produto with ChangeNotifier {
                 )! /
                 100,
       codigoBarras: map['codigoBarras']?.toString(),
-      quantidadeEmEstoque: load
-          ? map['quantidadeEmEstoque']?.toDouble() ?? 0.0
-          : double.tryParse(
-                  map['quantidadeEmEstoque']
-                      .replaceAll(RegExp(r'[^0-9]'), '')
-                      .toString(),
-                )! /
-                100,
+      // quantidadeEmEstoque: load
+      //     ? map['quantidadeEmEstoque']?.toDouble() ?? 0.0
+      //     : double.tryParse(
+      //             map['quantidadeEmEstoque']
+      //                 .replaceAll(RegExp(r'[^0-9]'), '')
+      //                 .toString(),
+      //           )! /
+      //           100,
+      quantidadeEmEstoque: map['quantidadeEmEstoque'] == null
+          ? 0
+          : int.parse(map['quantidadeEmEstoque'].toString()),
 
       fotos: map['fotos'] != null
           ? load
