@@ -162,7 +162,7 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 10),
+                        padding: const EdgeInsets.only(top: 7, left: 10),
                         child: InkWell(
                           onTap: () {
                             UrlLauncher.openUrl('https://flutter.dev/');
@@ -180,7 +180,7 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 10),
+                        padding: const EdgeInsets.only(top: 7, left: 10),
                         child: InkWell(
                           onTap: () {
                             UrlLauncher.openUrl('https://dart.dev/');
@@ -198,7 +198,7 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 10),
+                        padding: const EdgeInsets.only(top: 7, left: 10),
                         child: InkWell(
                           onTap: () {
                             UrlLauncher.openUrl(
@@ -229,7 +229,7 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 10),
+                        padding: const EdgeInsets.only(top: 7, left: 10),
                         child: InkWell(
                           onTap: () {
                             UrlLauncher.openUrl(
@@ -248,7 +248,7 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 10),
+                        padding: const EdgeInsets.only(top: 7, left: 10),
                         child: InkWell(
                           onTap: () {
                             UrlLauncher.openUrl(

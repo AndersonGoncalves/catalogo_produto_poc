@@ -103,7 +103,7 @@ class _ProdutoListItemState extends State<ProdutoListItem> {
                 ),
               ),
               Text(
-                'Estoque: ${widget._produto.quantidadeEmEstoque}',
+                '${widget._produto.quantidadeEmEstoque} Und',
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.black54,

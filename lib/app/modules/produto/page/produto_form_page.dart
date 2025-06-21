@@ -180,6 +180,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: _isLoading
           ? WidgetLoadingPage(
               label: 'Salvando...',
@@ -188,8 +189,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
             )
           : Form(
               key: _formKey,
-              child: Container(
-                color: Colors.white,
+              child: SizedBox(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[

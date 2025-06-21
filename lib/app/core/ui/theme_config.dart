@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class ThemeConfig {
   static const Color _canvasColor = Color.fromRGBO(240, 240, 240, 1);
   static const Color _primaryColor = Color.fromRGBO(0, 64, 102, 1);
-  static const Color _secundaryColor = Color.fromRGBO(255, 159, 0, 1);
+  static const Color _secundaryColor = Colors.pink; //fromRGBO(255, 159, 0, 1);
 
   static final ThemeData _tema = ThemeData();
 
