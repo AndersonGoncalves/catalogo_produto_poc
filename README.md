@@ -13,7 +13,7 @@ Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É po
   - [Dart](https://dart.dev/)
   - [Provider](https://pub.dev/packages/provider)
 - *Backend:*  
-  - [Rialtime Database](https://firebase.google.com/products/realtime-database) (armazenamento dos produtos)
+  - [Realtime Database](https://firebase.google.com/products/realtime-database) (armazenamento dos produtos)
   - [Firebase Authentication](https://firebase.google.com/products/auth) (autenticação anônima e por e-mail)  
 
 ## ⚙️ Funcionalidades
@@ -24,11 +24,15 @@ Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É po
   - Descrição
   - Preço de Custo
   - Preço de Venda
+  - Quantidade em Estoque
+  - Codigo de Barras
   - Marca  
   - Fotos do produto
 - Autenticação de usuário:
   - Login anônimo
   - Login com e-mail e senha
+  - Login com google
+  - Recuperação de senha
 - Upload e exibição de fotos dos produtos.
 - Integração em tempo real com Firebase.
 
@@ -41,19 +45,19 @@ Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É po
 
 ## 📦 Estrutura do Projeto
 
-- lib/ — Código principal do Flutter
-- lib/app — Toda aplicação
-- lib/app/core — Contém definições e utilitários centrais do projeto, que podem ser usados em qualquer parte da aplicação.
-Exemplos: modelos de dados (models), constantes, ui, tema do app, etc.
-- lib/app/modules — Agrupa funcionalidades ou telas por domínio ou recurso.
-Cada módulo geralmente representa uma área da aplicação (produto e usuário).
-- lib/app/repositories — Responsáveis por abstrair o acesso a dados, seja de APIs, bancos de dados locais, arquivos, etc.
+- lib/ - Código principal do Flutter
+- lib/app - Pasta onde contém o código da aplicação
+- lib/app/core - Contém definições e utilitários centrais do projeto, que podem ser usados em qualquer parte da aplicação.
+Exemplos: modelos de dados (models), constantes, ui, excpetions, widget, tema do app, etc.
+- lib/app/modules - Agrupa funcionalidades ou telas por domínio ou recurso.
+Cada módulo representa uma área da aplicação (produto e usuário).
+- lib/app/repositories - Pasta que contém as classes de acesso a dados de cada módulo da aplicação.
 O repositório implementa métodos para buscar, salvar, atualizar e remover dados, servindo de ponte entre a camada de dados e os services/controllers.
-- lib/app/services — Contém a lógica de negócio da aplicação.
-Os services usam os repositórios para acessar dados e implementam regras de negócio, validações, integrações externas, etc. Geralmente, os controllers ou providers acessam os services para manipular dados.
-- android/, ios/ — Códigos específicos para cada plataforma
-- assets/ — (opcional) Imagens e recursos estáticos
-- pubspec.yaml — Gerenciamento de dependências
+- lib/app/services - Contém a regra de negócio da aplicação e usa os repositórios para acessar dados e implementam as regras de negócio e validações. Os controllers acessam os services para manipular dados.
+- android/, ios/, web/ e windows/ - Contém a compilação de cada plataforma.
+- assets/ - Contém as imagens e icónes da aplicação.
+- pubspec.yaml - Gerenciamento de dependências
+- test/ - Contém todos os testes da aplicação, foi criado alguns testes para validar o conhecimento em testes.
 
 ## 🛠️ Instalação e Execução
 
