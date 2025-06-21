@@ -5,7 +5,7 @@ import 'package:catalogo_produto_poc/app/core/ui/url_launcher.dart';
 
 class WidgetAboutPage extends StatefulWidget {
   final bool _comAppBar;
-  const WidgetAboutPage({super.key, required bool comAppBar})
+  const WidgetAboutPage({super.key, bool comAppBar = true})
     : _comAppBar = comAppBar;
 
   @override
@@ -61,7 +61,11 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                 ),
                 Text(
                   'PoC',
-                  style: TextStyle(fontSize: 30, color: context.primaryColor),
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: context.primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
 
                 Padding(

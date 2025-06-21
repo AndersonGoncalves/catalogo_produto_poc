@@ -26,7 +26,7 @@ class _AppWidgetState extends State<AppWidget> {
       initialRoute: Rotas.home,
       routes: {
         Rotas.home: (_) => const RoteadorPage(),
-        Rotas.about: (_) => const WidgetAboutPage(comAppBar: true),
+        Rotas.about: (_) => const WidgetAboutPage(),
         Rotas.perfil: (_) => const WidgetPerfilPage(),
         Rotas.produtoList: (_) => const ProdutoListPage(),
         Rotas.produtoForm: (_) => const ProdutoFormPage(),
