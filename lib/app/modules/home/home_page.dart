@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_drawer.dart';
 import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
+import 'package:catalogo_produto_poc/app/core/widget/widget_about_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
       {'title': '', 'page': const SizedBox()},
       {'title': '', 'page': const SizedBox()},
       {'title': '', 'page': const SizedBox()},
-      {'title': '', 'page': const SizedBox()},
+      {'title': '', 'page': const WidgetAboutPage(comAppBar: false)},
     ];
 
     return Scaffold(
@@ -68,12 +69,12 @@ class _HomePageState extends State<HomePage> {
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: const Icon(Icons.assessment_outlined),
+                  icon: const Icon(Icons.supervisor_account_sharp),
                   label: pages[0]['title'].toString(),
                 ),
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: const Icon(Icons.supervisor_account_sharp),
+                  icon: const Icon(Icons.credit_card),
                   label: pages[1]['title'].toString(),
                 ),
                 BottomNavigationBarItem(
@@ -83,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: const Icon(Icons.credit_card),
+                  icon: const Icon(Icons.error_outline_outlined),
                   label: pages[3]['title'].toString(),
                 ),
               ],

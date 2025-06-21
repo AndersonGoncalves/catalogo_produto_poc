@@ -68,16 +68,16 @@ class _WidgetDrawerState extends State<WidgetDrawer> {
               style: const TextStyle(color: Colors.white),
             ),
           ),
-          _createItem(Icons.house_outlined, 'Home', () {
+          _createItem(Icons.home, 'Home', () {
             Navigator.of(context).pop();
             Navigator.of(context).pushReplacementNamed(Rotas.home);
           }),
           const Divider(),
-          _createItem(Icons.local_offer_outlined, 'Produtos', () {
+          _createItem(Icons.local_offer, 'Produtos', () {
             Navigator.of(context).popAndPushNamed(Rotas.produtoList);
           }),
           const Divider(),
-          _createItem(Icons.account_circle_outlined, 'Perfil', () {
+          _createItem(Icons.account_circle, 'Perfil', () {
             if (context.read<UsuarioServiceImpl>().user.isAnonymous) {
               Navigator.of(context).pop();
               Navigator.of(context).push(
@@ -94,11 +94,11 @@ class _WidgetDrawerState extends State<WidgetDrawer> {
               Navigator.of(context).popAndPushNamed(Rotas.perfil);
             }
           }),
-          _createItem(Icons.error_outline_outlined, 'Sobre', () {
+          _createItem(Icons.error_outline, 'Sobre', () {
             Navigator.of(context).popAndPushNamed(Rotas.about);
           }),
           const Divider(),
-          _createItem(Icons.exit_to_app_outlined, 'Sair', () {
+          _createItem(Icons.exit_to_app, 'Sair', () {
             if (context.read<UsuarioServiceImpl>().user.isAnonymous) {
               WidgetDialog(context, 'Não', 'Sim').confirm(
                 titulo: 'Atenção',

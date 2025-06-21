@@ -4,7 +4,9 @@ import 'package:catalogo_produto_poc/app/core/ui/theme_extensions.dart';
 import 'package:catalogo_produto_poc/app/core/ui/url_launcher.dart';
 
 class WidgetAboutPage extends StatefulWidget {
-  const WidgetAboutPage({super.key});
+  final bool _comAppBar;
+  const WidgetAboutPage({super.key, required bool comAppBar})
+    : _comAppBar = comAppBar;
 
   @override
   State<WidgetAboutPage> createState() => _WidgetAboutPageState();
@@ -30,20 +32,22 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.canvasColor,
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        toolbarHeight: 56,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          onPressed: Navigator.of(context).pop,
-          icon: const Icon(Icons.close),
-        ),
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 2),
-          child: Text('Sobre'),
-        ),
-      ),
+      appBar: widget._comAppBar
+          ? AppBar(
+              centerTitle: true,
+              elevation: 0,
+              toolbarHeight: 56,
+              automaticallyImplyLeading: false,
+              leading: IconButton(
+                onPressed: Navigator.of(context).pop,
+                icon: const Icon(Icons.close),
+              ),
+              title: Padding(
+                padding: const EdgeInsets.only(bottom: 2),
+                child: Text('Sobre'),
+              ),
+            )
+          : null,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
