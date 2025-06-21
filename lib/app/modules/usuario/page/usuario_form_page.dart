@@ -24,6 +24,7 @@ class UsuariohFormPageState extends State<UsuarioFormPage>
   bool _isLoading = false;
   late AuthMode? _authMode;
   final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final Map<String, String> _formData = {'email': '', 'password': ''};
 
@@ -212,6 +213,7 @@ class UsuariohFormPageState extends State<UsuarioFormPage>
                                           ),
                                           isDense: true,
                                           border: true,
+                                          controller: _emailController,
                                           onSaved: (value) =>
                                               _formData['email'] = value ?? '',
                                         ),
@@ -298,7 +300,7 @@ class UsuariohFormPageState extends State<UsuarioFormPage>
                                         else
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                              bottom: 20,
+                                              bottom: 6,
                                             ),
                                             child: ElevatedButton(
                                               onPressed: _submit,
@@ -323,6 +325,24 @@ class UsuariohFormPageState extends State<UsuarioFormPage>
                                               ),
                                             ),
                                           ),
+
+                                        _isLogin
+                                            ? WidgetTextButton(
+                                                'Esqueceu a senha?',
+                                                onPressed: () async {
+                                                  await context
+                                                      .read<
+                                                        UsuarioServiceImpl
+                                                      >()
+                                                      .esqueceuSenha(
+                                                        _emailController.text,
+                                                      );
+                                                  Messages.of(context).info(
+                                                    'Recuperação de senha enviada para email informado',
+                                                  );
+                                                },
+                                              )
+                                            : SizedBox.shrink(),
 
                                         _authMode == AuthMode.login
                                             ? Padding(

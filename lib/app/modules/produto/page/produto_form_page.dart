@@ -28,8 +28,12 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
   final _precoCustoFocus = FocusNode();
   final _marcaFocus = FocusNode();
   final _descricaoFocus = FocusNode();
+  final _quantidadeEmEstoqueFocus = FocusNode();
+  final _codigoBarrasFocus = FocusNode();
   final _precoCustoController = TextEditingController();
   final _precoVendaController = TextEditingController();
+  final _quantidadeEmEstoqueController = TextEditingController();
+  final _codeBarController = TextEditingController();
 
   CurrencyTextInputFormatter currencyTextInputFormatter(
     BuildContext context, {
@@ -50,6 +54,8 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
     _formData['precoDeCusto'] = 0.0;
     _formData['marca'] = '';
     _formData['descricao'] = '';
+    _formData['quantidadeEmEstoque'] = 0.0;
+    _formData['codigoBarras'] = '';
     _formData['fotos'] = [];
   }
 
@@ -85,6 +91,25 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
         }
       }
     }
+  }
+
+  void _lerCodigoBarras() async {
+    //https://pub.dev/documentation/barcode_scanner/latest/
+
+    // String codigo = await FlutterBarcodeScanner.scanBarcode(
+    //   '#FFFFFF',
+    //   'Cancelar',
+    //   true,
+    //   ScanMode.BARCODE,
+    // );
+
+    // if (codigo == '-1') {
+    //   if (mounted) {
+    //     Messages.of(context).showError('Falha ao ler código de barras');
+    //   }
+    // } else {
+    //   _codeBarController.text = codigo;
+    // }
   }
 
   Future<void> _save() async {
@@ -130,6 +155,9 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
         _precoCustoController.text = _formData['precoDeCusto'].toStringAsFixed(
           2,
         );
+        _codeBarController.text = _formData['codigoBarras'].toString();
+        _quantidadeEmEstoqueController.text = _formData['quantidadeEmEstoque']
+            .toStringAsFixed(2);
       } else {
         _setValoresInicial();
       }
@@ -144,6 +172,8 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
     _descricaoFocus.dispose();
     _precoVendaFocus.dispose();
     _precoCustoFocus.dispose();
+    _quantidadeEmEstoqueFocus.dispose();
+    _codigoBarrasFocus.dispose();
     context.read<ProdutoController>().removeListener(() {});
   }
 
@@ -289,7 +319,9 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                                 onFieldSubmitted: (_) =>
                                                     FocusScope.of(
                                                       context,
-                                                    ).requestFocus(_marcaFocus),
+                                                    ).requestFocus(
+                                                      _quantidadeEmEstoqueFocus,
+                                                    ),
                                               ),
                                             ),
                                           ),
@@ -299,6 +331,7 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                   ],
                                 ),
                               ),
+
                               Padding(
                                 padding: const EdgeInsets.only(
                                   left: 20,
@@ -307,6 +340,54 @@ class _ProdutoFormPageState extends State<ProdutoFormPage> {
                                 ),
                                 child: Column(
                                   children: <Widget>[
+                                    WidgetTextFormField(
+                                      labelText: 'Quantidade em estoque',
+                                      keyboardType: TextInputType.number,
+                                      textInputAction: TextInputAction.next,
+                                      focusNode: _quantidadeEmEstoqueFocus,
+                                      controller:
+                                          _quantidadeEmEstoqueController,
+                                      validator: (value) {
+                                        final nome = value ?? '';
+                                        if (nome.trim().isEmpty) {
+                                          return 'Quantidade é obrigatório';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) =>
+                                          _formData['quantidadeEmEstoque'] =
+                                              value ?? 0,
+                                      onFieldSubmitted: (_) => FocusScope.of(
+                                        context,
+                                      ).requestFocus(_codigoBarrasFocus),
+                                    ),
+
+                                    WidgetTextFormField(
+                                      labelText: 'Código de Barras',
+                                      keyboardType: TextInputType.text,
+                                      textInputAction: TextInputAction.next,
+                                      focusNode: _codigoBarrasFocus,
+                                      suffixIcon:
+                                          Theme.of(context).platform ==
+                                              TargetPlatform.windows
+                                          ? null
+                                          : const Icon(Icons.qr_code_2),
+                                      suffixIconOnPressed:
+                                          Theme.of(context).platform ==
+                                              TargetPlatform.windows
+                                          ? null
+                                          : () => _lerCodigoBarras(),
+
+                                      controller: _codeBarController,
+
+                                      onSaved: (value) =>
+                                          _formData['codigoBarras'] =
+                                              value ?? '',
+                                      onFieldSubmitted: (_) => FocusScope.of(
+                                        context,
+                                      ).requestFocus(_marcaFocus),
+                                    ),
+
                                     WidgetTextFormField(
                                       labelText: 'Marca',
                                       keyboardType: TextInputType.text,

@@ -9,6 +9,8 @@ class Produto with ChangeNotifier {
   final String? marca;
   final double precoDeCusto;
   final double precoDeVenda;
+  final String? codigoBarras;
+  final double quantidadeEmEstoque;
   final List<String>? fotos;
 
   Produto({
@@ -19,6 +21,8 @@ class Produto with ChangeNotifier {
     this.marca,
     this.precoDeCusto = 0.00,
     this.precoDeVenda = 0.00,
+    this.codigoBarras,
+    this.quantidadeEmEstoque = 0,
     this.fotos = const [],
   });
 
@@ -30,6 +34,8 @@ class Produto with ChangeNotifier {
     ValueGetter<String?>? marca,
     double? precoDeCusto,
     double? precoDeVenda,
+    ValueGetter<String?>? codigoBarras,
+    double? quantidadeEmEstoque,
     ValueGetter<List<String>?>? fotos,
   }) {
     return Produto(
@@ -40,6 +46,8 @@ class Produto with ChangeNotifier {
       marca: marca != null ? marca() : this.marca,
       precoDeCusto: precoDeCusto ?? this.precoDeCusto,
       precoDeVenda: precoDeVenda ?? this.precoDeVenda,
+      codigoBarras: codigoBarras != null ? codigoBarras() : this.codigoBarras,
+      quantidadeEmEstoque: quantidadeEmEstoque ?? this.quantidadeEmEstoque,
       fotos: fotos != null ? fotos() : this.fotos,
     );
   }
@@ -53,6 +61,8 @@ class Produto with ChangeNotifier {
       'marca': marca,
       'precoDeCusto': precoDeCusto,
       'precoDeVenda': precoDeVenda,
+      'codigoBarras': codigoBarras,
+      'quantidadeEmEstoque': quantidadeEmEstoque,
       'fotos': fotos != null
           ? fotos!.map((item) => {'url': item}).toList()
           : '',
@@ -84,6 +94,16 @@ class Produto with ChangeNotifier {
                       .toString(),
                 )! /
                 100,
+      codigoBarras: map['codigoBarras']?.toString(),
+      quantidadeEmEstoque: load
+          ? map['quantidadeEmEstoque']?.toDouble() ?? 0.0
+          : double.tryParse(
+                  map['quantidadeEmEstoque']
+                      .replaceAll(RegExp(r'[^0-9]'), '')
+                      .toString(),
+                )! /
+                100,
+
       fotos: map['fotos'] != null
           ? load
                 ? (map['fotos'] as List<dynamic>).map((item) {
@@ -113,6 +133,8 @@ class Produto with ChangeNotifier {
         other.marca == marca &&
         other.precoDeCusto == precoDeCusto &&
         other.precoDeVenda == precoDeVenda &&
+        other.codigoBarras == codigoBarras &&
+        other.quantidadeEmEstoque == quantidadeEmEstoque &&
         listEquals(other.fotos, fotos);
   }
 
@@ -125,6 +147,8 @@ class Produto with ChangeNotifier {
         marca.hashCode ^
         precoDeCusto.hashCode ^
         precoDeVenda.hashCode ^
+        codigoBarras.hashCode ^
+        quantidadeEmEstoque.hashCode ^
         fotos.hashCode;
   }
 }

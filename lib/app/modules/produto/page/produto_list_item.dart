@@ -78,16 +78,39 @@ class _ProdutoListItemState extends State<ProdutoListItem> {
                 ),
           title: Text(
             widget._produto.nome,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          subtitle: Text(widget._produto.descricao!, maxLines: 2),
-          trailing: Text(
-            formatCurrency.format(widget._produto.precoDeVenda),
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.black54,
+            maxLines: 1,
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
+          ),
+          subtitle: Text(
+            widget._produto.descricao!,
+            maxLines: 2,
+            style: const TextStyle(fontSize: 14, color: Colors.black54),
+          ),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                formatCurrency.format(widget._produto.precoDeVenda),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Estoque: ${widget._produto.quantidadeEmEstoque}',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
       ),
