@@ -16,7 +16,28 @@ class Messages {
     );
   }
 
+  void _showSnackBarWithAction(
+    String message,
+    String action,
+    Function() onPressed,
+    Color backgroundColor,
+  ) {
+    Scaffold.of(context).openDrawer();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: backgroundColor,
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+        action: SnackBarAction(label: action, onPressed: onPressed),
+      ),
+    );
+  }
+
   void showError(String message) => _showSnackBar(message, Colors.red);
 
   void info(String message) => _showSnackBar(message, context.primaryColor);
+
+  void infoWithAction(String message, String action, Function() onPressed) =>
+      _showSnackBarWithAction(message, action, onPressed, context.primaryColor);
 }

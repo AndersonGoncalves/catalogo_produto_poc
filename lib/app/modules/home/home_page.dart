@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_drawer.dart';
-import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_about_page.dart';
+import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
+import 'package:catalogo_produto_poc/app/modules/carrinho/page/carrinho_badgee.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/page/produto_page.dart';
+import 'package:catalogo_produto_poc/app/repositories/carrinho/carrinho_repository_impl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,9 +26,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //Devido ser uma PoC, não foi criado nenhuma pagina, por isso está sendo passado o SizedBox() para todos
     final List<Map<String, Object>> pages = [
-      {'title': '', 'page': const SizedBox()},
+      {
+        'title': '',
+        'page': const ProdutoPage(
+          comAppBar: false,
+          produtoPageMode: ProdutoPageMode.grid,
+        ),
+      },
       {'title': '', 'page': const SizedBox()},
       {'title': '', 'page': const SizedBox()},
       {'title': '', 'page': const WidgetAboutPage(comAppBar: false)},
@@ -39,6 +48,26 @@ class _HomePageState extends State<HomePage> {
             const Text('Anderson Gonçalves', style: TextStyle(fontSize: 16)),
           ],
         ),
+
+        actions: <Widget>[
+          Consumer<CarrinhoRepositoryImpl>(
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(Rotas.carrinho);
+              },
+              icon: const Icon(Icons.shopping_cart),
+            ),
+            builder: (ctx, carrinho, child) => carrinho.quantidadeItem > 0
+                ? Badgee(
+                    value: carrinho.quantidadeItem.toString(),
+                    child: child!,
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: const Icon(Icons.shopping_cart),
+                  ),
+          ),
+        ],
       ),
       drawer: WidgetDrawer(
         userName: context
@@ -69,7 +98,7 @@ class _HomePageState extends State<HomePage> {
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: const Icon(Icons.supervisor_account_sharp),
+                  icon: const Icon(Icons.local_offer_outlined),
                   label: pages[0]['title'].toString(),
                 ),
                 BottomNavigationBarItem(

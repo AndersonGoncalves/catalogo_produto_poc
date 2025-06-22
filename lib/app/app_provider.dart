@@ -8,6 +8,8 @@ import 'package:catalogo_produto_poc/app/services/produto/produto_service_impl.d
 import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 import 'package:catalogo_produto_poc/app/repositories/produto/produto_repository_impl.dart';
 import 'package:catalogo_produto_poc/app/repositories/usuario/usuario_repository_impl.dart';
+import 'package:catalogo_produto_poc/app/repositories/carrinho/carrinho_repository_impl.dart';
+import 'package:catalogo_produto_poc/app/services/carrinho/carrinho_service_impl.dart';
 
 class AppProvider extends StatelessWidget {
   const AppProvider({super.key});
@@ -16,6 +18,7 @@ class AppProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        //Usuario
         Provider<UsuarioRepositoryImpl>(
           create: (_) =>
               UsuarioRepositoryImpl(firebaseAuth: FirebaseAuth.instance),
@@ -31,6 +34,7 @@ class AppProvider extends StatelessWidget {
           ),
         ),
 
+        //Produto
         ChangeNotifierProxyProvider<
           UsuarioRepositoryImpl,
           ProdutoRepositoryImpl
@@ -56,6 +60,21 @@ class AppProvider extends StatelessWidget {
             produtoService: context.read<ProdutoServiceImpl>(),
           ),
         ),
+
+        //Carrinho
+        ChangeNotifierProvider<CarrinhoRepositoryImpl>(
+          create: (context) => CarrinhoRepositoryImpl(),
+        ),
+        ChangeNotifierProvider<CarrinhoServiceImpl>(
+          create: (context) => CarrinhoServiceImpl(
+            carrinhoRepository: context.read<CarrinhoRepositoryImpl>(),
+          ),
+        ),
+        // ChangeNotifierProvider<CarrinhoController>(
+        //   create: (context) => CarrinhoController(
+        //     produtoService: context.read<CarrinhoServiceImpl>(),
+        //   ),
+        // ),
       ],
       child: const AppWidget(),
     );

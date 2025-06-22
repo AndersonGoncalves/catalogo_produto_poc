@@ -6,8 +6,10 @@ import 'package:catalogo_produto_poc/app/core/widget/widget_error_page.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_about_page.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_perfil_page.dart';
 import 'package:catalogo_produto_poc/app/modules/home/roteador_page.dart';
+import 'package:catalogo_produto_poc/app/modules/carrinho/page/carrinho_page.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_form_page.dart';
-import 'package:catalogo_produto_poc/app/modules/produto/page/produto_list_page.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/page/produto_page.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/page/produto_detail_page.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({super.key});
@@ -28,8 +30,13 @@ class _AppWidgetState extends State<AppWidget> {
         Rotas.home: (_) => const RoteadorPage(),
         Rotas.about: (_) => const WidgetAboutPage(),
         Rotas.perfil: (_) => const WidgetPerfilPage(),
-        Rotas.produtoList: (_) => const ProdutoListPage(),
+        Rotas.carrinho: (_) => const CarrinhoPage(),
+        Rotas.produtoList: (_) =>
+            const ProdutoPage(produtoPageMode: ProdutoPageMode.list),
+        Rotas.produtoGrid: (_) =>
+            const ProdutoPage(produtoPageMode: ProdutoPageMode.grid),
         Rotas.produtoForm: (_) => const ProdutoFormPage(),
+        Rotas.produtoDetail: (_) => const ProdutoDetailPage(),
       },
       onUnknownRoute: (RouteSettings settings) {
         return CupertinoPageRoute(

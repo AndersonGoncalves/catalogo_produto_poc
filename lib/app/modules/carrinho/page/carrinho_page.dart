@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:catalogo_produto_poc/app/core/ui/theme_extensions.dart';
+import 'package:catalogo_produto_poc/app/modules/carrinho/page/carrinho_item.dart';
+import 'package:catalogo_produto_poc/app/services/carrinho/carrinho_service_impl.dart';
+
+class CarrinhoPage extends StatelessWidget {
+  const CarrinhoPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final CarrinhoServiceImpl carrinhoServiceImpl =
+        Provider.of<CarrinhoServiceImpl>(context);
+    final items = carrinhoServiceImpl.items.values.toList();
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Carrinho')),
+      body: Column(
+        children: [
+          Card(
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Total', style: TextStyle(fontSize: 20)),
+                  const SizedBox(width: 10),
+                  Chip(
+                    backgroundColor: context.primaryColor,
+                    label: Text(
+                      'R\$${carrinhoServiceImpl.valorTotal.toStringAsFixed(2)}',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  const Spacer(),
+                  CartButton(cart: carrinhoServiceImpl),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (ctx, i) => CarrinhoItem(carrinho: items[i]),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CartButton extends StatefulWidget {
+  const CartButton({super.key, required this.cart});
+
+  final CarrinhoServiceImpl cart;
+
+  @override
+  State<CartButton> createState() => _CartButtonState();
+}
+
+class _CartButtonState extends State<CartButton> {
+  bool _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading
+        ? const CircularProgressIndicator()
+        : TextButton(
+            onPressed: widget.cart.quantidadeItem == 0
+                ? null
+                : () async {
+                    setState(() => _isLoading = true);
+                    //TODO: Incluir um pedido
+                    widget.cart.clear();
+                    setState(() => _isLoading = false);
+                  },
+            child: const Text('COMPRAR'),
+          );
+  }
+}

@@ -5,7 +5,7 @@ import 'package:catalogo_produto_poc/app/services/produto/produto_service.dart';
 import 'package:catalogo_produto_poc/app/services/produto/produto_service_impl.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_form_page.dart';
-import 'package:catalogo_produto_poc/app/modules/produto/page/produto_list_page.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/page/produto_page.dart';
 import 'package:catalogo_produto_poc/app/repositories/produto/produto_repository_impl.dart';
 
 class ProdutoModule extends AppModule {
@@ -25,7 +25,10 @@ class ProdutoModule extends AppModule {
           ),
         ],
         routers: {
-          Rotas.produtoList: (_) => ProdutoListPage(),
+          Rotas.produtoList: (_) =>
+              ProdutoPage(produtoPageMode: ProdutoPageMode.list),
+          Rotas.produtoGrid: (_) =>
+              ProdutoPage(produtoPageMode: ProdutoPageMode.grid),
           Rotas.produtoForm: (_) => ProdutoFormPage(),
         },
       );

@@ -1,0 +1,79 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:catalogo_produto_poc/app/core/models/carrinho.dart';
+import 'package:catalogo_produto_poc/app/services/carrinho/carrinho_service_impl.dart';
+
+class CarrinhoItem extends StatelessWidget {
+  final Carrinho carrinho;
+
+  const CarrinhoItem({super.key, required this.carrinho});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dismissible(
+      key: ValueKey(carrinho.id),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        color: Theme.of(context).colorScheme.error,
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+        child: const Icon(Icons.delete, color: Colors.white, size: 40),
+      ),
+      confirmDismiss: (_) {
+        return showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('Tem certeza?'),
+            content: const Text('Deseja remover o item do carrinho?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+                child: const Text('Não'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+                child: const Text('Sim'),
+              ),
+            ],
+          ),
+        ); //Future.value(false);
+      },
+      onDismissed: (_) {
+        Provider.of<CarrinhoServiceImpl>(
+          context,
+          listen: false,
+        ).remove(carrinho.produtoId!);
+      },
+      child: Card(
+        margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              child: Padding(
+                padding: const EdgeInsets.all(5),
+                child: FittedBox(
+                  child: Text(
+                    '${carrinho.preco}',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            title: Text(carrinho.nome),
+            subtitle: Text(
+              'Total: R\$ ${carrinho.preco * carrinho.quantidade}',
+            ),
+            trailing: Text('${carrinho.quantidade}x'),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -27,19 +27,7 @@ class _ProdutoListState extends State<ProdutoList> {
     return widget._controller.load();
   }
 
-  @override
-  void initState() {
-    produtos = widget._produtos;
-    super.initState();
-  }
-
-  @override
-  void didUpdateWidget(ProdutoList oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    produtos = widget._produtos;
-  }
-
-  void onSearch(String value) {
+  void _onSearch(String value) {
     List<Produto> search = [];
     if (value.isEmpty) {
       search = widget._produtos;
@@ -54,6 +42,18 @@ class _ProdutoListState extends State<ProdutoList> {
     setState(() {
       produtos = search;
     });
+  }
+
+  @override
+  void initState() {
+    produtos = widget._produtos;
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(ProdutoList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    produtos = widget._produtos;
   }
 
   @override
@@ -77,7 +77,7 @@ class _ProdutoListState extends State<ProdutoList> {
                                   padding: const EdgeInsets.all(10),
                                   child: WidgetPesquisa(
                                     fillColor: Colors.white,
-                                    onSearch: (value) => onSearch(value),
+                                    onSearch: (value) => _onSearch(value),
                                   ),
                                 ),
                               )
