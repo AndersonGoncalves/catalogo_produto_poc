@@ -1,10 +1,10 @@
 # Catálogo de Produtos
 
-Aplicativo de cadastro e gerenciamento de produtos, desenvolvido por Anderson Gonçalves como uma prova de conceito utilizando Flutter, Dart e Firebase.
+Aplicativo de cadastro e gerenciamento de produtos com possibilidadede inclusão no carrinho de compras, desenvolvido por Anderson Gonçalves como uma prova de conceito utilizando Flutter, Dart e Firebase.
 
 ## 📚 Descrição
 
-Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É possível adicionar até três fotos para cada produto e o acesso do usuário ao app pode ser feito de forma anônima ou autenticando-se via e-mail. Todos os dados de produtos e autenticação são gerenciados via Firebase.
+Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É possível adicionar até três fotos para cada produto e o acesso do usuário ao app pode ser feito de forma anônima ou autenticando-se via e-mail. O usuário também pode incluir os produtos no carrinho e finalizar uma compra. Todos os dados de produtos e autenticação são gerenciados via Firebase.
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -19,6 +19,7 @@ Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É po
 ## ⚙️ Funcionalidades
 
 - Listagem de produtos cadastrados.
+- Inclusão do produto no carrinho de compras.
 - Cadastro/edição de produto com os campos:
   - Nome
   - Descrição
@@ -45,19 +46,18 @@ Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É po
 
 ## 📦 Estrutura do Projeto
 
-- lib/ - Código principal do Flutter
-- lib/app - Pasta onde contém o código da aplicação
-- lib/app/core - Contém definições e utilitários centrais do projeto, que podem ser usados em qualquer parte da aplicação.
+- lib/ (Código principal do Flutter)
+- lib/app (Pasta onde contém o código da aplicação)
+- lib/app/core (Contém definições e utilitários centrais do projeto, que podem ser usados em qualquer parte da aplicação)
 Exemplos: modelos de dados (models), constantes, ui, excpetions, widget, tema do app, etc.
-- lib/app/modules - Agrupa funcionalidades ou telas por domínio ou recurso.
-Cada módulo representa uma área da aplicação (produto e usuário).
-- lib/app/repositories - Pasta que contém as classes de acesso a dados de cada módulo da aplicação.
-O repositório implementa métodos para buscar, salvar, atualizar e remover dados, servindo de ponte entre a camada de dados e os services/controllers.
-- lib/app/services - Contém a regra de negócio da aplicação e usa os repositórios para acessar dados e implementam as regras de negócio e validações. Os controllers acessam os services para manipular dados.
-- android/, ios/, web/ e windows/ - Contém a compilação de cada plataforma.
-- assets/ - Contém as imagens e icónes da aplicação.
-- pubspec.yaml - Gerenciamento de dependências
-- test/ - Contém todos os testes da aplicação, foi criado alguns testes para validar o conhecimento em testes.
+- lib/app/modules (Agrupa funcionalidades ou telas por domínio ou recurso.
+Cada módulo representa uma área da aplicação, usuário, produto e carrinho)
+- lib/app/repositories (Pasta que contém as classes de acesso a dados de cada módulo da aplicação. O repositório implementa métodos para buscar, salvar, atualizar e remover dados, servindo de ponte entre a camada de dados e os services/controllers)
+- lib/app/services (Contém a regra de negócio da aplicação e usa os repositórios para acessar dados e implementam as regras de negócio e validações. Os controllers acessam os services para manipular dados)
+- android/, ios/, web/ e windows/ (Contém a compilação de cada plataforma)
+- assets/ (Contém as imagens e icónes da aplicação)
+- pubspec.yaml (Gerenciamento de dependências)
+- test/ (Contém todos os testes da aplicação, foram criados alguns testes para validar o conhecimento em testes)
 
 ## 🛠️ Instalação e Execução
 
@@ -80,11 +80,3 @@ O repositório implementa métodos para buscar, salvar, atualizar e remover dado
    flutter run   
 
 > Certifique-se de ter o Flutter instalado e um emulador/dispositivo conectado.
-
-## 🤝 Como Contribuir
-
-1. Faça um fork deste repositório
-2. Crie uma branch: git checkout -b minha-feature
-3. Faça suas alterações e commit: git commit -m 'Minha nova feature'
-4. Faça push para sua branch: git push origin minha-feature
-5. Abra um Pull Request
