@@ -29,10 +29,10 @@ class _ProdutoGridItemState extends State<ProdutoGridItem> {
     final carrinho = Provider.of<CarrinhoRepositoryImpl>(context);
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(5),
       child: GridTile(
         footer: GridTileBar(
-          backgroundColor: Colors.black38,
+          backgroundColor: Colors.black45,
 
           title: Text(
             widget._produto.nome,

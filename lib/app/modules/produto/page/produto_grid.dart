@@ -87,8 +87,8 @@ class _ProdutoGridState extends State<ProdutoGrid> {
                           const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             childAspectRatio: 0.8,
-                            crossAxisSpacing: 30,
-                            mainAxisSpacing: 30,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 20,
                           ),
                       itemBuilder: (ctx, index) => ChangeNotifierProvider.value(
                         value: produtos[index],
