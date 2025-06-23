@@ -49,7 +49,7 @@ Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É po
 - lib/ (Código principal do Flutter)
 - lib/app (Pasta onde contém o código da aplicação)
 - lib/app/core (Contém definições e utilitários centrais do projeto, que podem ser usados em qualquer parte da aplicação)
-Exemplos: modelos de dados (models), constantes, ui, excpetions, widget, tema do app, etc.
+Exemplos: modelos de dados (models), constantes, ui, exceptions, widget, tema do app, etc.
 - lib/app/modules (Agrupa funcionalidades ou telas por domínio ou recurso.
 Cada módulo representa uma área da aplicação, usuário, produto e carrinho)
 - lib/app/repositories (Pasta que contém as classes de acesso a dados de cada módulo da aplicação. O repositório implementa métodos para buscar, salvar, atualizar e remover dados, servindo de ponte entre a camada de dados e os services/controllers)

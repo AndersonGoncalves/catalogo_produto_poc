@@ -33,6 +33,7 @@ class CarrinhoPage extends StatelessWidget {
           ),
 
           Card(
+            color: Colors.white,
             elevation: 0,
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
             child: Padding(
@@ -40,10 +41,10 @@ class CarrinhoPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Total', style: TextStyle(fontSize: 20)),
+                  const Text('Total:', style: TextStyle(fontSize: 20)),
                   const SizedBox(width: 10),
                   Chip(
-                    backgroundColor: context.primaryColor,
+                    backgroundColor: context.secondaryColor,
                     label: Text(
                       'R\$${carrinhoServiceImpl.valorTotal.toStringAsFixed(2)}',
                       style: const TextStyle(color: Colors.white),
@@ -87,7 +88,10 @@ class _CartButtonState extends State<CartButton> {
                     widget.cart.clear();
                     setState(() => _isLoading = false);
                   },
-            child: const Text('COMPRAR'),
+            child: Text(
+              'COMPRAR',
+              style: TextStyle(color: context.primaryColor),
+            ),
           );
   }
 }

@@ -32,15 +32,18 @@ class _ProdutoGridItemState extends State<ProdutoGridItem> {
       borderRadius: BorderRadius.circular(5),
       child: GridTile(
         footer: GridTileBar(
-          backgroundColor: Colors.black45,
-
+          backgroundColor: Colors.white,
           title: Text(
             widget._produto.nome,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.black, fontSize: 12),
           ),
           subtitle: Text(
             formatCurrency.format(widget._produto.precoDeVenda),
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: context.primaryColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           trailing: InkWell(
             child: Icon(Icons.shopping_cart, color: context.secondaryColor),

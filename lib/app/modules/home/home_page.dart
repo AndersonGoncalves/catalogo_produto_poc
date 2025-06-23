@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: SizedBox(
-        height: 82, //58,
+        height: 58,
         child: Column(
           children: [
             BottomNavigationBar(

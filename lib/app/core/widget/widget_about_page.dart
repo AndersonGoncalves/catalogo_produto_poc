@@ -96,7 +96,7 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                         ],
                       ),
                       Text(
-                        'Aplicativo de cadastro e gerenciamento de produtos, desenvolvido por Anderson Gonçalves como uma prova de conceito utilizando Flutter, Dart e Firebase.',
+                        'Aplicativo de cadastro e gerenciamento de produtos com possibilidadede inclusão no carrinho de compras, desenvolvido por Anderson Gonçalves como uma prova de conceito utilizando Flutter, Dart e Firebase.',
                         style: TextStyle(
                           fontSize: 14,
                           color: context.primaryColor,
@@ -127,7 +127,7 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                         ],
                       ),
                       Text(
-                        'Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É possível adicionar até três fotos para cada produto e o acesso do usuário ao app pode ser feito de forma anônima ou autenticando-se via e-mail. Todos os dados de produtos e autenticação são gerenciados via Firebase.',
+                        'Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É possível adicionar até três fotos para cada produto e o acesso do usuário ao app pode ser feito de forma anônima ou autenticando-se via e-mail. O usuário também pode incluir os produtos no carrinho e finalizar uma compra. Todos os dados de produtos e autenticação são gerenciados via Firebase.',
                         style: TextStyle(
                           fontSize: 14,
                           color: context.primaryColor,
@@ -176,7 +176,7 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                             UrlLauncher.openUrl('https://flutter.dev/');
                           },
                           child: Text(
-                            '1.1 - Flutter (framework)',
+                            '1.1 - Flutter (Framework)',
                             style: TextStyle(
                               fontSize: 14,
                               color: context.primaryColor,
@@ -194,7 +194,7 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                             UrlLauncher.openUrl('https://dart.dev/');
                           },
                           child: Text(
-                            '1.2 - Dart (Linguágem)',
+                            '1.2 - Dart (Linguagem)',
                             style: TextStyle(
                               fontSize: 14,
                               color: context.primaryColor,
@@ -302,6 +302,13 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                         ),
                       ),
                       Text(
+                        '- Inclusão do produto no carrinho de compras.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: context.primaryColor,
+                        ),
+                      ),
+                      Text(
                         '- Cadastro/edição de produto.',
                         style: TextStyle(
                           fontSize: 14,
@@ -343,21 +350,21 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                         ],
                       ),
                       Text(
-                        '- lib/ - Código principal do Flutter.',
+                        '- lib/ (Código principal do Flutter)',
                         style: TextStyle(
                           fontSize: 14,
                           color: context.primaryColor,
                         ),
                       ),
                       Text(
-                        '- lib/app - Pasta onde contém o código da aplicação.',
+                        '- lib/app (Pasta onde contém o código da aplicação)',
                         style: TextStyle(
                           fontSize: 14,
                           color: context.primaryColor,
                         ),
                       ),
                       Text(
-                        '- lib/app/core (Contém definições e utilitários centrais do projeto, que podem ser usados em qualquer parte da aplicação. Exemplos: modelos de dados (models), constantes, ui, excpetions, widget, tema do app, etc.)',
+                        '- lib/app/core (Contém definições e utilitários centrais do projeto, que podem ser usados em qualquer parte da aplicação. Exemplos: modelos de dados (models), constantes, ui, exceptions, widget, tema do app, etc.)',
                         style: TextStyle(
                           fontSize: 14,
                           color: context.primaryColor,

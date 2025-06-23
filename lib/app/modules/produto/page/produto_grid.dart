@@ -82,11 +82,11 @@ class _ProdutoGridState extends State<ProdutoGrid> {
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: GridView.builder(
                       itemCount: produtos.length,
-                      padding: const EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(10),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: 0.8,
+                            childAspectRatio: 0.6,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 20,
                           ),

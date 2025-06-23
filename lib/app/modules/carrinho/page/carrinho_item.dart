@@ -50,6 +50,7 @@ class CarrinhoItem extends StatelessWidget {
         ).remove(carrinho.produtoId!);
       },
       child: Card(
+        color: Colors.white,
         elevation: 0,
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         child: Padding(
