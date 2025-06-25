@@ -38,11 +38,13 @@ Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É po
 - Integração em tempo real com Firebase.
 
 ## 🖼️ Exemplos de Tela
-![home_page](https://github.com/user-attachments/assets/0e7247a7-65e4-4a83-9de2-c0ec707cc637)
-![drawer](https://github.com/user-attachments/assets/e95c5e26-82ea-4570-9f01-98898be6f226)
-![produto_form_1](https://github.com/user-attachments/assets/76f56561-fbeb-4701-9b30-e792b1166270)
-![produto_form_2](https://github.com/user-attachments/assets/d357d933-5e67-43e9-a65e-84d9f535939b)
+![register](https://github.com/user-attachments/assets/c2501862-df6d-4ffe-9122-506f5d408e95)
+![produto_grid](https://github.com/user-attachments/assets/942c5b1b-b02f-4575-b37f-c8155ad6da30)
+![produto_list](https://github.com/user-attachments/assets/aacf73e7-e9b7-4d48-8bf8-cc930ef624cb)
+![produto_form](https://github.com/user-attachments/assets/72e5c471-b202-4e48-ac13-d594e0d8be53)
+![carrinho_page](https://github.com/user-attachments/assets/611c86e8-f3f7-46e8-8360-9b7a8bdb520d)
 ![produto_calculadora_preco](https://github.com/user-attachments/assets/e5cb8677-6edc-4e13-aab6-d97cab11db42)
+![sobre](https://github.com/user-attachments/assets/dc36c9e2-6aa7-443e-9966-987dfa41e69e)
 
 ## 📦 Estrutura do Projeto
 
