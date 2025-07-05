@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_drawer.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_about_page.dart';
 import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 import 'package:catalogo_produto_poc/app/modules/carrinho/page/carrinho_badgee.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_page.dart';
+import 'package:catalogo_produto_poc/app/modules/carrinho/page/carrinho_page.dart';
 import 'package:catalogo_produto_poc/app/repositories/carrinho/carrinho_repository_impl.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
         ),
       },
       {'title': '', 'page': const SizedBox()},
-      {'title': '', 'page': const SizedBox()},
+      {'title': '', 'page': const CarrinhoPage()},
       {'title': '', 'page': const WidgetAboutPage(comAppBar: false)},
     ];
 
@@ -53,7 +53,8 @@ class _HomePageState extends State<HomePage> {
           Consumer<CarrinhoRepositoryImpl>(
             child: IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(Rotas.carrinho);
+                _selectedPageIndex = 2;
+                _selectPage(_selectedPageIndex);
               },
               icon: const Icon(Icons.shopping_cart),
             ),
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                   )
                 : Padding(
                     padding: const EdgeInsets.only(right: 12),
-                    child: const Icon(Icons.shopping_cart),
+                    child: const SizedBox.shrink(),
                   ),
           ),
         ],
@@ -98,7 +99,7 @@ class _HomePageState extends State<HomePage> {
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: const Icon(Icons.local_offer_outlined),
+                  icon: const Icon(Icons.home),
                   label: pages[0]['title'].toString(),
                 ),
                 BottomNavigationBarItem(
@@ -108,7 +109,16 @@ class _HomePageState extends State<HomePage> {
                 ),
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: const Icon(Icons.account_balance_sharp),
+                  icon: Consumer<CarrinhoRepositoryImpl>(
+                    child: const Icon(Icons.shopping_cart),
+                    builder: (ctx, carrinho, child) =>
+                        carrinho.quantidadeItem > 0
+                        ? Badgee(
+                            value: carrinho.quantidadeItem.toString(),
+                            child: child!,
+                          )
+                        : const Icon(Icons.shopping_cart),
+                  ),
                   label: pages[2]['title'].toString(),
                 ),
                 BottomNavigationBarItem(

@@ -24,7 +24,7 @@ class CarrinhoItem extends StatelessWidget {
         return showDialog<bool>(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('Tem certeza?'),
+            title: const Text('Atenção'),
             content: const Text('Deseja remover o item do carrinho?'),
             actions: [
               TextButton(
@@ -41,7 +41,7 @@ class CarrinhoItem extends StatelessWidget {
               ),
             ],
           ),
-        ); //Future.value(false);
+        );
       },
       onDismissed: (_) {
         Provider.of<CarrinhoServiceImpl>(
@@ -50,27 +50,29 @@ class CarrinhoItem extends StatelessWidget {
         ).remove(carrinho.produtoId!);
       },
       child: Card(
+        color: Colors.white,
+        elevation: 0,
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: FittedBox(
-                  child: Text(
-                    '${carrinho.preco}',
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
+              radius: 24,
+              backgroundColor: Colors.black12,
+              child: Icon(
+                Icons.local_offer_outlined,
+                color: Colors.black45,
+                size: 24,
               ),
             ),
             title: Text(carrinho.nome),
             subtitle: Text(
               'Total: R\$ ${carrinho.preco * carrinho.quantidade}',
             ),
-            trailing: Text('${carrinho.quantidade}x'),
+            trailing: Text(
+              ' ${carrinho.quantidade.toStringAsFixed(0)}',
+              style: const TextStyle(fontSize: 16),
+            ),
           ),
         ),
       ),

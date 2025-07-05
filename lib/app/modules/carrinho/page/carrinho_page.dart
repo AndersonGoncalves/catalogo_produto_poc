@@ -14,35 +14,47 @@ class CarrinhoPage extends StatelessWidget {
     final items = carrinhoServiceImpl.items.values.toList();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Carrinho')),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              'Itens do Carrinho:',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+
+          Expanded(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (ctx, i) => CarrinhoItem(carrinho: items[i]),
+            ),
+          ),
+
           Card(
+            color: Colors.white,
+            elevation: 0,
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Total', style: TextStyle(fontSize: 20)),
+                  const Text('Total:', style: TextStyle(fontSize: 20)),
                   const SizedBox(width: 10),
                   Chip(
-                    backgroundColor: context.primaryColor,
+                    backgroundColor: context.secondaryColor,
                     label: Text(
                       'R\$${carrinhoServiceImpl.valorTotal.toStringAsFixed(2)}',
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
                   const Spacer(),
+
                   CartButton(cart: carrinhoServiceImpl),
                 ],
               ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (ctx, i) => CarrinhoItem(carrinho: items[i]),
             ),
           ),
         ],
@@ -72,11 +84,14 @@ class _CartButtonState extends State<CartButton> {
                 ? null
                 : () async {
                     setState(() => _isLoading = true);
-                    //TODO: Incluir um pedido
+                    //TODO: Chamar a page do pedido
                     widget.cart.clear();
                     setState(() => _isLoading = false);
                   },
-            child: const Text('COMPRAR'),
+            child: Text(
+              'COMPRAR',
+              style: TextStyle(color: context.primaryColor),
+            ),
           );
   }
 }

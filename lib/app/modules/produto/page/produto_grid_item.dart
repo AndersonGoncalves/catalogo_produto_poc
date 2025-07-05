@@ -29,18 +29,21 @@ class _ProdutoGridItemState extends State<ProdutoGridItem> {
     final carrinho = Provider.of<CarrinhoRepositoryImpl>(context);
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(5),
       child: GridTile(
         footer: GridTileBar(
-          backgroundColor: Colors.black38,
-
+          backgroundColor: Colors.white,
           title: Text(
             widget._produto.nome,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.black, fontSize: 12),
           ),
           subtitle: Text(
             formatCurrency.format(widget._produto.precoDeVenda),
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: context.primaryColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           trailing: InkWell(
             child: Icon(Icons.shopping_cart, color: context.secondaryColor),

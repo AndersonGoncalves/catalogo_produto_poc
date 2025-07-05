@@ -11,8 +11,13 @@ class _ProdutoDetailPageState extends State<ProdutoDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('')),
-      body: Container(),
+      appBar: AppBar(title: const Text('Produto Detail')),
+      body: Center(
+        child: Text(
+          'Detalhes do Produto',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+      ),
     );
   }
 }
