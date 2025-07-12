@@ -6,7 +6,7 @@ import 'package:catalogo_produto_poc/app/core/ui/functions.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
-import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/controller/produto_controller.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_foto_grid.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_calculadora_preco_page.dart';

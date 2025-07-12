@@ -6,7 +6,7 @@ import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_list.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_grid.dart';
-import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/controller/produto_controller.dart';
 
 enum ProdutoPageMode { list, grid }
 
@@ -26,7 +26,6 @@ class ProdutoPage extends StatefulWidget {
 
 class _ProdutoPageState extends State<ProdutoPage> {
   bool _isLoading = true;
-  late ProdutoController controller;
 
   List<Produto> _produtos() {
     List<Produto> produtos = context.read<ProdutoController>().produtos;
@@ -39,7 +38,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
   @override
   void initState() {
     super.initState();
-    controller = context.read<ProdutoController>();
+    final ProdutoController controller = context.read<ProdutoController>();
     controller.load();
     context.read<ProdutoController>().addListener(() {
       setState(() => _isLoading = controller.isLoading);
@@ -99,8 +98,8 @@ class _ProdutoPageState extends State<ProdutoPage> {
                 backgroundColor: Theme.of(context).canvasColor,
               )
             : widget._produtoPageMode == ProdutoPageMode.list
-            ? ProdutoList(produtos: _produtos(), controller: controller)
-            : ProdutoGrid(produtos: _produtos(), controller: controller),
+            ? ProdutoList(produtos: _produtos())
+            : ProdutoGrid(produtos: _produtos()),
       ),
       floatingActionButton: widget._produtoPageMode == ProdutoPageMode.list
           ? FloatingActionButton(

@@ -1,20 +1,16 @@
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_dialog.dart';
-import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/controller/produto_controller.dart';
 
 class ProdutoListItem extends StatefulWidget {
   final Produto _produto;
-  final ProdutoController _controller;
 
-  const ProdutoListItem({
-    super.key,
-    required Produto produto,
-    required ProdutoController controller,
-  }) : _produto = produto,
-       _controller = controller;
+  const ProdutoListItem({super.key, required Produto produto})
+    : _produto = produto;
 
   @override
   State<ProdutoListItem> createState() => _ProdutoListItemState();
@@ -44,7 +40,9 @@ class _ProdutoListItemState extends State<ProdutoListItem> {
           titulo: 'Atenção',
           pergunta: 'Deseja excluir o produto?',
           onConfirm: () async {
-            return await widget._controller.remove(widget._produto);
+            return await context.read<ProdutoController>().remove(
+              widget._produto,
+            );
           },
         );
         return confirmed ?? false;

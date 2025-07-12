@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_pesquisa.dart';
-import 'package:catalogo_produto_poc/app/modules/produto/produto_controller.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_grid_item.dart';
+import 'package:catalogo_produto_poc/app/modules/produto/controller/produto_controller.dart';
 
 class ProdutoGrid extends StatefulWidget {
   final List<Produto> _produtos;
-  final ProdutoController _controller;
 
-  const ProdutoGrid({
-    super.key,
-    required List<Produto> produtos,
-    required ProdutoController controller,
-  }) : _produtos = produtos,
-       _controller = controller;
+  const ProdutoGrid({super.key, required List<Produto> produtos})
+    : _produtos = produtos;
 
   @override
   State<ProdutoGrid> createState() => _ProdutoGridState();
@@ -24,7 +19,7 @@ class _ProdutoGridState extends State<ProdutoGrid> {
   List<Produto> produtos = [];
 
   Future<void> _refresh(BuildContext context) {
-    return widget._controller.load();
+    return context.read<ProdutoController>().load();
   }
 
   void _onSearch(String value) {
