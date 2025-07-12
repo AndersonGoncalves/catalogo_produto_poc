@@ -264,7 +264,7 @@ class _WidgetAboutPageState extends State<WidgetAboutPage> {
                             );
                           },
                           child: Text(
-                            '1.2 - Firebase Authentication (autenticação anônima e por e-mail)',
+                            '2.2 - Firebase Authentication (autenticação anônima e por e-mail)',
                             style: TextStyle(
                               fontSize: 14,
                               color: context.primaryColor,
