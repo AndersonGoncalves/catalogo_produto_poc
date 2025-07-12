@@ -88,7 +88,7 @@ class _ProdutoGridState extends State<ProdutoGrid> {
                       itemBuilder: (ctx, index) => ChangeNotifierProvider.value(
                         value: produtos[index],
                         child: ProdutoGridItem(
-                          key: GlobalObjectKey(produtos[index]),
+                          key: Key('grid_${produtos[index].id}'),
                           produto: produtos[index],
                         ),
                       ),
