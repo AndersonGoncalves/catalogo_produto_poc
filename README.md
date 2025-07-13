@@ -5,6 +5,7 @@ Aplicativo de cadastro e gerenciamento de produtos com possibilidadede inclusão
 ## 📚 Descrição
 
 Este app permite que usuários cadastrem, visualizem e gerenciem produtos. É possível adicionar até três fotos para cada produto e o acesso do usuário ao app pode ser feito de forma anônima ou autenticando-se via e-mail. O usuário também pode incluir os produtos no carrinho e finalizar uma compra. Todos os dados de produtos e autenticação são gerenciados via Firebase.
+Esse app utiliza o Provider para gerenciar estados.
 
 ## 🚀 Tecnologias Utilizadas
 
