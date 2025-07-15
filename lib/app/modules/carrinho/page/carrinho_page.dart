@@ -19,17 +19,40 @@ class CarrinhoPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15),
             child: Text(
-              'Itens do Carrinho:',
+              carrinhoController.items.isEmpty ? '' : 'Carrinho de Compras',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
 
-          Expanded(
-            child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (ctx, i) => CarrinhoItem(carrinho: items[i]),
-            ),
-          ),
+          carrinhoController.items.isEmpty
+              ? Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.shopping_cart_outlined,
+                          size: 80,
+                          color: Colors.grey[400],
+                        ),
+                        SizedBox(height: 16),
+                        Text(
+                          'Seu carrinho está vazio',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                    itemCount: items.length,
+                    itemBuilder: (ctx, i) => CarrinhoItem(carrinho: items[i]),
+                  ),
+                ),
 
           Card(
             color: Colors.white,
