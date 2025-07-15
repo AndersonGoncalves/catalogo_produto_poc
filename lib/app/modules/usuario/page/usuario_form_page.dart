@@ -6,7 +6,6 @@ import 'package:catalogo_produto_poc/app/core/widget/widget_loading_page.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_text_form_field.dart';
 import 'package:catalogo_produto_poc/app/core/widget/widget_text_button.dart';
 import 'package:catalogo_produto_poc/app/modules/usuario/controller/usuario_controller.dart';
-import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 
 enum AuthMode { signup, login }
 
@@ -365,7 +364,7 @@ class UsuariohFormPageState extends State<UsuarioFormPage>
                                                       onPressed: () {
                                                         context
                                                             .read<
-                                                              UsuarioServiceImpl
+                                                              UsuarioController
                                                             >()
                                                             .googleLogin();
                                                       },
@@ -380,9 +379,7 @@ class UsuariohFormPageState extends State<UsuarioFormPage>
                                                 'Esqueceu a senha?',
                                                 onPressed: () async {
                                                   await context
-                                                      .read<
-                                                        UsuarioServiceImpl
-                                                      >()
+                                                      .read<UsuarioController>()
                                                       .esqueceuSenha(
                                                         _emailController.text,
                                                       );

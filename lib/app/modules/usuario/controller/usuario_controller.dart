@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:catalogo_produto_poc/app/core/exceptions/auth_exception.dart';
 import 'package:catalogo_produto_poc/app/services/usuario/usuario_service_impl.dart';
 
@@ -8,6 +9,10 @@ class UsuarioController extends ChangeNotifier {
   String? error;
   bool sucess = false;
   bool isLoading = false;
+
+  User get user => _usuarioService.user;
+
+  Stream<User?> get authState => _usuarioService.authState;
 
   UsuarioController({required UsuarioServiceImpl usuarioService})
     : _usuarioService = usuarioService;
