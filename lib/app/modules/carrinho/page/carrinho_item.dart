@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/models/carrinho.dart';
-import 'package:catalogo_produto_poc/app/services/carrinho/carrinho_service_impl.dart';
+import 'package:catalogo_produto_poc/app/modules/carrinho/controller/carrinho_controller.dart';
 
 class CarrinhoItem extends StatelessWidget {
   final Carrinho carrinho;
@@ -44,7 +44,7 @@ class CarrinhoItem extends StatelessWidget {
         );
       },
       onDismissed: (_) {
-        Provider.of<CarrinhoServiceImpl>(
+        Provider.of<CarrinhoController>(
           context,
           listen: false,
         ).remove(carrinho.produtoId!);

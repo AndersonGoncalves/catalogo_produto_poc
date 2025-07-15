@@ -10,6 +10,7 @@ import 'package:catalogo_produto_poc/app/repositories/produto/produto_repository
 import 'package:catalogo_produto_poc/app/repositories/usuario/usuario_repository_impl.dart';
 import 'package:catalogo_produto_poc/app/repositories/carrinho/carrinho_repository_impl.dart';
 import 'package:catalogo_produto_poc/app/services/carrinho/carrinho_service_impl.dart';
+import 'package:catalogo_produto_poc/app/modules/carrinho/controller/carrinho_controller.dart';
 
 class AppProvider extends StatelessWidget {
   const AppProvider({super.key});
@@ -70,11 +71,11 @@ class AppProvider extends StatelessWidget {
             carrinhoRepository: context.read<CarrinhoRepositoryImpl>(),
           ),
         ),
-        // ChangeNotifierProvider<CarrinhoController>(
-        //   create: (context) => CarrinhoController(
-        //     produtoService: context.read<CarrinhoServiceImpl>(),
-        //   ),
-        // ),
+        ChangeNotifierProvider<CarrinhoController>(
+          create: (context) => CarrinhoController(
+            carrinhoService: context.read<CarrinhoServiceImpl>(),
+          ),
+        ),
       ],
       child: const AppWidget(),
     );

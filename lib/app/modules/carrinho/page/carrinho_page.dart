@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:catalogo_produto_poc/app/core/ui/theme_extensions.dart';
 import 'package:catalogo_produto_poc/app/modules/carrinho/page/carrinho_item.dart';
-import 'package:catalogo_produto_poc/app/services/carrinho/carrinho_service_impl.dart';
+import 'package:catalogo_produto_poc/app/modules/carrinho/controller/carrinho_controller.dart';
 
 class CarrinhoPage extends StatelessWidget {
   const CarrinhoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final CarrinhoServiceImpl carrinhoServiceImpl =
-        Provider.of<CarrinhoServiceImpl>(context);
-    final items = carrinhoServiceImpl.items.values.toList();
+    final carrinhoController = Provider.of<CarrinhoController>(context);
+    final items = carrinhoController.items.values.toList();
 
     return Scaffold(
       body: Column(
@@ -46,13 +45,13 @@ class CarrinhoPage extends StatelessWidget {
                   Chip(
                     backgroundColor: context.secondaryColor,
                     label: Text(
-                      'R\$${carrinhoServiceImpl.valorTotal.toStringAsFixed(2)}',
+                      'R\$${carrinhoController.valorTotal.toStringAsFixed(2)}',
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
                   const Spacer(),
 
-                  CartButton(cart: carrinhoServiceImpl),
+                  CartButton(cart: carrinhoController),
                 ],
               ),
             ),
@@ -66,7 +65,7 @@ class CarrinhoPage extends StatelessWidget {
 class CartButton extends StatefulWidget {
   const CartButton({super.key, required this.cart});
 
-  final CarrinhoServiceImpl cart;
+  final CarrinhoController cart;
 
   @override
   State<CartButton> createState() => _CartButtonState();
