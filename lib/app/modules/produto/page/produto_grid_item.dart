@@ -5,7 +5,7 @@ import 'package:catalogo_produto_poc/app/core/models/produto.dart';
 import 'package:catalogo_produto_poc/app/core/ui/theme_extensions.dart';
 import 'package:catalogo_produto_poc/app/core/constants/rotas.dart';
 import 'package:catalogo_produto_poc/app/core/ui/format_currency.dart';
-import 'package:catalogo_produto_poc/app/repositories/carrinho/carrinho_repository_impl.dart';
+import 'package:catalogo_produto_poc/app/modules/carrinho/controller/carrinho_controller.dart';
 
 class ProdutoGridItem extends StatefulWidget {
   final Produto _produto;
@@ -21,7 +21,7 @@ class _ProdutoGridItemState extends State<ProdutoGridItem> {
   @override
   Widget build(BuildContext context) {
     final formatCurrency = FormatCurrency();
-    final carrinho = Provider.of<CarrinhoRepositoryImpl>(context);
+    final carrinho = Provider.of<CarrinhoController>(context);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),

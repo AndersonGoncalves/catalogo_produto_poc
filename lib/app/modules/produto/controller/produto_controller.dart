@@ -15,6 +15,8 @@ class ProdutoController extends ChangeNotifier {
   List<Produto> get produtos => _produtoService.produtos;
 
   Future<void> load() async {
+    if (isLoading) return;
+
     isLoading = true;
     notifyListeners();
     try {

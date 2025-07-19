@@ -20,61 +20,45 @@ class AppProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         //Usuario
-        Provider<UsuarioRepositoryImpl>(
-          create: (_) =>
-              UsuarioRepositoryImpl(firebaseAuth: FirebaseAuth.instance),
-        ),
-        Provider<UsuarioServiceImpl>(
-          create: (context) => UsuarioServiceImpl(
-            usuarioRepository: context.read<UsuarioRepositoryImpl>(),
-          ),
-        ),
         ChangeNotifierProvider<UsuarioController>(
-          create: (context) => UsuarioController(
-            usuarioService: context.read<UsuarioServiceImpl>(),
-          ),
+          create: (context) {
+            final usuarioRepository = UsuarioRepositoryImpl(
+              firebaseAuth: FirebaseAuth.instance,
+            );
+            final usuarioService = UsuarioServiceImpl(
+              usuarioRepository: usuarioRepository,
+            );
+            return UsuarioController(usuarioService: usuarioService);
+          },
         ),
 
         //Produto
-        ChangeNotifierProxyProvider<
-          UsuarioRepositoryImpl,
-          ProdutoRepositoryImpl
-        >(
-          create: (_) => ProdutoRepositoryImpl(),
-          update: (ctx, auth, produtoRepository) {
-            UsuarioRepositoryImpl usuarioService = UsuarioRepositoryImpl(
+        ChangeNotifierProvider<ProdutoController>(
+          create: (context) {
+            final usuarioRepository = UsuarioRepositoryImpl(
               firebaseAuth: FirebaseAuth.instance,
             );
-            return ProdutoRepositoryImpl(
-              token: usuarioService.user.refreshToken.toString(),
-              produtos: produtoRepository?.produtos ?? [],
+            return ProdutoController(
+              produtoService: ProdutoServiceImpl(
+                produtoRepository: ProdutoRepositoryImpl(
+                  token: usuarioRepository.user.refreshToken.toString(),
+                  produtos: [],
+                ),
+              ),
             );
           },
         ),
-        Provider<ProdutoServiceImpl>(
-          create: (context) => ProdutoServiceImpl(
-            produtoRepository: context.read<ProdutoRepositoryImpl>(),
-          ),
-        ),
-        ChangeNotifierProvider<ProdutoController>(
-          create: (context) => ProdutoController(
-            produtoService: context.read<ProdutoServiceImpl>(),
-          ),
-        ),
 
         //Carrinho
-        ChangeNotifierProvider<CarrinhoRepositoryImpl>(
-          create: (context) => CarrinhoRepositoryImpl(),
-        ),
-        ChangeNotifierProvider<CarrinhoServiceImpl>(
-          create: (context) => CarrinhoServiceImpl(
-            carrinhoRepository: context.read<CarrinhoRepositoryImpl>(),
-          ),
-        ),
         ChangeNotifierProvider<CarrinhoController>(
-          create: (context) => CarrinhoController(
-            carrinhoService: context.read<CarrinhoServiceImpl>(),
-          ),
+          create: (context) {
+            final carrinhoRepository = CarrinhoRepositoryImpl();
+            return CarrinhoController(
+              carrinhoService: CarrinhoServiceImpl(
+                carrinhoRepository: carrinhoRepository,
+              ),
+            );
+          },
         ),
       ],
       child: const AppWidget(),

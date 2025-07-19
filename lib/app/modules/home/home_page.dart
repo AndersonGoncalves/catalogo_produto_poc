@@ -5,7 +5,7 @@ import 'package:catalogo_produto_poc/app/core/widget/widget_about_page.dart';
 import 'package:catalogo_produto_poc/app/modules/carrinho/page/carrinho_badgee.dart';
 import 'package:catalogo_produto_poc/app/modules/produto/page/produto_page.dart';
 import 'package:catalogo_produto_poc/app/modules/carrinho/page/carrinho_page.dart';
-import 'package:catalogo_produto_poc/app/repositories/carrinho/carrinho_repository_impl.dart';
+import 'package:catalogo_produto_poc/app/modules/carrinho/controller/carrinho_controller.dart';
 import 'package:catalogo_produto_poc/app/modules/usuario/controller/usuario_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
         ),
 
         actions: <Widget>[
-          Consumer<CarrinhoRepositoryImpl>(
+          Consumer<CarrinhoController>(
             child: IconButton(
               onPressed: () {
                 _selectedPageIndex = 2;
@@ -61,11 +61,14 @@ class _HomePageState extends State<HomePage> {
             builder: (ctx, carrinho, child) => carrinho.quantidadeItem > 0
                 ? Badgee(
                     value: carrinho.quantidadeItem.toString(),
-                    child: child!,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: child!,
+                    ),
                   )
                 : Padding(
-                    padding: const EdgeInsets.only(right: 12),
-                    child: const SizedBox.shrink(),
+                    padding: const EdgeInsets.only(right: 5),
+                    child: child!,
                   ),
           ),
         ],
@@ -105,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: Consumer<CarrinhoRepositoryImpl>(
+                  icon: Consumer<CarrinhoController>(
                     child: const Icon(Icons.shopping_cart),
                     builder: (ctx, carrinho, child) =>
                         carrinho.quantidadeItem > 0

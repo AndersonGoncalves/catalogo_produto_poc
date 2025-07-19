@@ -35,29 +35,44 @@ class _ProdutoPageState extends State<ProdutoPage> {
     return produtos;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    final ProdutoController controller = context.read<ProdutoController>();
-    controller.load();
-    context.read<ProdutoController>().addListener(() {
+  void _onController() {
+    if (mounted) {
+      final controller = context.read<ProdutoController>();
       setState(() => _isLoading = controller.isLoading);
+
       var error = controller.error;
       var sucess = controller.sucess;
-      if (!sucess) {
-        if (error != null && error.isNotEmpty) {
+      if (!sucess && error != null && error.isNotEmpty) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) {
             Messages.of(context).showError(error);
           }
-        }
+        });
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Future.microtask para executar após o frame atual
+    Future.microtask(() async {
+      if (mounted) {
+        final controller = context.read<ProdutoController>();
+        await controller.load();
       }
     });
+
+    final controller = context.read<ProdutoController>();
+    controller.addListener(_onController);
   }
 
   @override
   void dispose() {
+    final controller = context.read<ProdutoController>();
+    controller.removeListener(_onController);
     super.dispose();
-    context.read<ProdutoController>().removeListener(() {});
   }
 
   @override
