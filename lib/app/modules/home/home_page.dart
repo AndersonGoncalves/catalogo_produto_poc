@@ -84,51 +84,43 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        height: 58,
-        child: Column(
-          children: [
-            BottomNavigationBar(
-              onTap: _selectPage,
-              backgroundColor: Colors.white,
-              unselectedItemColor: Colors.grey,
-              selectedItemColor: Theme.of(context).colorScheme.primary,
-              currentIndex: _selectedPageIndex,
-              type: BottomNavigationBarType.fixed,
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: const Icon(Icons.home),
-                  label: pages[0]['title'].toString(),
-                ),
-                BottomNavigationBarItem(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: const Icon(Icons.credit_card),
-                  label: pages[1]['title'].toString(),
-                ),
-                BottomNavigationBarItem(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: Consumer<CarrinhoController>(
-                    child: const Icon(Icons.shopping_cart),
-                    builder: (ctx, carrinho, child) =>
-                        carrinho.quantidadeItem > 0
-                        ? Badgee(
-                            value: carrinho.quantidadeItem.toString(),
-                            child: child!,
-                          )
-                        : const Icon(Icons.shopping_cart),
-                  ),
-                  label: pages[2]['title'].toString(),
-                ),
-                BottomNavigationBarItem(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  icon: const Icon(Icons.error_outline_outlined),
-                  label: pages[3]['title'].toString(),
-                ),
-              ],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectPage,
+        backgroundColor: Colors.white,
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        currentIndex: _selectedPageIndex,
+        type: BottomNavigationBarType.fixed,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            icon: const Icon(Icons.home),
+            label: pages[0]['title'].toString(),
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            icon: const Icon(Icons.credit_card),
+            label: pages[1]['title'].toString(),
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            icon: Consumer<CarrinhoController>(
+              child: const Icon(Icons.shopping_cart),
+              builder: (ctx, carrinho, child) => carrinho.quantidadeItem > 0
+                  ? Badgee(
+                      value: carrinho.quantidadeItem.toString(),
+                      child: child!,
+                    )
+                  : const Icon(Icons.shopping_cart),
             ),
-          ],
-        ),
+            label: pages[2]['title'].toString(),
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            icon: const Icon(Icons.error_outline_outlined),
+            label: pages[3]['title'].toString(),
+          ),
+        ],
       ),
     );
   }
