@@ -4,7 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:catalogo_produto_poc/app/core/exceptions/auth_exception.dart';
 import 'package:catalogo_produto_poc/app/repositories/usuario/usuario_repository.dart';
 
-class UsuarioRepositoryImpl implements UsuarioRepository {
+class UsuarioRepositoryImpl extends UsuarioRepository {
   final FirebaseAuth _firebaseAuth;
 
   UsuarioRepositoryImpl({required FirebaseAuth firebaseAuth})
@@ -101,7 +101,7 @@ class UsuarioRepositoryImpl implements UsuarioRepository {
         throw AuthException(
           message:
               '''
-          Login inválido, você se registrou todoList com os seguintes provedores: 
+          Login inválido, você se registrou com os seguintes provedores: 
           ${loginMethods?.join(',')}
         ''',
         );
