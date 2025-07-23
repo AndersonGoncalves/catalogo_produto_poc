@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class FakeUsuarioRepository implements UsuarioRepository {
+class FakeUsuarioRepository extends UsuarioRepository {
   @override
   Stream<User?> get authState => throw UnimplementedError();
 
