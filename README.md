@@ -13,6 +13,7 @@ Esse app utiliza o Provider para gerenciar estados.
   - [Flutter](https://flutter.dev/)  
   - [Dart](https://dart.dev/)
   - [Provider](https://pub.dev/packages/provider)
+  - [http](https://pub.dev/packages/http)
 - *Backend:*  
   - [Realtime Database](https://firebase.google.com/products/realtime-database) (armazenamento dos produtos)
   - [Firebase Authentication](https://firebase.google.com/products/auth) (autenticação anônima e por e-mail)  
